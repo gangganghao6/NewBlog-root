@@ -1,39 +1,30 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState, Suspense } from 'react'
 import './App.css'
-import axios from 'axios'
+import Test from './Test'
+import DataFetcher from './utils/DataFetcher'
+
+import { RequestPayList } from './requests/users/user'
+import { RequestFileChunkUpload } from './requests/files/file_chunk'
 
 function App(): ReactElement {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    axios
-      .get('https://192.168.5.11:8080/api/')
-      .then((res) => {
-        console.log(res)
-        setCount(res.data.hello)
-      })
-      .catch((err) => console.error(err))
-  }, [])
-
+  const [uploadResult, setUploadResult] = useState(null)
+  if (uploadResult !== null) {
+    console.log(uploadResult)
+  }
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer"></a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <input
+        type={'file'}
+        className="upload-file"
+        onInput={RequestFileChunkUpload(setUploadResult)}
+      />
+      <Suspense fallback={'loading...'}>
+        <Test
+          data={DataFetcher(
+            RequestPayList({ page: 1, size: 10, sort: 'desc' })
+          )}
+        />
+      </Suspense>
     </div>
   )
 }
