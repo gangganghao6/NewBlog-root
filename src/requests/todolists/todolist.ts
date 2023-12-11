@@ -1,6 +1,6 @@
-import { List, Todolist } from '../../utils/types'
+import { type List, type Todolist } from '../../utils/types'
 import instance from '../request'
-import { Dayjs } from 'dayjs'
+import { type Dayjs } from 'dayjs'
 
 export const RequestTodolistList = ({ size, page, sort, type }: List): any => {
   return async (): Promise<Todolist[]> => {

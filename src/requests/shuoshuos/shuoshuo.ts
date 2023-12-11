@@ -1,4 +1,9 @@
-import { Image, List, Shuoshuo, Video } from '../../utils/types'
+import {
+  type Image,
+  type List,
+  type Shuoshuo,
+  type Video
+} from '../../utils/types'
 import instance from '../request'
 
 export const RequestShuoshuoList = ({ size, page, sort, type }: List): any => {

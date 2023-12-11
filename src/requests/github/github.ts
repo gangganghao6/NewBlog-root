@@ -1,4 +1,4 @@
-import { Github, List } from '../../utils/types'
+import { type Github, type List } from '../../utils/types'
 import instance from '../request'
 
 export const RequestGithubDetail = ({ id }: { id: string }): any => {

@@ -4,7 +4,7 @@ import App from './App'
 import './index.scss'
 
 console.log(import.meta.env)
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as Element).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>

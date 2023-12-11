@@ -4,7 +4,7 @@ import CryptoJS from 'crypto-js'
 export const RequestRootLogin = ({ account, password }: RootLogin): any => {
   const myPassword = CryptoJS.AES.encrypt(
     password,
-    import.meta.env.VITE_CRYPTO_KEY
+    import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
   return async (): Promise<RootLoginReturn> => {
     return await instance.post('/base/root/login', {
@@ -20,7 +20,7 @@ export const RequestRootRegist = ({
 }: RootRegist): any => {
   const myPassword = CryptoJS.AES.encrypt(
     password,
-    import.meta.env.VITE_CRYPTO_KEY
+    import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
   return async (): Promise<RootLoginReturn> => {
     return await instance.post('/base/root/regist', {
@@ -37,11 +37,11 @@ export const RequestRootPut = ({
 }: RootModify): any => {
   const myNewPassword = CryptoJS.AES.encrypt(
     newPassword,
-    import.meta.env.VITE_CRYPTO_KEY
+    import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
   const myOldPassword = CryptoJS.AES.encrypt(
     oldPassword,
-    import.meta.env.VITE_CRYPTO_KEY
+    import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
   return async (): Promise<RootLoginReturn> => {
     return await instance.put('/base/root/modify', {

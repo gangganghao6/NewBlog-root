@@ -1,5 +1,12 @@
 import instance from '../request'
-import { Image, List, ShareFile, Video, File, Project } from '../../utils/types'
+import {
+  type Image,
+  type List,
+  type ShareFile,
+  type Video,
+  type File,
+  type Project
+} from '../../utils/types'
 
 export const RequestShareFileList = ({ size, page, sort, type }: List): any => {
   return async (): Promise<ShareFileReturn[]> => {

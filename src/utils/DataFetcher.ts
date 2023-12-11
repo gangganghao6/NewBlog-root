@@ -26,7 +26,9 @@ export default function DataFetcher(Request: any): any {
     },
     reload() {
       Request().then(() => {
-        flushSync(() => setRefresh((prev) => !prev))
+        flushSync(() => {
+          setRefresh((prev) => !prev)
+        })
       })
     }
   }

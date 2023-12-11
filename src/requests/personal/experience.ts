@@ -1,6 +1,6 @@
-import { Experience, Image, Personal } from '../../utils/types'
+import { type Experience, type Image, type Personal } from '../../utils/types'
 import instance from '../request'
-import { Dayjs } from 'dayjs'
+import { type Dayjs } from 'dayjs'
 
 export const RequestPersonalExperiencePost = ({
   company,

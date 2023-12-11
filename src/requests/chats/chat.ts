@@ -1,5 +1,5 @@
 import instance from '../request'
-import { Chat, List } from '../../utils/types'
+import { type Chat, type List } from '../../utils/types'
 
 export const RequestChatList = ({
   size,

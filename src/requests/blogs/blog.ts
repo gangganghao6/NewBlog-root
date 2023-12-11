@@ -1,5 +1,5 @@
 import instance from '../request'
-import { Blog, Image, List } from '../../utils/types'
+import { type Blog, type Image, type List } from '../../utils/types'
 
 export const RequestBlogDetail = ({ id }: { id: string }): any => {
   return async (): Promise<Blog> => {

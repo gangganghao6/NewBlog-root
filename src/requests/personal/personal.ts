@@ -1,6 +1,6 @@
 import instance from '../request'
-import { Personal } from '../../utils/types'
-import { Dayjs } from 'dayjs'
+import { type Personal } from '../../utils/types'
+import { type Dayjs } from 'dayjs'
 
 export const RequestPersonalInfo = (): any => {
   return async (): Promise<Personal> => {

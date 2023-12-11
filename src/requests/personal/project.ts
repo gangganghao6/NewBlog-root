@@ -1,6 +1,6 @@
-import { Image, Project } from '../../utils/types'
+import { type Image, type Project } from '../../utils/types'
 import instance from '../request'
-import { Dayjs } from 'dayjs'
+import { type Dayjs } from 'dayjs'
 
 export const RequestPersonalProjectPost = ({
   name,

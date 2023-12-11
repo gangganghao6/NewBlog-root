@@ -1,4 +1,4 @@
-import { List, UserVisit } from '../../utils/types'
+import { type List, type UserVisit } from '../../utils/types'
 import instance from '../request'
 
 export const RequestInfoList = ({ page, size, sort }: List): any => {

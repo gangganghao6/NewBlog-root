@@ -1,4 +1,4 @@
-import { BaseInfo } from '../../utils/types'
+import { type BaseInfo } from '../../utils/types'
 import instance from '../request'
 
 export const RequestBaseInfo = (): any => {

@@ -1,5 +1,6 @@
 import { v4 } from 'uuid'
 import instance from '../request'
+// import { type Blob } from 'buffer'
 
 const MEDIA_TYPE = {
   IMAGES: 'images',
@@ -18,7 +19,7 @@ export const RequestFileChunkUpload = (setUploadResult: any): any => {
     const formData = new FormData()
     const missions = []
     for (let currentSlices = 1; currentSlices <= totalSlices; currentSlices++) {
-      const fileSlice = file.slice(
+      const fileSlice: string | Blob = file.slice(
         (currentSlices - 1) * eachSize,
         currentSlices * eachSize
       )

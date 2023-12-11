@@ -1,5 +1,5 @@
 import instance from '../request'
-import { List, Pay, User } from '../../utils/types'
+import { type List, type Pay, type User } from '../../utils/types'
 
 export const RequestUserInfo = ({ id }: { id: string }): any => {
   return async (): Promise<UserLoginReturn> => {

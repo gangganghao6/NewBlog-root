@@ -1,4 +1,4 @@
-import { ReactElement, useState, Suspense } from 'react'
+import { type ReactElement, useState, Suspense } from 'react'
 import './App.css'
 import Test from './Test'
 import DataFetcher from './utils/DataFetcher'
