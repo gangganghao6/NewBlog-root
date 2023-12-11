@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc && vite build",
+    "dev": "vite --host --mode dev",
+    "build": "tsc && vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint src --ext .ts,.tsx --cache --fix",
     "prepare": "husky install"
