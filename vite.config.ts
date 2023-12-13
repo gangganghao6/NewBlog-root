@@ -38,8 +38,12 @@ export default defineConfig({
     sourcemap: true,
     target: ['es2015', 'chrome58', 'firefox58', 'safari11']
   },
-  // define: {
-  //   'import.meta.env.VITE_PUBLIC_IP': JSON.stringify(`http://${getNetworkIp()}:${process.env.VITE_SERVER_PORT}`),
-  // },
+  define: {
+    'import.meta.env.WS_LINK': JSON.stringify(
+      process.env.NODE_ENV === 'development'
+        ? `ws://${getLocalIp()}:80/api/chats`
+        : `ws://${process.env.VITE_PUBLIC_URL}/api/chats`
+    )
+  },
   base: './'
 })
