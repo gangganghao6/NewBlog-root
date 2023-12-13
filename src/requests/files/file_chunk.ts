@@ -9,6 +9,7 @@ const MEDIA_TYPE = {
 const sendRequest = async (file: File): Promise<any> => {
   // const file = e.target.files[0]
   const fileType = file.name.split('.').at(-1)
+  const fileName = file.name.split('.').slice(0, -1).join('.')
   const fileSize = file.size
   const eachSize = 5 * 1024 * 1024
   const totalSlices = Math.ceil(fileSize / eachSize)
