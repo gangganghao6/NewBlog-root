@@ -22,9 +22,9 @@ export async function createHash(file: File): Promise<string> {
     }
 
     fileReader.onerror = function () {
-      reject('oops, something went wrong.')
+      reject(new Error('oops, something went wrong.'))
     }
-    function loadNext() {
+    function loadNext(): void {
       const start = currentChunk * chunkSize
       const end = start + chunkSize >= file.size ? file.size : start + chunkSize
 
