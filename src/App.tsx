@@ -1,14 +1,14 @@
-import { type ReactElement, useState, Suspense } from 'react'
+import { type ReactElement, useState } from 'react'
 import './App.css'
-import Test from './Test'
-import DataFetcher from './utils/DataFetcher'
+// import Test from './Test'
+// import DataFetcher from './utils/DataFetcher'
 
-import { RequestPayList } from './requests/users/user'
+// import { RequestPayList } from './requests/users/user'
 import { RequestFileChunkUpload } from './requests/files/file_chunk'
 
 function App(): ReactElement {
   const [uploadResult, setUploadResult] = useState([])
-  console.log(uploadResult);
+  console.log(uploadResult)
   // const ws = new WebSocket(`${import.meta.env.VITE_WS_LINK}?userId=ea51dc62-c033-4d80-944d-cd400f548b3f`);
   // ws.onopen = () => {
   //   ws.send(JSON.stringify({ content: '123' }));
@@ -22,12 +22,12 @@ function App(): ReactElement {
         type={'file'}
         className="upload-file"
         multiple={true}
-        onInput={async (e) => {
+        onInput={async (e): Promise<void> => {
           const result = await RequestFileChunkUpload(e.target.files)
-          // setUploadResult(result)
+          setUploadResult(result)
         }}
       />
-      <div>{JSON.stringify(uploadResult.map(item => item.data.data))}</div>
+      <div>{JSON.stringify(uploadResult.map((item) => item.data.data))}</div>
       {/* <Suspense fallback={'loading...'}>
         <Test
           data={DataFetcher(

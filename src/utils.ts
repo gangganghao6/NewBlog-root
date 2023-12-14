@@ -20,6 +20,6 @@ export function getLocalIp(): string {
   } catch (e) {
     needHost = 'localhost'
   }
-  
+
   return needHost
 }
