@@ -1,22 +1,19 @@
 import { v4 } from 'uuid'
 import instance from '../request'
+import { createHash } from './utils'
 
-const MEDIA_TYPE = {
-  IMAGES: 'images',
-  VIDEOS: 'videos',
-  FILES: 'files'
+const getMd5Check = async (data: { md5: string, originalName: string, fileType: string }): Promise<any> => {
+  const result = await instance.post('/files/md5Check', data)
+  return result.data
 }
-const sendRequest = async (file: File): Promise<any> => {
-  // const file = e.target.files[0]
+const sendRequest = async (file: File, md5: string): Promise<any> => {
   const fileType = file.name.split('.').at(-1)
-  const fileName = file.name.split('.').slice(0, -1).join('.')
+  const originalName = file.name
   const fileSize = file.size
   const eachSize = 5 * 1024 * 1024
   const totalSlices = Math.ceil(fileSize / eachSize)
-  const uuid = v4()
-  const mediaType = MEDIA_TYPE.IMAGES
   const formData = new FormData()
-  const missions = []
+  let tempResults = []
   for (let currentSlices = 1; currentSlices <= totalSlices; currentSlices++) {
     const fileSlice: string | Blob = file.slice(
       (currentSlices - 1) * eachSize,
@@ -25,30 +22,29 @@ const sendRequest = async (file: File): Promise<any> => {
     const info = {
       currentSlicesNum: currentSlices,
       totalSlicesNum: totalSlices,
-      fileType: fileType,
-      uuid,
-      mediaType: mediaType
+      md5,
     }
-    formData.append('file', fileSlice)
     formData.append('info', JSON.stringify(info))
-    missions.push(
-      instance.post('/files/fileChunk', formData, {
-        headers: {
-          contentType: 'multipart/form-data'
-        }
-      })
-    )
+    formData.append('file', fileSlice)
+    const tempResult = await instance.post('/files/fileChunk', formData, {
+      headers: {
+        contentType: 'multipart/form-data'
+      }
+    })
+    if (tempResult.data.code !== 200) {
+      alert('上传发生错误')
+    } else {
+      tempResults.push(tempResult)
+    }
   }
-  const tempResults = await Promise.all(missions)
   if (tempResults.some((result) => result.data.code !== 200)) {
     alert('上传发生错误')
   }
   const result: Files_return = await instance.post('/files/fileMerge', {
-    uuid,
-    mediaType: mediaType,
-    fileType: fileType
+    md5,
+    fileType: fileType,
+    originalName: originalName
   })
-  // setUploadResult(result)
   return result
 }
 
@@ -56,8 +52,12 @@ export const RequestFileChunkUpload = async (filesObj: any): Promise<any> => {
   const files = Object.keys(filesObj).map((key) => {
     return filesObj[key]
   })
-  const missions = files.map((file: any) => {
-    return sendRequest(file)
+  const missions = files.map(async (file: any) => {
+    const md5 = await createHash(file)
+    const result = await getMd5Check({ md5, originalName: file.name, fileType: file.type })
+    if (result.code !== 200) {
+      return sendRequest(file, md5)
+    }
   })
   return await Promise.all(missions)
 }
