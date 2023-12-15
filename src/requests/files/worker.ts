@@ -10,7 +10,7 @@ export async function createHash(file: File): Promise<string> {
     fileReader.onload = function (e) {
       postMessage({
         type: 'progress',
-        msg: `Total:${chunks} Current:${currentChunk}`
+        msg: `Total:${chunks} Current:${currentChunk + 1}`
       })
       spark.append(e.target!.result as ArrayBuffer) // Append array buffer
       currentChunk++
@@ -34,5 +34,5 @@ export async function createHash(file: File): Promise<string> {
   })
 }
 onmessage = async (e) => {
-  postMessage({ type: 'count', msg: await createHash(e.data) })
+  postMessage({ type: 'calculate', msg: await createHash(e.data) })
 }

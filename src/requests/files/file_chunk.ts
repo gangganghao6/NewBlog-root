@@ -1,34 +1,27 @@
 import instance from '../request'
+import { FilesChunkRequest, FilesMergeRequest, FilesMergeReturn, Md5CheckRequest } from './file_chunk.d'
 
-const getMd5Check = async (data: {
-  md5: string
-  originalName: string
-  fileType: string
-}): Promise<any> => {
-  const result = await instance.post(`/files/md5Check?md5=${data.md5}`, data)
+const getMd5Check = async (requestObj: Md5CheckRequest, md5: string): Promise<any> => {
+  const result = await instance.post(`/files/md5Check?md5=${md5}`, requestObj)
   return result.data
 }
-const sendRequest = async (file: File, md5: string): Promise<any> => {
-  const fileType = file.name.split('.').at(-1)
-  const originalName = file.name
-  const fileSize = file.size
+const sendRequest = async (file: File, requestObj: FilesMergeRequest, md5: string): Promise<any> => {
   const eachSize = 5 * 1024 * 1024
-  const totalSlices = Math.ceil(fileSize / eachSize)
+  const totalSlicesNum = Math.ceil(requestObj.size / eachSize)
   const tempResults = []
-  for (let currentSlices = 1; currentSlices <= totalSlices; currentSlices++) {
+  for (let currentSlicesNum = 1; currentSlicesNum <= totalSlicesNum; currentSlicesNum++) {
     const formData = new FormData()
     const fileSlice: string | Blob = file.slice(
-      (currentSlices - 1) * eachSize,
-      currentSlices * eachSize
+      (currentSlicesNum - 1) * eachSize,
+      currentSlicesNum * eachSize
     )
-    const info = {
-      currentSlicesNum: currentSlices,
-      totalSlicesNum: totalSlices
-      // md5,
+    const info: FilesChunkRequest = {
+      currentSlicesNum,
+      totalSlicesNum
     }
     formData.append('info', JSON.stringify(info))
     formData.append('file', fileSlice)
-    const tempResult = await instance.post(
+    const tempResult: { data: FilesMergeReturn & { code: number } } = await instance.post(
       `/files/fileChunk?md5=${md5}`,
       formData,
       {
@@ -46,13 +39,9 @@ const sendRequest = async (file: File, md5: string): Promise<any> => {
   if (tempResults.some((result) => result.data.code !== 200)) {
     alert('上传发生错误')
   }
-  const result: Files_return = await instance.post(
+  const result: FilesMergeReturn = await instance.post(
     `/files/fileMerge?md5=${md5}`,
-    {
-      // md5,
-      fileType,
-      originalName
-    }
+    requestObj
   )
   return result
 }
@@ -67,15 +56,18 @@ export const RequestFileChunkUpload = async (filesObj: any): Promise<any> => {
     })
     worker.postMessage(file)
     worker.onmessage = async (e) => {
-      const { type, msg }: { type: 'count' | 'progress'; msg: string } = e.data
-      if (type === 'count') {
-        const result = await getMd5Check({
-          md5: msg,
+      const { type, msg }: { type: 'calculate' | 'progress', msg: string } = e.data
+      if (type === 'calculate') {
+        const requestObj: FilesMergeRequest = {
           originalName: file.name,
-          fileType: file.type
-        })
+          fileSuffix: file.name.split('.').at(-1),
+          fileType: file.type,
+          size: file.size,
+          mediaType: file.type.split('/')[0]
+        }
+        const result = await getMd5Check(requestObj, msg)
         if (result.code !== 200) {
-          return await sendRequest(file, msg)
+          return await sendRequest(file, requestObj, msg)
         }
       } else if (type === 'progress') {
         console.log(msg)
@@ -83,13 +75,4 @@ export const RequestFileChunkUpload = async (filesObj: any): Promise<any> => {
     }
   })
   return await Promise.all(missions)
-}
-
-export interface Files_return {
-  name: string
-  url: string
-  size: number
-  mediaType: 'images' | 'videos' | 'files'
-  fileType: string // 'txt'/'jpg'...
-  duration?: number
 }

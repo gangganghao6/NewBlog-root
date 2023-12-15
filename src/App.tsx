@@ -24,7 +24,7 @@ function App(): ReactElement {
         multiple={true}
         onInput={async (e): Promise<void> => {
           const result = await RequestFileChunkUpload(e.target.files)
-          setUploadResult(result)
+          // setUploadResult(result)
         }}
       />
       <div>{JSON.stringify(uploadResult.map((item) => item.data.data))}</div>
