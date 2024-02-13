@@ -1,10 +1,14 @@
 import { type BaseInfo } from '../../utils/types'
 import instance from '../request'
 
-export const RequestBaseInfo = (): any => {
-  return async (): Promise<BaseInfo> => {
-    return await instance.get('/base/info')
-  }
+// export const RequestBaseInfo = (): any => {
+//   return async (): Promise<BaseInfo> => {
+//     return await instance.get('/base/info')
+//   }
+// }
+
+export const GetBaseInfo = async (): Promise<any> => {
+  return instance.get('/base/info')
 }
 
 export const RequestPostBaseInfo = ({

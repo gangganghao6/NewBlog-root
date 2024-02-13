@@ -6,17 +6,16 @@ export const RequestBlogDetail = ({ id }: { id: string }): any => {
     return await instance.get(`/blogs/blog/${id}`)
   }
 }
-export const RequestBlogList = ({ size, page, type, sort }: List): any => {
-  return async (): Promise<Blog[]> => {
-    return await instance.get(`/blogs/list`, {
-      params: {
-        size,
-        page,
-        type,
-        sort
-      }
-    })
-  }
+export const GetBlogList = async ({ size, page, type, sort }: List): any => {
+  const result = await instance.get(`/blogs/list`, {
+    params: {
+      size,
+      page,
+      type,
+      sort
+    }
+  })
+  return result.data
 }
 export const RequestBlogPost = ({
   images,

@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteCompression from 'vite-plugin-compression'
-import { getLocalIp } from './src/utils'
+import { getLocalIp } from './src/utils/utils'
 import dotenv from 'dotenv'
 
 dotenv.config({
@@ -44,6 +44,11 @@ export default defineConfig({
         ? `ws://${getLocalIp()}:${process.env.VITE_SERVER_PORT}/api/chats`
         : `ws://${process.env.VITE_PUBLIC_URL}:${process.env.VITE_SERVER_PORT}/api/chats`
     )
+  },
+  resolve:{
+    alias:{
+      '@': '/src'
+    }
   },
   base: './'
 })

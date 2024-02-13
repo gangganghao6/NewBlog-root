@@ -8,7 +8,7 @@
   "include": [
     "vite.config.ts",
     ".env",
-    "src/utils.ts"
+    "src/utils/utils.ts"
   ],
   "files": [
     "src/.d.ts"

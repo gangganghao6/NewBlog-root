@@ -57,7 +57,13 @@
     // 强制在文件名中使用一致的大小写，默认为 true
     "moduleResolution": "Node",
     // 指定使用哪种模块解析策略，默认为 Classic
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      // 路径映射，相对于baseUrl
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   // "files": [
   //   "src/*.ts",
