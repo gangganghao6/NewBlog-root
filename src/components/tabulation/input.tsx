@@ -1,27 +1,31 @@
-import {
-  FormControl,
-  TextField,
-  InputLabel,
-  useFormControl,
-  OutlinedInput
-} from '@mui/material'
-import CompControl from '@/components/tabulation/control'
+import { Col, Form, Input, Popover } from 'antd'
+import clsx from 'clsx'
 import { useState } from 'react'
 
 export default function ({
   item,
-  formData,
-  setFormData
 }: {
   item: { key: string; label: string; required: boolean }
-  formData: any
-  setFormData: Function
 }) {
+  const { required, label, key } = item
   const [error, setError] = useState(false)
+  const rules = [required && { required: true, message: `${label}为必填项` }]
 
   return (
     <>
-      <TextField
+      <Popover placement="topRight" content={label}>
+        <div
+          className={clsx('w-1/5 text-xs overflow-x-hidden text-right mr-1', {
+            'required-label': required
+          })}
+        >
+          {label}
+        </div>
+      </Popover>
+      <Form.Item name={key} rules={rules} className="w-4/5">
+        <Input />
+      </Form.Item>
+      {/* <TextField
         fullWidth
         size="small"
         required={item.required}
@@ -37,7 +41,8 @@ export default function ({
             [item.key]: e.target.value
           })
         }}
-      />
+      /> */}
     </>
+    //   </div>
   )
 }

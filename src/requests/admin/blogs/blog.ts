@@ -6,13 +6,14 @@ export const RequestBlogDetail = ({ id }: { id: string }): any => {
     return await instance.get(`/blogs/blog/${id}`)
   }
 }
-export const GetBlogList = async ({ size, page, type, sort }: List): any => {
+export const GetBlogList = async ({ size, page, type, sort = 'desc', ...e }: List): any => {
   const result = await instance.get(`/blogs/list`, {
     params: {
       size,
       page,
       type,
-      sort
+      sort,
+      ...e
     }
   })
   return result.data
@@ -57,7 +58,9 @@ export const RequestBlogDelete = ({ id }: { id: string }): any => {
     return await instance.delete(`/blogs/blog/${id}`)
   }
 }
-
+export const getBlogType = async (): Promise<any> => {
+  return await instance.get(`/blogs/blogType`)
+}
 export interface CreateBlog {
   images: Image[]
   title: string

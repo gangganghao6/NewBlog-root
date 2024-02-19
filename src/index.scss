@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+blockquote {
+  color: #aaa;
+  font-style: italic;
+}
+html {
+  height: 100vh;
+  body {
+    margin: 0;
+    height: 100vh;
+    #root {
+      height: 100vh;
+    }
+  }
+}

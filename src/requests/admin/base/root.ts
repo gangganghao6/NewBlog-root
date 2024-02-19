@@ -1,4 +1,4 @@
-import instance from '../admin/request'
+import instance from '../request'
 import CryptoJS from 'crypto-js'
 
 export const rootLogin = async ({ account, password }: RootLogin): Promise<any> => {
@@ -49,7 +49,7 @@ export const RequestRootPut = ({
     })
   }
 }
-export const confirmAuth = async (): Promise<any> => {
+export const rootAuth = async (): Promise<any> => {
   return await instance.post('/base/root/auth')
 }
 export interface RootLogin {

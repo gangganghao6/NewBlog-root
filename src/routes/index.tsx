@@ -1,9 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '@/App'
-import FunctionErrorBoundary from '@/utils/error-boundary'
-import Home from '@/views/home/home'
-import BlogList from '@/views/blog/blog-list'
-import BlogEdit from '@/views/blog/blog-edit'
+import FunctionErrorBoundary, { ErrorElement } from '@/utils/error-boundary'
+import adminRoute from './admin-route'
+import frontRoute from './front-route'
 
 function addErrorBoundaryToRoutes(routes: any) {
   return routes.map((route: any) => {
@@ -17,24 +15,14 @@ function addErrorBoundaryToRoutes(routes: any) {
   })
 }
 
-const routes = [
+export const routes = [
+  adminRoute,
+  frontRoute,
   {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        path: '/home',
-        element: <Home />,
-      },
-      {
-        path: '/blog/list',
-        element: <BlogList />,
-      },
-      {
-        path: '/blog/edit/:id',
-        element: <BlogEdit />
-      }
-    ]
+    path: '*',
+    element: (
+      <ErrorElement errorMsg={{ message: '路由不存在,请输入正确的路由' }} />
+    )
   }
 ]
 export default createBrowserRouter(addErrorBoundaryToRoutes(routes))

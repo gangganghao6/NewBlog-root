@@ -1,7 +1,8 @@
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
+import { Button, Result } from 'antd'
 import React from 'react'
 import { useRouteError } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
 export class ClassErrorBoundary extends React.Component {
   state = { hasError: false, error: null, errorInfo: null }
   static getDerivedStateFromError(error: any) {
@@ -23,16 +24,37 @@ export class ClassErrorBoundary extends React.Component {
   }
 }
 export default function FunctionErrorBoundary() {
-  const error = useRouteError()
+  const error = useRouteError()  
   return <ErrorElement errorMsg={error} />
 }
-function ErrorElement({ errorMsg }: { errorMsg: any }) {
+export function ErrorElement({ errorMsg }: { errorMsg: any }) {
+  const navigate = useNavigate()
+
   return (
-    <div className="flex">
-      <Alert severity="error">
-        <AlertTitle>{'Error'}</AlertTitle>
-        {errorMsg?.message || JSON.stringify(errorMsg)}
-      </Alert>
-    </div>
+    <>
+      <Result
+        status="error"
+        title="发生错误"
+        subTitle={errorMsg?.message || JSON.stringify(errorMsg)}
+        extra={[
+          <Button
+            type="primary"
+            onClick={() => {
+              navigate(-1)
+            }}
+          >
+            返回上一页
+          </Button>,
+          <Button
+            key="buy"
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
+            刷新
+          </Button>
+        ]}
+      ></Result>
+    </>
   )
 }

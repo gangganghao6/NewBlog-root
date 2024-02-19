@@ -1,6 +1,13 @@
-import { Form, Popover, Select } from 'antd'
+import { Form, Popover, Select, DatePicker } from 'antd'
 import clsx from 'clsx'
 import { useState } from 'react'
+import locale from 'antd/es/date-picker/locale/zh_CN'
+
+import 'dayjs/locale/zh-cn'
+import dayjs from 'dayjs'
+import { formatTime } from '@/utils/utils'
+
+const { RangePicker } = DatePicker
 
 export default function ({
   item
@@ -13,7 +20,7 @@ export default function ({
     mode?: string
   }
 }) {
-  const { key, options, required, label } = item
+  const { key, required, label } = item
   const rules = [required && { required: true, message: `${label}为必填项` }]
 
   return (
@@ -27,14 +34,12 @@ export default function ({
           {label}
         </div>
       </Popover>
-      <Form.Item name={key} rules={rules} className="w-4/5">
-        <Select
-          mode={item.mode}
-          options={options.map((option: any) => ({
-            label: option.label,
-            value: option.value
-          }))}
-        />
+      <Form.Item
+        name={key}
+        rules={rules}
+        className="w-4/5"
+      >
+        <RangePicker locale={locale} />
       </Form.Item>
     </>
   )

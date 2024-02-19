@@ -1,0 +1,16 @@
+.tabulation-input {
+  :global {
+    .required-label::before {
+      display: inline-block;
+      margin-inline-end: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      font-family: SimSun, sans-serif;
+      line-height: 1;
+      content: '*';
+    }
+    .ant-form-item {
+      margin-inline-end: 0;
+    }
+  }
+}
