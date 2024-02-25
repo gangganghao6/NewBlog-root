@@ -42,12 +42,10 @@ const sendRequest = async (file: File, requestObj: FilesMergeRequest, md5: strin
     `/files/fileMerge?md5=${md5}`,
     requestObj
   )
-  console.log(result);
-
   return result
 }
 
-export const RequestFileChunkUpload = async (filesObj: any): Promise<any> => {
+export const PostFileChunkUpload = async (filesObj: any): Promise<any> => {
   const files = Object.keys(filesObj).map((key) => {
     return filesObj[key]
   })

@@ -1,0 +1,10 @@
+.language-select {
+  width: 8rem !important;
+}
+.insert-image-modal{
+  :global{
+    .ant-modal-body{
+      text-align: center;
+    }
+  }
+}

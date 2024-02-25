@@ -3,66 +3,52 @@ import {
   type List,
   type Shuoshuo,
   type Video
-} from '../../utils/types'
+} from '@/utils/types'
 import instance from '../request'
 
-export const RequestShuoshuoList = ({ size, page, sort, type }: List): any => {
-  return async (): Promise<Shuoshuo[]> => {
-    return await instance.get('/shuoshuos/list', {
-      params: {
-        size,
-        page,
-        sort,
-        type
-      }
-    })
-  }
+export const GetShuoshuoList = async ({ size, page, sort, ...data }: List): Promise<Shuoshuo[]> => {
+  return await instance.get('/shuoshuos/list', {
+    params: {
+      ...data,
+      size,
+      page,
+      sort,
+      // type
+    }
+  })
 }
-export const RequestShuoshuoDetail = ({ id }: { id: string }): any => {
-  return async (): Promise<Shuoshuo> => {
-    return await instance.get(`/shuoshuos/shuoshuo/${id}`)
-  }
+export const GetShuoshuoDetail = async ({ id }: { id: string }): Promise<Shuoshuo> => {
+  return await instance.get(`/shuoshuos/shuoshuo/${id}?increase=false`)
 }
-export const RequestShuoshuoPost = ({
-  mediaClass,
+export const PostCreateShuoshuo = async ({
   content,
   images,
-  video
-}: CreateShuoshuo): any => {
-  return async (): Promise<Shuoshuo> => {
-    return await instance.post(`/shuoshuos/shuoshuo`, {
-      media_class: mediaClass,
-      content,
-      images,
-      video
-    })
-  }
+  videos
+}: CreateShuoshuo): Promise<Shuoshuo> => {
+  return await instance.post(`/shuoshuos/shuoshuo`, {
+    content,
+    images,
+    videos
+  })
 }
-export const RequestShuoshuoPut = ({
+export const PutEditShuoshuo = async ({
   id,
-  mediaClass,
   content,
   images,
-  video
-}: CreateShuoshuo & { id: string }): any => {
-  return async (): Promise<Shuoshuo> => {
-    return await instance.put(`/shuoshuos/shuoshuo/${id}`, {
-      media_class: mediaClass,
-      content,
-      images,
-      video
-    })
-  }
+  videos
+}: CreateShuoshuo & { id: string }): Promise<Shuoshuo> => {
+  return await instance.put(`/shuoshuos/shuoshuo/${id}`, {
+    content,
+    images,
+    videos
+  })
 }
-export const RequestShuoshuoDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<any> => {
-    return await instance.delete(`/shuoshuos/shuoshuo/${id}`)
-  }
+export const DeleteShuoshuo = async ({ id }: { id: string }): Promise<any> => {
+  return await instance.delete(`/shuoshuos/shuoshuo/${id}`)
 }
 
 export interface CreateShuoshuo {
-  mediaClass?: 'video' | 'images' | 'text'
   content?: string
   images?: Image[]
-  video?: Video
+  videos?: Video[]
 }

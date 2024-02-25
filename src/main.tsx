@@ -9,6 +9,11 @@ import '@/variable.scss'
 import '@/index.scss'
 import { GlobalInfo } from '@/state/base'
 import { ClassErrorBoundary } from './utils/error-boundary'
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/locale/zh_CN';
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+dayjs.locale('zh-cn')
 
 function RootNode() {
   const snap = useSnapshot(GlobalInfo)
@@ -18,12 +23,11 @@ function RootNode() {
   //   }
   // })
   return (
-    <ClassErrorBoundary>
-      {/* <ThemeProvider theme={darkTheme}>
-        <CssBaseline /> */}
+    <ConfigProvider locale={zhCN}>
+      <ClassErrorBoundary>
         <RouterProvider router={routes} />
-      {/* </ThemeProvider> */}
-    </ClassErrorBoundary>
+      </ClassErrorBoundary>
+    </ConfigProvider>
   )
 }
 ReactDOM.createRoot(document.getElementById('root') as Element).render(

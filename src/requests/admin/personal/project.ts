@@ -2,7 +2,7 @@ import { type Image, type Project } from '../../utils/types'
 import instance from '../request'
 import { type Dayjs } from 'dayjs'
 
-export const RequestPersonalProjectPost = ({
+export const PostCreatePersonalProject = async ({
   name,
   duty,
   description,
@@ -10,22 +10,20 @@ export const RequestPersonalProjectPost = ({
   githubUrl,
   demoUrl,
   timeEnd,
-  image
-}: CreateProject): any => {
-  return async (): Promise<Project> => {
-    return await instance.post('/personal/project', {
-      name,
-      duty,
-      description,
-      timeStart,
-      githubUrl,
-      demoUrl,
-      timeEnd,
-      image
-    })
-  }
+  images
+}: CreateProject): Promise<Project> => {
+  return await instance.post('/personal/project', {
+    name,
+    duty,
+    description,
+    timeStart,
+    githubUrl,
+    demoUrl,
+    timeEnd,
+    images
+  })
 }
-export const RequestPersonalProjectPut = ({
+export const PutEditPersonalProject = async ({
   id,
   name,
   duty,
@@ -34,27 +32,37 @@ export const RequestPersonalProjectPut = ({
   githubUrl,
   demoUrl,
   timeEnd,
-  image
-}: CreateProject & { id: string }): any => {
-  return async (): Promise<Project> => {
-    return await instance.put(`/personal/project/${id}`, {
-      name,
-      duty,
-      description,
-      timeStart,
-      githubUrl,
-      demoUrl,
-      timeEnd,
-      image
-    })
-  }
+  images
+}: CreateProject & { id: string }): Promise<Project> => {
+  return await instance.put(`/personal/project/${id}`, {
+    name,
+    duty,
+    description,
+    timeStart,
+    githubUrl,
+    demoUrl,
+    timeEnd,
+    images
+  })
 }
-export const RequestPersonalProjectDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<Project> => {
-    return await instance.delete(`/personal/project/${id}`)
-  }
+export const DeletePersonalProject = async ({ id }: { id: string }): Promise<Project> => {
+  return await instance.delete(`/personal/project/${id}`)
 }
-
+export const GetPersonalProjectList = async ({ size, page, type, sort = 'desc', ...e }: List): Promise<Experience[]> => {
+  const result = await instance.get(`/personal/project/list`, {
+    params: {
+      size,
+      page,
+      type,
+      sort,
+      ...e
+    }
+  })
+  return result
+}
+export const GetPersonalProjectDetail = async ({ id }: { id: string }): Promise<Experience> => {
+  return await instance.get(`/personal/project/${id}`)
+}
 export interface CreateProject {
   name?: string
   duty?: string
@@ -63,5 +71,5 @@ export interface CreateProject {
   githubUrl?: string
   demoUrl?: string
   timeEnd?: string
-  image?: Image
+  images?: Image[]
 }

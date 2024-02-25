@@ -14,14 +14,25 @@ import CompBreadCrumb from './breadcrumb'
 
 const { Header, Sider, Content } = Layout
 
+const findCurrentMenu: any = (list: []) => {
+  for (const item of list) {
+    if (item.children) {
+      const result = findCurrentMenu(item.children)
+      if (result) return result
+    } else if (window.location.pathname.includes(item.key)) {
+      return item
+    }
+  }
+}
+
 const App: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-  const currentMenu = useMemo(
-    () => MENU_LIST.find((item) => location.pathname.includes(item.key)),
-    [location.pathname]
-  )
+
+  const currentMenu = useMemo(() => {
+    return findCurrentMenu(MENU_LIST)
+  }, [location.pathname])
 
   return (
     <Layout className="h-full">

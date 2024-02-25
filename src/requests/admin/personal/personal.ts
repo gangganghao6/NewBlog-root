@@ -2,64 +2,35 @@ import instance from '../request'
 import { type Personal } from '../../utils/types'
 import { type Dayjs } from 'dayjs'
 
-export const RequestPersonalInfo = (): any => {
-  return async (): Promise<Personal> => {
-    return await instance.get('/personal/info')
-  }
+export const GetPersonalInfoDetail = async (): Promise<Personal> => {
+  return await instance.get('/personal/info?increase=false')
 }
-export const RequestPersonalInfoInit = ({
+export const PutEditPersonalInfo = async ({
   name,
   sex,
   birthday,
   wechat,
   qq,
-  github,
+  githubName,
+  githubUrl,
   university,
   home,
   universityEndTime,
-  readme
-}: CreatePersonal): any => {
-  return async (): Promise<Personal> => {
-    return await instance.post('/personal/info', {
-      name,
-      sex,
-      birthday,
-      wechat,
-      qq,
-      github,
-      university,
-      home,
-      university_end_time: universityEndTime,
-      readme
-    })
-  }
-}
-export const RequestPersonalInfoPut = ({
-  name,
-  sex,
-  birthday,
-  wechat,
-  qq,
-  github,
-  university,
-  home,
-  universityEndTime,
-  readme
-}: CreatePersonal): any => {
-  return async (): Promise<Personal> => {
-    return await instance.put('/personal/info', {
-      name,
-      sex,
-      birthday,
-      wechat,
-      qq,
-      github,
-      university,
-      home,
-      university_end_time: universityEndTime,
-      readme
-    })
-  }
+  content
+}: CreatePersonal): Promise<Personal> => {
+  return await instance.put('/personal/info', {
+    name,
+    sex,
+    birthday,
+    wechat,
+    qq,
+    githubName,
+    githubUrl,
+    university,
+    home,
+    universityEndTime,
+    content
+  })
 }
 
 export interface CreatePersonal {
@@ -68,9 +39,10 @@ export interface CreatePersonal {
   birthday?: Date | Dayjs
   wechat?: string
   qq?: string
-  github?: string
+  githubName?: string
+  githubUrl?: string
   university?: string
   home?: string
   universityEndTime?: Date | Dayjs
-  readme?: string
+  content?: string
 }

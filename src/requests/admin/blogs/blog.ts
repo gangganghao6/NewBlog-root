@@ -1,12 +1,10 @@
 import instance from '../request'
-import { type Blog, type Image, type List } from '../../utils/types'
+import { type Blog, type Image, type List } from '@/utils/types'
 
-export const RequestBlogDetail = ({ id }: { id: string }): any => {
-  return async (): Promise<Blog> => {
-    return await instance.get(`/blogs/blog/${id}`)
-  }
+export const GetBlogDetail = async ({ id }: { id: string }): Promise<Blog> => {
+  return await instance.get(`/blogs/blog/${id}?increase=false`)
 }
-export const GetBlogList = async ({ size, page, type, sort = 'desc', ...e }: List): any => {
+export const GetBlogList = async ({ size, page, type, sort = 'desc', ...e }: List): Promise<Blog[]> => {
   const result = await instance.get(`/blogs/list`, {
     params: {
       size,
@@ -16,49 +14,43 @@ export const GetBlogList = async ({ size, page, type, sort = 'desc', ...e }: Lis
       ...e
     }
   })
-  return result.data
+  return result
 }
-export const RequestBlogPost = ({
+export const PostCreatBlog = async ({
   images,
   title,
   content,
   type,
   post
-}: CreateBlog): any => {
-  return async (): Promise<Blog> => {
-    return await instance.post(`/blogs/blog`, {
-      images,
-      title,
-      content,
-      type,
-      post
-    })
-  }
+}: CreateBlog) => {
+  return await instance.post(`/blogs/blog`, {
+    images,
+    title,
+    content,
+    type,
+    post
+  })
 }
-export const RequestBlogPut = ({
+export const PutEditBlog = async ({
   id,
   images,
   title,
   content,
   type,
   post
-}: PutBlog): any => {
-  return async (): Promise<Blog> => {
-    return await instance.put(`/blogs/blog/${id}`, {
-      images,
-      title,
-      content,
-      type,
-      post
-    })
-  }
+}: PutBlog): Promise<Blog> => {
+  return await instance.put(`/blogs/blog/${id}`, {
+    images,
+    title,
+    content,
+    type,
+    post
+  })
 }
-export const RequestBlogDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<Blog> => {
-    return await instance.delete(`/blogs/blog/${id}`)
-  }
+export const DeleteBlog = async ({ id }: { id: string }): Promise<any> => {
+  return await instance.delete(`/blogs/blog/${id}`)
 }
-export const getBlogType = async (): Promise<any> => {
+export const getBlogType = async (): Promise<Array<string>> => {
   return await instance.get(`/blogs/blogType`)
 }
 export interface CreateBlog {

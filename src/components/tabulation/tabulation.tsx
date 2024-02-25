@@ -9,6 +9,7 @@ import CompSearch from './tabulation-search'
 import CompTable from './tabulation-table'
 import { Ref, forwardRef, useImperativeHandle } from 'react'
 import clsx from 'clsx'
+import dayjs from 'dayjs'
 
 export default forwardRef(function Tabulation(
   {
@@ -27,7 +28,7 @@ export default forwardRef(function Tabulation(
   const [form] = Form.useForm()
   const SearchComponents = searchCompCreator(searchConfig)
   const { run, loading, data } = useRequest(
-    (data) => api({ page: 1, size: 10, ...data }),
+    (data) => api({ page: 1, size: 10, sort: 'desc', ...data }),
     { manual: false }
   )
 
@@ -42,7 +43,13 @@ export default forwardRef(function Tabulation(
     []
   )
   return (
-    <>
+    <div
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          onSearch(form, run)()
+        }
+      }}
+    >
       <Form name="formData" form={form} layout="inline">
         {SearchComponents}
       </Form>
@@ -58,7 +65,7 @@ export default forwardRef(function Tabulation(
         loading={loading}
         onSearch={onSearch(form, run)}
       />
-    </>
+    </div>
   )
 })
 
@@ -94,12 +101,26 @@ function searchCompCreator(searchConfig: any[]) {
   })
 }
 function onSearch(form: any, run: Function) {
-  return async (page: number = 1, size: number = 10) => {
+  return async (page: number = 1, size: number = 10, sort: string = 'desc') => {
     try {
       await form.validateFields()
       const values = form.getFieldsValue()
-      run({ ...values, page, size })
+      for (const key of Object.keys(values)) {
+        const instance = form.getFieldInstance(key)
+        if (instance?.nativeElement?.className?.includes('ant-picker')) {
+          if (values[key] && Array.isArray(values[key])) {
+            values[`${key}From`] = dayjs(values[key][0]).format('YYYY-MM-DD')
+            values[`${key}To`] = dayjs(values[key][1]).format('YYYY-MM-DD')
+            delete values[key]
+          } else if (values[key]) {
+            values[key] = dayjs(values[key]).format('YYYY-MM-DD')
+          }
+        }
+      }
+      run({ ...values, page, size, sort })
     } catch (e: any) {
+      console.log(e)
+
       const msg = e.errorFields
         .map((item: any) => item.errors.join(','))
         .join(';')

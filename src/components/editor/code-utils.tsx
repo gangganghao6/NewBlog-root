@@ -14,7 +14,7 @@ import { useSlate, useSlateStatic } from 'slate-react'
 import { normalizeTokens } from './normalize-tokens'
 import { SlateButton } from './components'
 import { Select } from 'antd'
-import styles from './code-utils.module.scss'
+import styles from './editor.module.scss'
 import './code-style.css'
 import clsx from 'clsx'
 const { Option } = Select
@@ -28,7 +28,7 @@ export const CodeBlockButton = (props) => {
   const handleClick = () => {
     Transforms.wrapNodes(
       editor,
-      { type: CodeBlockType, language: 'html', children: [] },
+      { type: CodeBlockType, language: 'html', children: [{ text: 'asds' }] },
       {
         match: (n) => Element.isElement(n) && n.type === ParagraphType,
         split: true
@@ -49,7 +49,7 @@ export const CodeBlockButton = (props) => {
         event.preventDefault()
         handleClick()
       }}
-      icon={'code'}
+      icon={'code_block'}
     ></SlateButton>
   )
 }

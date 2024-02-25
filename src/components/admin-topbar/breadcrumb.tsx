@@ -33,8 +33,6 @@ export default function CompBreadCrumb() {
     path: `${category}/list`,
     title: categoryMap.find((item) => item.category === category)?.title
   })
-  console.log(type);
-  
   if (['detail', 'edit', 'create'].includes(type)) {
     item.push({
       title: typeMap.find((item) => item.type === type)?.title

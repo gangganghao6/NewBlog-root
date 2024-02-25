@@ -1,61 +1,70 @@
+import { List } from '@/utils/types'
 import { type Experience, type Image, type Personal } from '../../utils/types'
 import instance from '../request'
 import { type Dayjs } from 'dayjs'
 
-export const RequestPersonalExperiencePost = ({
+export const PostCreatePersonalExperience = async ({
   company,
   duty,
   description,
   timeStart,
   timeEnd,
-  image
-}: CreateExperience): any => {
-  return async (): Promise<Experience> => {
-    return await instance.post('/personal/experience', {
-      company,
-      duty,
-      description,
-      time_start: timeStart,
-      time_end: timeEnd,
-      image
-    })
-  }
+  images
+}: CreateExperience): Promise<Experience> => {
+  return await instance.post('/personal/experience', {
+    company,
+    duty,
+    description,
+    timeStart,
+    timeEnd,
+    images
+  })
 }
-export const RequestPersonalExperiencePut = ({
+export const PutEditPersonalExperience = async ({
   id,
   company,
   duty,
   description,
   timeStart,
   timeEnd,
-  image
-}: CreateExperience & { id: string }): any => {
-  return async (): Promise<Experience> => {
-    return await instance.put(`/personal/experience/${id}`, {
-      company,
-      duty,
-      description,
-      time_start: timeStart,
-      time_end: timeEnd,
-      image
-    })
-  }
+  images
+}: CreateExperience & { id: string }): Promise<Experience> => {
+  return await instance.put(`/personal/experience/${id}`, {
+    company,
+    duty,
+    description,
+    timeStart,
+    timeEnd,
+    images
+  })
 }
-export const RequestPersonalExperienceDelete = ({
+export const DeletePersonalExperience = async ({
   id
 }: {
   id: string
-}): any => {
-  return async (): Promise<Personal> => {
-    return await instance.delete(`/personal/experience/${id}`)
-  }
+}): Promise<Personal> => {
+  return await instance.delete(`/personal/experience/${id}`)
 }
-
+export const GetPersonalExperienceList = async ({ size, page, type, sort = 'desc', ...e }: List): Promise<Experience[]> => {
+  const result = await instance.get(`/personal/experience/list`, {
+    params: {
+      size,
+      page,
+      type,
+      sort,
+      ...e
+    }
+  })
+  return result
+}
+export const GetPersonalExperienceDetail = async ({ id }: { id: string }): Promise<Experience> => {
+  return await instance.get(`/personal/experience/${id}`)
+}
 export interface CreateExperience {
   company?: string
   duty?: string
   description?: string
   timeStart?: Date | Dayjs
   timeEnd?: Date | Dayjs
-  image?: Image
+  images?: Image[]
 }

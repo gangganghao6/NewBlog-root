@@ -1,4 +1,4 @@
-import { Col, Form, Input, Popover } from 'antd'
+import { Col, Form, Input, Popover, Tooltip } from 'antd'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -13,7 +13,7 @@ export default function ({
 
   return (
     <>
-      <Popover placement="topRight" content={label}>
+       <Tooltip title={label}>
         <div
           className={clsx('w-1/5 text-xs overflow-x-hidden text-right mr-1', {
             'required-label': required
@@ -21,28 +21,10 @@ export default function ({
         >
           {label}
         </div>
-      </Popover>
+      </Tooltip>
       <Form.Item name={key} rules={rules} className="w-4/5">
-        <Input />
+        <Input allowClear placeholder={`请输入${label}`}/>
       </Form.Item>
-      {/* <TextField
-        fullWidth
-        size="small"
-        required={item.required}
-        error={error}
-        value={formData[item.key]}
-        label={item.label}
-        helperText={error && `${item.label}为必填项`}
-        onBlur={(e) => setError(e.target.value === '' && item.required)}
-        onChange={(e) => {
-          setError(e.target.value === '' && item.required)
-          setFormData({
-            ...formData,
-            [item.key]: e.target.value
-          })
-        }}
-      /> */}
     </>
-    //   </div>
   )
 }

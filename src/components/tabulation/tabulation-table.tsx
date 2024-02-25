@@ -16,15 +16,16 @@ export default function CompTable({
   onSearch: Function
 }) {
   data &&
-    (data.result = data.result.map((item: any) => {
+    (data.result = data?.data?.result.map((item: any) => {
       return { ...item, operation: 'operation' }
     }))
+  data && (data.count = data?.data?.count)
 
   return (
     <>
       <Action operation={operation} />
       <Table
-        size="middle"
+        size="small"
         loading={loading}
         columns={column}
         dataSource={data?.result}

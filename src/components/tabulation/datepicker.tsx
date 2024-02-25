@@ -1,4 +1,4 @@
-import { Form, Popover, Select, DatePicker } from 'antd'
+import { Form, Popover, Select, DatePicker, Tooltip } from 'antd'
 import clsx from 'clsx'
 import { useState } from 'react'
 import locale from 'antd/es/date-picker/locale/zh_CN'
@@ -6,7 +6,6 @@ import locale from 'antd/es/date-picker/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
 import dayjs from 'dayjs'
 import { formatTime } from '@/utils/utils'
-
 
 export default function ({
   item
@@ -24,7 +23,7 @@ export default function ({
 
   return (
     <>
-      <Popover placement="topRight" content={label}>
+       <Tooltip title={label}>
         <div
           className={clsx('w-1/5 text-xs overflow-x-hidden text-right mr-1', {
             'required-label': required
@@ -32,13 +31,14 @@ export default function ({
         >
           {label}
         </div>
-      </Popover>
-      <Form.Item
-        name={key}
-        rules={rules}
-        className="w-4/5"
-      >
-        <DatePicker className='w-full' locale={locale} />
+      </Tooltip>
+      <Form.Item name={key} rules={rules} className="w-4/5">
+        <DatePicker
+          className="w-full"
+          allowClear
+          locale={locale}
+          format={'YYYY-MM-DD'}
+        />
       </Form.Item>
     </>
   )

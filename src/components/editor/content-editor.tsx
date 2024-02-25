@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import isHotkey from 'is-hotkey'
 import {
   Editable,
@@ -12,9 +12,9 @@ import {
   Editor,
   Transforms,
   createEditor,
-  Descendant,
   Element as SlateElement,
-  BaseEditor
+  BaseEditor,
+  Node
 } from 'slate'
 import { withHistory } from 'slate-history'
 import { InsertImageButton, withImages, Image } from './image-utils'
@@ -25,6 +25,7 @@ import {
   useDecorate
 } from './code-utils'
 import { SlateButton, Toolbar } from './components'
+import clsx from 'clsx'
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -36,7 +37,29 @@ const HOTKEYS = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list', 'code-block']
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify']
 
-const RichTextExample = () => {
+export default function RichTextWarpper(props) {
+  const { value, type } = props
+  switch (type) {
+    case 'create':
+      return <RichText {...props} readOnly={false} />
+    case 'edit':
+      return value !== undefined && <RichText {...props} readOnly={false} />
+    case 'detail':
+      return value ? (
+        <RichText {...props} readOnly={true} showImageDeleteButton={false} />
+      ) : (
+        '加载中'
+      )
+  }
+}
+
+function RichText({
+  value,
+  onChange,
+  readOnly = false,
+  className,
+  showImageDeleteButton = true
+}: any) {
   const renderElement = useCallback((props: any) => <Element {...props} />, [])
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, [])
   const editor = useMemo(
@@ -46,60 +69,65 @@ const RichTextExample = () => {
   const decorate = useDecorate(editor)
 
   return (
-    <Slate
-      editor={editor}
-      initialValue={initialValue}
-      onChange={(e) => {
-        // console.log(e)
-      }}
-    >
-      <Toolbar>
-        <MarkButton format="bold" icon="format_bold" />
-        <MarkButton format="italic" icon="format_italic" />
-        <MarkButton format="underline" icon="format_underlined" />
-        <MarkButton format="code" icon="code" />
-        <BlockButton format="heading-one" icon="looks_one" />
-        <BlockButton format="heading-two" icon="looks_two" />
-        <BlockButton format="block-quote" icon="format_quote" />
-        <BlockButton format="numbered-list" icon="format_list_numbered" />
-        <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-        <BlockButton format="left" icon="format_align_left" />
-        <BlockButton format="center" icon="format_align_center" />
-        <BlockButton format="right" icon="format_align_right" />
-        <BlockButton format="justify" icon="format_align_justify" />
-        <InsertImageButton />
-        <CodeBlockButton />
-        <SlateButton
-          icon={'undo'}
-          onClick={() => editor.undo(editor)}
-        ></SlateButton>
-      </Toolbar>
-      <SetNodeToDecorations />
-      <Editable
-        decorate={decorate}
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="在这里输入"
-        className="focus:outline-dotted"
-        spellCheck
-        autoFocus
-        onKeyDown={(event) => {
-          console.log(event)
-
-          for (const hotkey in HOTKEYS) {
-            if (isHotkey(hotkey, event as any)) {
-              event.preventDefault()
-              const mark = HOTKEYS[hotkey]
-              toggleMark(editor, mark)
-            } else if (isHotkey('tab', event)) {
+    <>
+      <Slate
+        editor={editor}
+        initialValue={value ? JSON.parse(value) : initialValue}
+        onChange={(e) => onChange?.(JSON.stringify(e))}
+      >
+        <Toolbar
+          className={clsx({
+            hidden: readOnly
+          })}
+        >
+          <MarkButton format="bold" icon="format_bold" />
+          <MarkButton format="italic" icon="format_italic" />
+          <MarkButton format="underline" icon="format_underlined" />
+          <BlockButton format="heading-one" icon="looks_one" />
+          <BlockButton format="heading-two" icon="looks_two" />
+          <BlockButton format="block-quote" icon="format_quote" />
+          <BlockButton format="numbered-list" icon="format_list_numbered" />
+          <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+          <BlockButton format="left" icon="format_align_left" />
+          <BlockButton format="center" icon="format_align_center" />
+          <BlockButton format="right" icon="format_align_right" />
+          <BlockButton format="justify" icon="format_align_justify" />
+          <MarkButton format="code" icon="code" />
+          <CodeBlockButton />
+          <InsertImageButton />
+          <SlateButton
+            icon={'undo'}
+            onClick={() => editor.undo(editor)}
+          ></SlateButton>
+        </Toolbar>
+        <SetNodeToDecorations />
+        <Editable
+          decorate={decorate}
+          renderElement={(props) =>
+            renderElement({ showImageDeleteButton, ...props })
+          }
+          renderLeaf={renderLeaf}
+          placeholder="在这里输入"
+          className={clsx('focus:outline-dotted text-[15px]', className)}
+          readOnly={readOnly}
+          onKeyDown={(event) => {
+            if (isHotkey('tab', event)) {
               event.preventDefault()
               Editor.insertText(editor, '  ')
+            } else {
+              for (const hotkey in HOTKEYS) {
+                if (isHotkey(hotkey, event as any)) {
+                  event.preventDefault()
+                  const mark = HOTKEYS[hotkey]
+                  toggleMark(editor, mark)
+                }
+              }
             }
-          }
-        }}
-      />
-      {/* <style>{prismThemeCss}</style> */}
-    </Slate>
+          }}
+        />
+        {/* <style>{prismThemeCss}</style> */}
+      </Slate>
+    </>
   )
 }
 const toggleBlock = (editor: BaseEditor, format: string) => {
@@ -158,8 +186,6 @@ const isBlockActive = (
     Editor.nodes(editor, {
       at: Editor.unhangRange(editor, selection),
       match: (n) => {
-        console.log(n[blockType], format)
-
         return (
           !Editor.isEditor(n) &&
           SlateElement.isElement(n) &&
@@ -181,6 +207,7 @@ const Element = (props: any) => {
   const { attributes, children, element } = props
   const editor = useSlateStatic()
   const style = { textAlign: element.align }
+
   switch (element.type) {
     case 'block-quote':
       return (
@@ -242,16 +269,6 @@ const Element = (props: any) => {
           {children}
         </div>
       )
-    case 'table':
-      return (
-        <table>
-          <tbody {...attributes}>{children}</tbody>
-        </table>
-      )
-    case 'table-row':
-      return <tr {...attributes}>{children}</tr>
-    case 'table-cell':
-      return <td {...attributes}>{children}</td>
     default:
       return (
         <p style={style} {...props}>
@@ -316,41 +333,15 @@ const MarkButton = ({ format, icon }: any) => {
     ></SlateButton>
   )
 }
-
-const initialValue: Descendant[] = [
-  {
-    type: 'paragraph',
-    children: [
-      { text: 'This is editable ' },
-      { text: 'rich', bold: true },
-      { text: ' text, ' },
-      { text: 'much', italic: true },
-      { text: ' better than a ' },
-      { text: '<textarea>', code: true },
-      { text: '!' }
-    ]
-  },
-  {
-    type: 'paragraph',
-    children: [
-      {
-        text: "Since it's rich text, you can do things like turn a selection of text "
-      },
-      { text: 'bold', bold: true },
-      {
-        text: ', or add a semantically rendered block quote in the middle of the page, like this:'
-      }
-    ]
-  },
-  {
-    type: 'block-quote',
-    children: [{ text: 'A wise quote.' }]
-  },
-  {
-    type: 'paragraph',
-    align: 'center',
-    children: [{ text: 'Try it out for yourself!' }]
-  }
+const serialize = (value) => {
+  return (
+    value
+      // Return the string content of each paragraph in the value's children.
+      .map((n) => Node.string(n))
+      // Join them all with line breaks denoting paragraphs.
+      .join('\n')
+  )
+}
+const initialValue = [
+  { type: 'paragraph', align: 'left', children: [{ text: '' }] }
 ]
-
-export default RichTextExample

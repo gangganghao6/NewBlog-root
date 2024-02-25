@@ -8,68 +8,56 @@ import {
   type Project
 } from '../../utils/types'
 
-export const RequestShareFileList = ({ size, page, sort, type }: List): any => {
-  return async (): Promise<ShareFileReturn[]> => {
-    return await instance.get('/share_files/list', {
-      params: {
-        size,
-        page,
-        sort,
-        type
-      }
-    })
-  }
+export const GetShareFileList = async ({ size, page, sort, ...data }: List): Promise<ShareFileReturn[]> => {
+  return await instance.get('/share_files/list', {
+    params: {
+      ...data,
+      size,
+      page,
+      sort,
+    }
+  })
 }
-export const RequestShareFileDownload = ({ id }: { id: string }): any => {
-  return async (): Promise<null> => {
-    return await instance.get(`/share_files/download/${id}`)
-  }
+export const GetShareFileDetail = async ({ id }: List): Promise<ShareFileReturn[]> => {
+  const result = await instance.get(`/share_files/file/${id}`)
+  result.data.file = result.data.file || result.data.video || result.data.image
+  return result
 }
-export const RequestShareFilePost = ({
-  type,
-  mediaClass,
-  video,
-  image,
-  file
-}: CreateShareFile): any => {
-  return async (): Promise<ShareFileReturn> => {
-    return await instance.post(`/share_files/file`, {
-      type,
-      media_class: mediaClass,
-      video,
-      image,
-      file
-    })
-  }
+export const GetShareFileDownload = async ({ id }: { id: string }): Promise<null> => {
+  return await instance.get(`/share_files/download/${id}`)
 }
-export const RequestShareFilePut = ({
+export const PostCreateShareFile = async ({
+  ...data
+}: CreateShareFile): Promise<ShareFileReturn> => {
+  return await instance.post(`/share_files/file`, {
+    ...data
+  })
+}
+export const PutEditShareFile = async ({
   id,
-  type
+  ...data
 }: {
   id: string
   type: string
-}): any => {
-  return async (): Promise<ShareFile> => {
-    return await instance.put(`/share_files/file/${id}`, {
-      type
-    })
-  }
+}): Promise<ShareFile> => {
+  return await instance.put(`/share_files/file/${id}`, {
+    ...data
+  })
 }
-export const RequestShareFileDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<Project> => {
-    return await instance.delete(`/share_files/file/${id}`)
-  }
+export const DeleteShareFile = async ({ id }: { id: string }): Promise<null> => {
+  return await instance.delete(`/share_files/file/${id}`)
 }
 
 export interface CreateShareFile {
-  type: string
-  mediaClass: 'videos' | 'images' | 'files'
+  name: string
   video?: Video
   image?: Image
   file?: File
 }
 
 export interface ShareFileReturn {
-  share_file: ShareFile
-  file: Image | Video | File
+  file: File
+  video: Video
+  image: Image
+  name: string
 }

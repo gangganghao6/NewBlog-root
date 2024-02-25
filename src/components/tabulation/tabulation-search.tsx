@@ -1,6 +1,6 @@
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons'
-import { Divider, Form } from 'antd'
+import { Divider } from 'antd'
 
 export default function Action({
   loading,
@@ -14,7 +14,7 @@ export default function Action({
   return (
     <>
       <div className="flex justify-end">
-        <Button type={'primary'} onClick={onSearch.bind(null, 1, 10)}>
+        <Button type={'primary'} onClick={onSearch.bind(null, 1, 10, 'desc')}>
           {loading ? <LoadingOutlined /> : <SearchOutlined />}
           搜索
         </Button>

@@ -1,28 +1,44 @@
-import { Popconfirm } from 'antd'
+import { Popconfirm, message } from 'antd'
+import { on } from 'events'
 import { Ref } from 'react'
 import { NavigateFunction } from 'react-router-dom'
-export default function DefaultOperationRender(
-  row: any,
-  type: string,
-  navigate: NavigateFunction,
+export default function DefaultOperationRender({
+  row,
+  navigate,
+  tableRef,
+  onDeleteApi,
+  detailRoutePath,
+  editRoutePath
+}: {
+  row: any
+  navigate: NavigateFunction
   tableRef: Ref<any>
-) {
-  const MY_TYPE: any[any] = {
-    blog: '/blog'
-  }
+  onDeleteApi: Function
+  detailRoutePath:string
+  editRoutePath:string
+}) {
   const onDetail = () => {
-    navigate(`${MY_TYPE[type]}/detail/${row.id}`)
+    navigate(detailRoutePath)
   }
   const onEdit = () => {
-    navigate(`${MY_TYPE[type]}/edit/${row.id}`)
+    navigate(editRoutePath)
   }
-  const onDelete = () => {
-    tableRef.current.onSearch()
+  const onDelete = async () => {
+    console.log(row)
+
+    const result = await onDeleteApi({ id: row.id })
+    console.log(result)
+    message.success('删除成功')
+    tableRef?.current?.onSearch()
   }
   return (
-    <div className='flex flex-wrap'>
-      <a className='mr-1' onClick={onDetail}>{'查看'}</a>
-      <a className='mr-1' onClick={onEdit}>{'编辑'}</a>
+    <div className="flex flex-wrap">
+      <a className="mr-1" onClick={onDetail}>
+        {'查看'}
+      </a>
+      <a className="mr-1" onClick={onEdit}>
+        {'编辑'}
+      </a>
       <Popconfirm
         title="删除"
         description="删除后无法恢复，确认删除吗?"

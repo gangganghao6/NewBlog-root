@@ -4,6 +4,14 @@
 blockquote {
   color: #aaa;
   font-style: italic;
+  border-left: 2px solid #aaa;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-left: 1rem;
+}
+code {
+  background-color: #eee;
+  padding: 3px;
 }
 html {
   height: 100vh;
