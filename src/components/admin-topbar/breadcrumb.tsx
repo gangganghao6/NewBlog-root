@@ -20,7 +20,7 @@ const typeMap = [
   }
 ]
 export default function CompBreadCrumb() {
-  const matchPath = useMatches()?.[1]?.pathname  
+  const matchPath = useMatches()?.[1]?.pathname
   //blog|home|file|shuoshuo...
   const category = matchPath?.split('/')?.[2]
   const type: 'list' | 'detail' | 'edit' | 'create' = matchPath?.split(
@@ -47,5 +47,7 @@ export default function CompBreadCrumb() {
       <Link to={paths[0]}>{item.title}</Link>
     )
   }
-  return <Breadcrumb itemRender={itemRender} items={item} separator=">"/>
+  document.title = item.map((item) => item.title).join('-')
+
+  return <Breadcrumb itemRender={itemRender} items={item} separator=">" />
 }

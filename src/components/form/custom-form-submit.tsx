@@ -42,6 +42,10 @@ export default function CustomFormSubmit({
       }
       form.resetFields()
       message.success(`${okText}成功`)
+      document.querySelector('main')?.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
       if (okRoutePath.endsWith('undefined')) {
         navigate(okRoutePath.replace('undefined', result.data.id))
       } else {

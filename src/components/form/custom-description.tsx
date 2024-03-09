@@ -1,8 +1,7 @@
 import { Descriptions } from 'antd'
 
-
-export const CustomDescription = ({ data, columns }: any) => {
-  const items = columns.map((item) => {
+export const CustomDescription = ({ data, columns, title }: any) => {
+  const items = columns.map((item: any) => {
     return {
       label: item.label,
       children: item.render ? item.render(data[item.key]) : data[item.key]
@@ -13,7 +12,7 @@ export const CustomDescription = ({ data, columns }: any) => {
     <Descriptions
       className="my-8 px-4"
       bordered
-      title="基本信息"
+      title={title || '基本信息'}
       items={items}
     />
   )

@@ -1,30 +1,36 @@
-import { useEffect, useState } from 'react'
-import { Outlet, redirect, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import AdminTopBar from '@/components/admin-topbar/topbar'
-import '@/App-admin.scss'
-// import { confirmAuth } from '@/requests/admin/base/root'
-import { useRequest } from 'ahooks'
+import useAdminLogin from '@/views/admin/login/useLogin'
+import { Spin } from 'antd'
+import { useSnapshot } from 'valtio'
+import { GlobalInfo } from '@/state/base'
+import loadingGif from '@/asserts/loading.gif'
 
 export default function App() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  // const { error } = useRequest(() => confirmAuth(), {
-  //   manual: false
-  // })
+  useAdminLogin()
+  const state = useSnapshot(GlobalInfo)
 
-  // useEffect(() => {
-  //   if (error) {
-  //     navigate('/admin/login')
-  //   }
-  // }, [error])
   return (
     <>
+      <Spin
+        spinning={state.loading}
+        tip={<div className="text-white">加载中...</div>}
+        fullscreen
+        indicator={
+          <img
+            style={{
+              width: 100,
+              height: 100
+              // transform: 'translate(-45%, -60%)'
+            }}
+            src={loadingGif}
+            alt="loading"
+          />
+        }
+      ></Spin>
       <AdminTopBar>
         <Outlet />
       </AdminTopBar>
     </>
   )
-}
-const getPrevUrl = (search: string) => {
-  const location = useLocation()
 }

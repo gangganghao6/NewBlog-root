@@ -1,5 +1,4 @@
-import { PostFileChunkUpload } from '@/requests/admin/files/file_chunk'
-import { getVideoPost } from '@/utils/utils'
+import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { UploadOutlined } from '@ant-design/icons'
 import { Button, Upload, message, Image } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
@@ -14,17 +13,8 @@ export default function UploadCoverImage({ value, onChange }: any) {
   const [previewData, setPreviewData] = useState<any>({})
   const handleVideoUpload = (file: any) => {
     PostFileChunkUpload([file]).then((videoRes) => {
-      const { name: videoName, url: videoUrl } = videoRes[0].data
-      getVideoPost(file).then((postFile) => {
-        PostFileChunkUpload([postFile]).then((postRes) => {
-          const result = {
-            ...videoRes[0].data,
-            post: postRes[0].data
-          }
-          setFileList((pre: any) => [...pre, formatVideoFromResult(result)])
-          setUploadFileList((pre: any) => [...pre, result])
-        })
-      })
+      setFileList((pre: any) => [...pre, formatVideoFromResult(videoRes[0].data)])
+      setUploadFileList((pre: any) => [...pre, videoRes[0].data])
     })
   }
   const beforeUpload = (file: any) => {

@@ -6,15 +6,15 @@ import CustomFormSubmit from '@/components/form/custom-form-submit'
 import { useEffect } from 'react'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/comment'
-import CompPay from '@/components/pay/pay'
+import CompComment from '@/components/comment/admin-comment'
+import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
 import {
   GetPersonalInfoDetail,
   PutEditPersonalInfo
-} from '@/requests/admin/personal/personal'
+} from '@/requests/personal/personal'
 import dayjs from 'dayjs'
 
 const MyFormItem = (props: any) => {
@@ -149,7 +149,7 @@ export default function AdminPersonalCreate({ type }: { type: 'edit' }) {
         api={PutEditPersonalInfo}
         okText="保存"
         cancelText="返回"
-        run={runDetail}
+        // run={runDetail}
       />
     </Form>
   )

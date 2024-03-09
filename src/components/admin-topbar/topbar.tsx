@@ -1,16 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { GlobalInfo } from '@/state/base'
 import MENU_LIST from '@/routes/admin-menu-list'
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined
-} from '@ant-design/icons'
-import { Layout, Menu, Button, theme, Breadcrumb } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { Layout, Menu, Button, Spin, Avatar, Popover } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CompBreadCrumb from './breadcrumb'
+import AvatarDropdown from './avatar-dropdown'
 
 const { Header, Sider, Content } = Layout
 
@@ -48,29 +43,33 @@ const App: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           onClick={({ key }) => {
             navigate(key)
           }}
-          theme={GlobalInfo.theme}
+          theme={'dark'}
           mode="inline"
           selectedKeys={[currentMenu?.key]}
           items={MENU_LIST}
         />
       </Sider>
       <Layout className="overflow-y-hidden">
-        <Header className="p-0 bg-white h-10 leading-10 flex items-center">
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            className="text-base"
-            style={{
-              width: 40, //优先级最高
-              height: 40
-            }}
-          />
-          <CompBreadCrumb />
+        <Header className="p-0 bg-white h-10 leading-10 flex items-center justify-between">
+          <div className="flex items-center">
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              className="text-base"
+              style={{
+                width: 40, //优先级最高
+                height: 40
+              }}
+            />
+            <CompBreadCrumb />
+          </div>
+          <AvatarDropdown />
         </Header>
         <Content
-          className={`overflow-y-auto mx-2 my-2 py-2 px-4 h-full bg-white rounded-md`}
+          className={`overflow-y-auto mx-2 my-2 py-2 px-4 h-full bg-white rounded-md min-w-[1000px]`}
         >
+
           {children}
         </Content>
       </Layout>

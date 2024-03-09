@@ -6,7 +6,8 @@ import {
   useSlate,
   Slate,
   ReactEditor,
-  useSlateStatic
+  useSlateStatic,
+  useSelected
 } from 'slate-react'
 import {
   Editor,
@@ -94,6 +95,17 @@ function RichText({
           <BlockButton format="justify" icon="format_align_justify" />
           <MarkButton format="code" icon="code" />
           <CodeBlockButton />
+          <SlateButton
+            icon={'delete_code_block'}
+            onClick={() => {
+              Transforms.unwrapNodes(editor)
+              Transforms.unwrapNodes(editor)
+              Transforms.insertNodes(editor, {
+                type: 'paragraph',
+                children: [{ text: '' }]
+              })
+            }}
+          />
           <InsertImageButton />
           <SlateButton
             icon={'undo'}
@@ -255,10 +267,12 @@ const Element = (props: any) => {
       return (
         <div
           {...attributes}
-          className="font-mono mb- text-sm leading-5 bg-[#F7F8F9] py-1 px-3 relative"
+          className={`font-mono text-sm leading-5 relative py-1 px-3 language-${element.language}`}
           spellCheck={false}
         >
-          <LanguageSelect value={element.language} onChange={setLanguage} />
+          {props.showImageDeleteButton && (
+            <LanguageSelect value={element.language} onChange={setLanguage} />
+          )}
           {children}
         </div>
       )
@@ -333,15 +347,7 @@ const MarkButton = ({ format, icon }: any) => {
     ></SlateButton>
   )
 }
-const serialize = (value) => {
-  return (
-    value
-      // Return the string content of each paragraph in the value's children.
-      .map((n) => Node.string(n))
-      // Join them all with line breaks denoting paragraphs.
-      .join('\n')
-  )
-}
+
 const initialValue = [
   { type: 'paragraph', align: 'left', children: [{ text: '' }] }
 ]

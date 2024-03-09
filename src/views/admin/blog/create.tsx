@@ -3,7 +3,7 @@ import {
   PostCreatBlog,
   PutEditBlog,
   getBlogType
-} from '@/requests/admin/blogs/blog'
+} from '@/requests/blogs/blog'
 import { useRequest } from 'ahooks'
 import { Button, Divider, Form, Input, Select, message, Image } from 'antd'
 import ContentEditor from '@/components/editor/content-editor'
@@ -12,8 +12,8 @@ import CustomFormSubmit from '@/components/form/custom-form-submit'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/comment'
-import CompPay from '@/components/pay/pay'
+import CompComment from '@/components/comment/admin-comment'
+import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
@@ -55,7 +55,7 @@ export default function AdminBlogCreate({
     data: blogDetailData,
     error: blogDetailError,
     run: runDetail
-  } = useRequest((data) => GetBlogDetail(data), {
+  } = useRequest((data) => GetBlogDetail({ id, ...data }), {
     manual: true
   })
   const { id } = useParams()
@@ -112,7 +112,7 @@ export default function AdminBlogCreate({
       </CustomFormItem>
       {type !== 'create' && (
         <CustomFormItem label="评论" name="comments" required={false}>
-          <CompComment type={type} />
+          <CompComment type={type} blogId={id} run={runDetail} />
         </CustomFormItem>
       )}
       {type !== 'create' && (

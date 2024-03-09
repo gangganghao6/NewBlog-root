@@ -1,36 +1,35 @@
-import AppAdmin from "@/App-admin";
-import AdminBlogEdit from '@/views/admin/blog/edit'
-import AdminBlogList from '@/views/admin/blog/list'
-import AdminHome from '@/views/admin/home/home'
-
+import AppFront from '@/App-front'
+import FrontBlog from '@/views/front/blog/blog'
+import FrontBlogDetail from '@/views/front/blog/blog-detail'
+import FrontLogin from '@/views/front/login'
 
 export default {
   path: '/front',
-  element: <AppAdmin />,
+  element: <AppFront />,
   children: [
-    {
-      path: '/front/home',
-      title: '首页',
-      element: <AdminHome />,
-      category: 'home'
-    },
+    // {
+    //   path: '/front/blog',
+    //   title: '首页',
+    //   element: <FrontHome />,
+    //   category: 'home'
+    // },
     {
       path: '/front/blog/list',
       title: '博客列表',
-      element: <AdminBlogList />,
-      category: 'blog'
+      element: <FrontBlog />
+      // category: 'blog'
     },
     {
       path: '/front/blog/detail/:id',
-      title: '博客查看',
-      element: <AdminBlogEdit />,
-      category: 'blog'
+      title: '博客详情',
+      element: <FrontBlogDetail />
+      // category: 'blog'
     },
     {
-      path: '/front/blog/edit/:id',
-      title: '博客编辑',
-      element: <AdminBlogEdit />,
-      category: 'blog'
+      path: '/front/login',
+      title: '博客登录',
+      element: <FrontLogin />
+      // category: 'blog'
     }
   ]
 }

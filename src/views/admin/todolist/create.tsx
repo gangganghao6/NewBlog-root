@@ -4,8 +4,8 @@ import CustomFormSubmit from '@/components/form/custom-form-submit'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/comment'
-import CompPay from '@/components/pay/pay'
+import CompComment from '@/components/comment/admin-comment'
+import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
@@ -14,7 +14,7 @@ import {
   PostCreateTodoList,
   PutEditTodoList,
   GetTodoListDetail
-} from '@/requests/admin/todolists/todolist'
+} from '@/requests/todolists/todolist'
 const descriptionColums = [
   {
     key: 'id',
@@ -57,8 +57,6 @@ export default function AdminProjectCreate({
     manual: true
   })
   const { id } = useParams()
-  console.log(type)
-
   useEffect(() => {
     if (type !== 'create') {
       runDetail({ id })

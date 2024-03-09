@@ -1,12 +1,11 @@
-import { GetBlogDetail, getBlogType } from '@/requests/admin/blogs/blog'
 import { useRequest } from 'ahooks'
 import { Divider, Form, Input, Image } from 'antd'
 import CustomFormSubmit from '@/components/form/custom-form-submit'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/comment'
-import CompPay from '@/components/pay/pay'
+import CompComment from '@/components/comment/admin-comment'
+import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
@@ -16,7 +15,7 @@ import {
   GetShuoshuoDetail,
   PostCreateShuoshuo,
   PutEditShuoshuo
-} from '@/requests/admin/shuoshuos/shuoshuo'
+} from '@/requests/shuoshuos/shuoshuo'
 import {
   ImageListPreview,
   VideoListPreview

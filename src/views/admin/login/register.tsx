@@ -1,12 +1,11 @@
-import { Button, Form, FormRule, Input, message } from 'antd'
-import { useState } from 'react'
+import { Button, Form, Input, message } from 'antd'
+import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
-import { RootRegist, rootRegist } from '@/requests/admin/base/root'
+import { rootRegist } from '@/requests/base/root'
 import { SwapOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 import clsx from 'clsx'
-// import { createRules } from '@/utils/form'
-import useRedirect from './useRedirect'
+import { AdminLoginInfo } from '@/state/base'
 
 export default function AdminRegister({
   setNeedLogin
@@ -17,7 +16,6 @@ export default function AdminRegister({
   const { run, loading, data, error } = useRequest((data) => rootRegist(data), {
     manual: true
   })
-  useRedirect(data, error)
   const submit = async () => {
     await form.validateFields()
     const { name, email, account, password, confirmPassword } =
@@ -30,11 +28,16 @@ export default function AdminRegister({
     }
     run({ name, email, account, password })
   }
-
+  useEffect(() => {
+    if (data) {
+      message.success('注册成功')
+      AdminLoginInfo.loginStateChange = !AdminLoginInfo.loginStateChange
+    }
+  }, [data, error])
   return (
     <Form form={form} className={clsx('mt-8', styles['index-form'])} name="formData">
       <div className="flex flex-col items-center justify-center">
-        <span className="text-2xl mb-5 w-72">注册</span>
+        <span className="text-2xl mb-2 w-72">注册</span>
         <Form.Item name="name" required={true}>
           <Input className="w-72 h-11" placeholder="姓名" size="large" />
         </Form.Item>

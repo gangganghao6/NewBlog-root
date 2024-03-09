@@ -14,6 +14,9 @@ import AdminProjectCreate from '@/views/admin/project/create'
 import AdminPersonal from '@/views/admin/personal/create'
 import AdminTodolistList from '@/views/admin/todolist/list'
 import AdminTodolistCreate from '@/views/admin/todolist/create'
+import AdminUserList from '@/views/admin/user/list'
+import AdminUserCreate from '@/views/admin/user/create'
+import AdminSetting from '@/views/admin/setting/create'
 
 export default {
   path: '/admin',
@@ -105,7 +108,7 @@ export default {
     },
     {
       path: '/admin/personal',
-      title: '个人主页',
+      title: '编辑个人主页',
       element: <AdminPersonal type="edit" />,
       category: 'personal'
     },
@@ -179,6 +182,36 @@ export default {
       title: 'TODO List新建',
       element: <AdminTodolistCreate type="create" />,
       category: 'todolist'
+    },
+    {
+      path:'/admin/user/list',
+      title: '用户列表',
+      element: <AdminUserList />,
+      category: 'user'
+    },
+    {
+      path:'/admin/user/detail/:id',
+      title: '用户查看',
+      element: <AdminUserCreate type="detail" />,
+      category: 'user'
+    },
+    {
+      path:'/admin/user/edit/:id',
+      title: '用户编辑',
+      element: <AdminUserCreate type="edit" />,
+      category: 'user'
+    },
+    {
+      path:'/admin/user/create',
+      title: '用户新建',
+      element: <AdminUserCreate type="create" />,
+      category: 'user'
+    },
+    {
+      path: '/admin/setting',
+      title: '博客设置',
+      element: <AdminSetting type="edit" />,
+      category: 'setting'
     },
   ]
 }

@@ -1,0 +1,22 @@
+$mask-z-index: 10;
+$topbar-height: 2.5rem;
+$main-max-width: 80rem;
+$media: (
+  'phone': 768px,
+  'pad': 1000px,
+  'desktop': 1200px
+);
+
+$leftbar-width-phone: 70%;
+$leftbar-width-pad: 28%;
+$leftbar-width-desktop: 18%;
+
+$content-width-phone: 100%;
+$content-width-pad: 100%;
+$content-width-desktop: 80%;    
+
+$rightbar-width-phone: 100%;
+$rightbar-width-pad: 100%;
+$rightbar-width-desktop: 20%;
+
+$switch-time: 0.4s;

@@ -9,6 +9,7 @@ import {
   BoldOutlined,
   CodeOutlined,
   CodeSandboxOutlined,
+  DeleteOutlined,
   FileImageOutlined,
   ItalicOutlined,
   MenuOutlined,
@@ -89,6 +90,10 @@ export const SlateButton = React.forwardRef(
         code_block: {
           element: <CodeOutlined style={style} />,
           title: '代码块'
+        },
+        delete_code_block: {
+          element: <DeleteOutlined style={style}/>,
+          title: '删除代码行（谨慎使用）'
         }
       }
     }, [active])

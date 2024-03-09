@@ -1,4 +1,4 @@
-import instance from '../admin/request'
+import instance from '../request'
 import CryptoJS from 'crypto-js'
 
 export const rootLogin = async ({ account, password }: RootLogin): Promise<any> => {
@@ -11,6 +11,10 @@ export const rootLogin = async ({ account, password }: RootLogin): Promise<any> 
     password: myPassword
   })
 }
+
+export const rootLogout = async (): Promise<any> => {
+  return await instance.post('/base/root/logout')
+}
 export const rootRegist = async ({
   account,
   email,
@@ -21,18 +25,18 @@ export const rootRegist = async ({
     password,
     import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
-    return await instance.post('/base/root/regist', {
-      account,
-      password: myPassword,
-      email,
-      name
-    })
+  return await instance.post('/base/root/regist', {
+    account,
+    password: myPassword,
+    email,
+    name
+  })
 }
-export const RequestRootPut = ({
+export const rootEditPassword = async ({
   id,
   newPassword,
   oldPassword
-}: RootModify): any => {
+}: RootModify): Promise<RootLoginReturn> => {
   const myNewPassword = CryptoJS.AES.encrypt(
     newPassword,
     import.meta.env.VITE_CRYPTO_KEY as string
@@ -41,15 +45,13 @@ export const RequestRootPut = ({
     oldPassword,
     import.meta.env.VITE_CRYPTO_KEY as string
   ).toString()
-  return async (): Promise<RootLoginReturn> => {
-    return await instance.put('/base/root/modify', {
-      id,
-      new_password: myNewPassword,
-      old_password: myOldPassword
-    })
-  }
+  return await instance.put('/base/root/modify', {
+    id,
+    newPassword: myNewPassword,
+    oldPassword: myOldPassword
+  })
 }
-export const confirmAuth = async (): Promise<any> => {
+export const rootAuth = async (): Promise<any> => {
   return await instance.post('/base/root/auth')
 }
 export interface RootLogin {

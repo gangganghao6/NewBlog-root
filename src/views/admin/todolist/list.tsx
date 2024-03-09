@@ -3,8 +3,7 @@ import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import DefaultOperationRender from '@/components/tabulation/default-operation-render'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import { DeleteTodoList } from '@/requests/admin/todolists/todolist'
-import { GetTodoListList } from '@/requests/admin/todolists/todolist'
+import { DeleteTodoList,GetTodoListList } from '@/requests/todolists/todolist'
 // import { useSnapshot } from 'valtio'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {

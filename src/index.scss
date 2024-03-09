@@ -1,25 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-blockquote {
-  color: #aaa;
-  font-style: italic;
-  border-left: 2px solid #aaa;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-left: 1rem;
-}
-code {
-  background-color: #eee;
-  padding: 3px;
-}
+// @import '@/asserts/prism-one-dark.css';
+
 html {
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   body {
     margin: 0;
-    height: 100vh;
+    height: 100%;
     #root {
-      height: 100vh;
+      height: 100%;
     }
+    p {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    code {
+      background-color: rgb(36,39,46);
+      padding: 3px;
+    }
+    blockquote {
+      color: #aaa;
+      font-style: italic;
+      border-left: 2px solid #aaa;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      padding-left: 1rem;
+    }
+  }
+  // 滚动条整体 整体如果不设置，只设置滑块和轨道是没有效果的
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px; // height对于纵向滚动条来说没有用，但是对于横向就有用了
+    border-radius: 10px;
+  }
+  // 滑块
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #adadaba4;
+    // height: 50px; // 整体设了宽高后，这里宽高是无效的
+    // width: 50px;
+  }
+  // 轨道
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #fff;
   }
 }

@@ -8,6 +8,7 @@ import 'prismjs/components/prism-python'
 import 'prismjs/components/prism-php'
 import 'prismjs/components/prism-sql'
 import 'prismjs/components/prism-java'
+import 'prismjs/components/prism-css'
 import { useCallback } from 'react'
 import { Node, Editor, Range, Element, Transforms, NodeEntry } from 'slate'
 import { useSlate, useSlateStatic } from 'slate-react'
@@ -15,7 +16,8 @@ import { normalizeTokens } from './normalize-tokens'
 import { SlateButton } from './components'
 import { Select } from 'antd'
 import styles from './editor.module.scss'
-import './code-style.css'
+import '@/asserts/prism-one-dark.css'
+// import './code-style.css'
 import clsx from 'clsx'
 const { Option } = Select
 
@@ -28,7 +30,7 @@ export const CodeBlockButton = (props) => {
   const handleClick = () => {
     Transforms.wrapNodes(
       editor,
-      { type: CodeBlockType, language: 'html', children: [{ text: 'asds' }] },
+      { type: CodeBlockType, language: 'html', children: [{ text: '' }] },
       {
         match: (n) => Element.isElement(n) && n.type === ParagraphType,
         split: true
@@ -138,7 +140,7 @@ export const LanguageSelect = (props: any) => {
       data-test-id="language-select"
       className={clsx(
         'absolute right-1 top-1 z-10 w-1 h-7',
-        styles['language-select']
+        styles['languageselect']
       )}
       {...props}
     >
@@ -174,61 +176,3 @@ const toCodeLines = (content: string): Element[] =>
   content
     .split('\n')
     .map((line) => ({ type: CodeLineType, children: toChildren(line) }))
-
-const initialValue: Element[] = [
-  {
-    type: ParagraphType,
-    children: toChildren(
-      "Here's one containing a single paragraph block with some text in it:"
-    )
-  },
-  {
-    type: CodeBlockType,
-    language: 'jsx',
-    children: toCodeLines(`// Add the initial value.
-const initialValue = [
-  {
-    type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }]
-  }
-]
-
-const App = () => {
-  const [editor] = useState(() => withReact(createEditor()))
-
-  return (
-    <Slate editor={editor} initialValue={initialValue}>
-      <Editable />
-    </Slate>
-  )
-}`)
-  },
-  {
-    type: ParagraphType,
-    children: toChildren(
-      'If you are using TypeScript, you will also need to extend the Editor with ReactEditor and add annotations as per the documentation on TypeScript. The example below also includes the custom types required for the rest of this example.'
-    )
-  },
-  {
-    type: CodeBlockType,
-    language: 'typescript',
-    children: toCodeLines(`// TypeScript users only add this code
-import { BaseEditor, Descendant } from 'slate'
-import { ReactEditor } from 'slate-react'
-
-type CustomElement = { type: 'paragraph'; children: CustomText[] }
-type CustomText = { text: string }
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: BaseEditor & ReactEditor
-    Element: CustomElement
-    Text: CustomText
-  }
-}`)
-  },
-  {
-    type: ParagraphType,
-    children: toChildren('There you have it!')
-  }
-]

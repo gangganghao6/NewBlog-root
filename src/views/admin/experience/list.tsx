@@ -6,7 +6,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom'
 import {
   DeletePersonalExperience,
   GetPersonalExperienceList
-} from '@/requests/admin/personal/experience'
+} from '@/requests/personal/experience'
 // import { useSnapshot } from 'valtio'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {
@@ -42,7 +42,7 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     dataIndex: 'timeStart',
     key: 'timeStart',
     render: (text: string) => {
-      return <>{formatTime(text)}</>
+      return <>{formatTime(text, false)}</>
     }
   },
   {
@@ -50,7 +50,7 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     dataIndex: 'timeEnd',
     key: 'timeEnd',
     render: (text: string) => {
-      return <>{text ? formatTime(text) : '--'}</>
+      return <>{text ? formatTime(text, false) : '--'}</>
     }
   },
   {

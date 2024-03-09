@@ -1,11 +1,11 @@
 import { use } from 'react'
 import { Suspense, useState } from 'react'
-import { GetBaseInfo } from '@/requests/admin/base/info'
+import { GetBaseInfoDetail } from '@/requests/base/info'
 import { useParams } from 'react-router-dom'
 // import { useSnapshot } from 'valtio'
 
 export default function () {
-  const [requestPromise, setRequestPromise] = useState<any>(GetBaseInfo)
+  const [requestPromise, setRequestPromise] = useState<any>(GetBaseInfoDetail)
   return (
     <Suspense fallback={<>loading...</>}>
       <BlogListRender requestPromise={requestPromise} />

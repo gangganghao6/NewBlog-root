@@ -4,7 +4,7 @@ import {
   DeleteShuoshuo,
   GetShuoshuoList,
   // getBlogType
-} from '@/requests/admin/shuoshuos/shuoshuo'
+} from '@/requests/shuoshuos/shuoshuo'
 import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import { Popover, Image } from 'antd'

@@ -1,0 +1,55 @@
+@import '@/components/variable.scss';
+.main {
+  height: 100%;
+  width: 100%;
+  max-width: $main-max-width;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  .content {
+    height: calc(100% - #{$topbar-height});
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+  }
+
+}
+@media screen and (max-width: map-get($media, 'phone')) {
+  .main {
+    position: relative;
+    .content {
+      flex-direction: column;
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
+  .main {
+    width: map-get($media, 'phone');
+    margin-left: auto;
+    margin-right: auto;
+    .content {
+      width: calc(100% - $leftbar-width-pad);
+      margin-left: $leftbar-width-pad;
+      flex-direction: column;
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
+  .main {
+    width: map-get($media, 'pad');
+    margin-left: auto;
+    margin-right: auto;
+    .content {
+      width: calc(100% - $leftbar-width-desktop);
+      margin-left: $leftbar-width-desktop;
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'desktop')) {
+  .main {
+    .content {
+      width: calc(100% - $leftbar-width-desktop);
+      margin-left: $leftbar-width-desktop;
+    }
+  }
+}

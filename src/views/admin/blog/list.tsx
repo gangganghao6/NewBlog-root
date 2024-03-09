@@ -4,7 +4,7 @@ import {
   DeleteBlog,
   GetBlogList,
   getBlogType
-} from '@/requests/admin/blogs/blog'
+} from '@/requests/blogs/blog'
 import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import { Popover, Image } from 'antd'
@@ -45,7 +45,7 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     render: (item: any) => {
       return (
         <Image
-          className="max-h-28 min-w-16 w-auto"
+          className="max-h-28 min-w-16 w-20"
           src={item?.compressUrl}
           preview={{
             src: item?.url
@@ -78,8 +78,8 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     key: 'visitedCount',
     width: 150,
     render: (_: never, row: any) => {
-      const { visitedCount, commentsCount, paysCount } = row
-      return `${visitedCount}/${commentsCount}/${paysCount}`
+      const { visitedCount, comments, pays } = row
+      return `${visitedCount}/${comments.length}/${pays.length}`
     }
   },
   {

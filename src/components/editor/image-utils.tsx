@@ -5,7 +5,7 @@ import imageExtensions from 'image-extensions'
 import isUrl from 'is-url'
 import { Button, Input, Modal, message, Image as AntdImage } from 'antd'
 import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
-import { PostFileChunkUpload } from '@/requests/admin/files/file_chunk'
+import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { useState } from 'react'
 import styles from './editor.module.scss'
 
@@ -41,10 +41,10 @@ export const insertImage = (
   const text = { text: '' }
   const image = { type: 'image', data, children: [text] }
   Transforms.insertNodes(editor, image)
-  Transforms.insertNodes(editor, {
-    type: 'paragraph',
-    children: [{ text: '' }]
-  })
+  // Transforms.insertNodes(editor, {
+  //   type: 'paragraph',
+  //   children: [{ text: '' }]
+  // })
 }
 const isImageUrl = (url: string) => {
   if (!url) return false
@@ -103,9 +103,8 @@ export const Image = ({
   const [showDelete, setShowDelete] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
   const {
-    data: { url, name, compressUrl }
+    data: { url, name, compressUrl, originalName }
   } = element
-
   return (
     <div
       {...attributes}
@@ -114,26 +113,25 @@ export const Image = ({
       onMouseLeave={() => setShowDelete(false)}
     >
       {children}
-      <span contentEditable={false} className="relative inline-block">
-        <img
-          src={url}
-          className="block max-w-full max-h-[20em]"
-          style={{
-            boxShadow: showDelete ? '0 0 0 1px #B4D5FF' : 'none'
-          }}
-        />
-        <div className="text-center">{name}</div>
-        <div className="text-[0px]">
-          <AntdImage
+      {showImageDeleteButton ? (
+        <span contentEditable={false} className="relative inline-block">
+          <img
             src={url}
-            className="hidden"
-            preview={{
-              visible: showPreview,
-              onVisibleChange: () => setShowPreview(false)
+            className="block max-w-full max-h-[20em]"
+            style={{
+              boxShadow: showDelete ? '0 0 0 1px #B4D5FF' : 'none'
             }}
-          ></AntdImage>
-        </div>
-        {showImageDeleteButton && (
+          />
+          <div className="text-[0px]">
+            <AntdImage
+              src={url}
+              className="hidden"
+              preview={{
+                visible: showPreview,
+                onVisibleChange: () => setShowPreview(false)
+              }}
+            ></AntdImage>
+          </div>
           <Button
             onClick={() => Transforms.removeNodes(editor, { at: path })}
             className={`absolute top-2 left-2 bg-white ${
@@ -142,16 +140,40 @@ export const Image = ({
           >
             <DeleteOutlined />
           </Button>
-        )}
-        <Button
-          onClick={() => setShowPreview(!showPreview)}
-          className={`absolute top-2 right-2 bg-white ${
-            showDelete ? 'inline' : 'hidden'
-          }`}
-        >
-          <EyeOutlined />
-        </Button>
-      </span>
+          <Button
+            className={`absolute bottom-2 left-[50%] translate-x-[-50%] transform-gpu bg-white ${
+              showDelete ? 'inline' : 'hidden'
+            }`}
+            onClick={() => {
+              Transforms.insertNodes(
+                editor,
+                {
+                  type: 'paragraph',
+                  children: [{ text: '' }]
+                },
+                { at: [path[0] + 1] }
+              )
+            }}
+          >
+            在图片下方插入行
+          </Button>
+          <Button
+            onClick={() => setShowPreview(!showPreview)}
+            className={`absolute top-2 right-2 bg-white ${
+              showDelete ? 'inline' : 'hidden'
+            }`}
+          >
+            <EyeOutlined />
+          </Button>
+        </span>
+      ) : (
+        <span contentEditable={false} className="relative inline-block">
+          <AntdImage
+            className="block max-w-full max-h-[20em]"
+            src={url}
+          ></AntdImage>
+        </span>
+      )}
     </div>
   )
 }

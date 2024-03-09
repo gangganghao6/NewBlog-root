@@ -3,7 +3,10 @@ import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import DefaultOperationRender from '@/components/tabulation/default-operation-render'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import { DeletePersonalProject, GetPersonalProjectList } from '@/requests/admin/personal/project'
+import {
+  DeletePersonalProject,
+  GetPersonalProjectList
+} from '@/requests/personal/project'
 // import { useSnapshot } from 'valtio'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {
@@ -41,17 +44,17 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     width: 150
   },
   {
-    title:'Demo Url',
-    dataIndex:'demoUrl',
-    key:'demoUrl',
-    width:150
+    title: 'Demo Url',
+    dataIndex: 'demoUrl',
+    key: 'demoUrl',
+    width: 150
   },
   {
     title: '开始时间',
     dataIndex: 'timeStart',
     key: 'timeStart',
     render: (text: string) => {
-      return <>{formatTime(text)}</>
+      return <>{formatTime(text, false)}</>
     }
   },
   {
@@ -59,7 +62,7 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     dataIndex: 'timeEnd',
     key: 'timeEnd',
     render: (text: string) => {
-      return <>{text ? formatTime(text) : '--'}</>
+      return <>{text ? formatTime(text, false) : '--'}</>
     }
   },
   {

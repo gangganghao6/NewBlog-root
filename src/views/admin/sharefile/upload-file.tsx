@@ -3,8 +3,7 @@ import {
   formatImageFromResult,
   formatVideoFromResult
 } from '@/components/form/format-media-from-result'
-import { PostFileChunkUpload } from '@/requests/admin/files/file_chunk'
-import { getVideoPost } from '@/utils/utils'
+import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { UploadOutlined } from '@ant-design/icons'
 import { Button, Upload, message, Image } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
@@ -16,16 +15,8 @@ export default function UploadFile({ value, onChange, form }: any) {
   const [previewData, setPreviewData] = useState<any>({})
   const handleVideoUpload = (file: any) => {
     PostFileChunkUpload([file]).then((videoRes) => {
-      getVideoPost(file).then((postFile) => {
-        PostFileChunkUpload([postFile]).then((postRes) => {
-          const result = {
-            ...videoRes[0].data,
-            post: postRes[0].data
-          }
-          setFileList([result])
-          setUploadFileList([result])
-        })
-      })
+      setFileList([formatVideoFromResult(videoRes[0].data)])
+      setUploadFileList([videoRes[0].data])
     })
   }
   const handleImageUpload = (file: any) => {

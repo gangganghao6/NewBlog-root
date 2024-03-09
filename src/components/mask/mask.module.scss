@@ -1,0 +1,15 @@
+@import '@/components/variable.scss';
+.mask {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: $mask-z-index;
+  transition: opacity $switch-time;
+}
+.mask.hidden {
+  opacity: 0;
+}
+.mask.show {
+  opacity: 1;
+}

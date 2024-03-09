@@ -1,12 +1,11 @@
 import { Button, Form, Input, message } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
-import { RootLogin, rootLogin } from '@/requests/admin/base/root'
+import { rootLogin } from '@/requests/base/root'
 import { SwapOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
 import styles from './index.module.scss'
-import { useLocation, useNavigate } from 'react-router-dom'
-import useRedirect from './useRedirect'
+import { AdminLoginInfo } from '@/state/base'
 
 export default function AdminLogin({
   setNeedLogin
@@ -17,7 +16,6 @@ export default function AdminLogin({
   const { run, loading, data, error } = useRequest((data) => rootLogin(data), {
     manual: true
   })
-  useRedirect(data, error)
 
   const submit = async () => {
     await form.validateFields()
@@ -27,6 +25,12 @@ export default function AdminLogin({
     }
     run({ account, password })
   }
+  useEffect(() => {
+    if (data) {
+      message.success('登录成功')
+      AdminLoginInfo.loginStateChange = !AdminLoginInfo.loginStateChange
+    }
+  }, [data, error])
   return (
     <Form
       form={form}
@@ -34,7 +38,7 @@ export default function AdminLogin({
       name="formData"
     >
       <div className="flex flex-col items-center justify-center">
-        <span className="text-2xl w-72">登录</span>
+        <span className="text-2xl w-72 mb-2">登录</span>
         <Form.Item name="account" required={true}>
           <Input className="w-72 h-11" placeholder="账号" size="large" />
         </Form.Item>

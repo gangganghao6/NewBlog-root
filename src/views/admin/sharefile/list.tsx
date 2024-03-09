@@ -1,9 +1,4 @@
 import { Ref, use, useEffect, useRef } from 'react'
-import { Suspense, useState } from 'react'
-import {
-  GetShuoshuoList
-  // getBlogType
-} from '@/requests/admin/shuoshuos/shuoshuo'
 import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import DefaultOperationRender from '@/components/tabulation/default-operation-render'
@@ -11,8 +6,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom'
 import {
   DeleteShareFile,
   GetShareFileList
-} from '@/requests/admin/share_files/share_file'
-// import { useSnapshot } from 'valtio'
+} from '@/requests/share_files/share_file'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {
     title: '操作',

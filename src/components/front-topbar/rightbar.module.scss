@@ -1,0 +1,38 @@
+@import '@/components/variable.scss';
+.rightbar {
+  width: 30%;
+  background-color: green;
+  height: 100%;
+}
+@media screen and (max-width: map-get($media, 'phone')) {
+    .rightbar {
+      background-color: greenyellow;
+      width: $rightbar-width-phone;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
+    .rightbar {
+      background-color: salmon;
+      width: $rightbar-width-pad;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
+    .rightbar {
+      background-color: sandybrown;
+      width: $rightbar-width-desktop;
+      //   height: calc(100% - #{$topbar-height});
+      height: 100%;
+    }
+  }
+  @media screen and (min-width: map-get($media, 'desktop')) {
+    .rightbar {
+      background-color: darkblue;
+      width: $rightbar-width-desktop;
+      //   height: calc(100% - #{$topbar-height});
+      height: 100%;
+    }
+  }

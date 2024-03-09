@@ -1,0 +1,45 @@
+@import '@/components/variable.scss';
+.leftbar {
+  width: 20%;
+  position: absolute;
+  z-index: calc(#{$mask-z-index} + 1);
+}
+
+@media screen and (max-width: map-get($media, 'phone')) {
+  .leftbar {
+    position: absolute;
+    background-color: peru;
+    width: $leftbar-width-phone;
+    height: 100%;
+    top: 0;
+    transition: transform $switch-time;
+    transition-timing-function: ease;
+  }
+  .leftbar.show {
+    transform: translateX(0);
+  }
+  .leftbar.hidden {
+    transform: translateX(-100%);
+  }
+}
+@media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
+  .leftbar {
+    width: $leftbar-width-pad;
+    background-color: yellow;
+    height: calc(100% - #{$topbar-height});
+  }
+}
+@media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
+  .leftbar {
+    background-color: purple;
+    width: $leftbar-width-desktop;
+    height: calc(100% - #{$topbar-height});
+  }
+}
+@media screen and (min-width: map-get($media, 'desktop')) {
+  .leftbar {
+    background-color: plum;
+    height: calc(100% - #{$topbar-height});
+    width: $leftbar-width-desktop;
+  }
+}

@@ -1,5 +1,4 @@
-import { PostFileChunkUpload } from '@/requests/admin/files/file_chunk'
-import { getVideoPost } from '@/utils/utils'
+import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { UploadOutlined } from '@ant-design/icons'
 import { Button, Upload, message, Image } from 'antd'
 import { useCallback, useEffect, useState } from 'react'

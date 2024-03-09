@@ -9,7 +9,8 @@ import {
   HeartOutlined,
   ProjectOutlined,
   FundProjectionScreenOutlined,
-  CarryOutOutlined
+  CarryOutOutlined,
+  AliwangwangOutlined
 } from '@ant-design/icons'
 export default [
   {
@@ -37,10 +38,16 @@ export default [
     path: '/admin/sharefile/list'
   },
   {
-    label: '聊天',
+    label: '聊天（待完成）',
     key: '/admin/chat',
     icon: <FireOutlined />,
     path: '/admin/chat'
+  },
+  {
+    label: 'TODO List',
+    key: '/admin/todolist/list',
+    icon: <CarryOutOutlined />,
+    path: '/admin/todolist/list'
   },
   {
     label: '个人',
@@ -63,12 +70,34 @@ export default [
       }
     ]
   },
+
   {
-    label: 'TODO List',
-    key: '/admin/todolist/list',
-    icon: <CarryOutOutlined />,
-    path: '/admin/todolist/list'
+    label: '用户',
+    icon: <AliwangwangOutlined />,
+    children: [
+      {
+        label: '用户信息',
+        key: '/admin/user/list',
+        path: '/admin/user/list'
+      },
+      {
+        label: '聊天记录（待完成）',
+        key: '/admin/chat/list',
+        path: '/admin/chat/list'
+      },
+      {
+        label: '访问记录（待完成）',
+        key: '/admin/uservisit/list',
+        path: '/admin/uservisit/list'
+      },
+      {
+        label: '打赏记录（待完成）',
+        key: '/admin/pay/list',
+        path: '/admin/pay/list'
+      }
+    ]
   },
+
   {
     label: '设置',
     key: '/admin/setting',

@@ -4,8 +4,8 @@ import CustomFormSubmit from '@/components/form/custom-form-submit'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/comment'
-import CompPay from '@/components/pay/pay'
+import CompComment from '@/components/comment/admin-comment'
+import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
@@ -16,7 +16,7 @@ import {
   PostCreatePersonalProject,
   PutEditPersonalProject,
   GetPersonalProjectDetail
-} from '@/requests/admin/personal/project'
+} from '@/requests/personal/project'
 const { TextArea } = Input
 const descriptionColums = [
   {
