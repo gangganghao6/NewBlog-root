@@ -1,0 +1,58 @@
+@import '@/components/variable.scss';
+.container {
+  width: calc(100% + 20px);
+  height: calc(100vh - #{$topbar-height} - 2px);
+  background-color: rgb(242, 242, 242);
+  border: 1px solid blue;
+  position: relative;
+  margin: -10px;
+  .message-area {
+    overflow-y: scroll;
+    position: absolute;
+    // height: 100%;
+    // bottom: 25%;
+    height: 75%;
+    width: 100%;
+    overflow-anchor: auto;
+  }
+  .utils {
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    border: 1px solid gray;
+    bottom: 20%;
+    display: flex;
+    justify-content: right;
+    background-color: #fff;
+    .utils-button {
+      margin-right: 22px;
+      font-size: 22px;
+    }
+    .utils-button:hover {
+      color: $primary-color;
+      cursor: pointer;
+    }
+  }
+  .input {
+    position: absolute;
+    width: 100%;
+    height: 15%;
+    border: 1px solid gray;
+    background-color: #fff;
+    bottom: 5%;
+  }
+  .submit {
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    bottom: 0;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: #fff;
+  }
+}
+.message-area::-webkit-scrollbar {
+//   width: 0px !important;
+}

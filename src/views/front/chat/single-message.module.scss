@@ -1,0 +1,50 @@
+.chat-single-message {
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px 10px 12px 10px;
+  align-items: flex-start;
+  .avatar {
+    min-width: 4%;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    .user-container {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: flex;
+      .username {
+        line-height: 14px;
+        margin-right: 5px;
+      }
+      .time {
+        color: rgb(177, 177, 177);
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 10px;
+        font-weight: 400;
+        text-align: center;
+      }
+    }
+    .message {
+      font-size: 16px;
+      background-color: #fff;
+      padding: 8px;
+      border-radius: 10px;
+    }
+  }
+}
+.right {
+  flex-direction: row-reverse;
+  .content {
+    align-items: flex-end;
+    .user-container {
+      flex-direction: row-reverse;
+    }
+  }
+}

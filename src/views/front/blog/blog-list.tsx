@@ -10,7 +10,6 @@ export default function BlogList() {
       manual: false
     }
   )
-  console.log(data)
 
   return (
     <div>

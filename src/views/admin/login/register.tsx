@@ -39,7 +39,7 @@ export default function AdminRegister({
       <div className="flex flex-col items-center justify-center">
         <span className="text-2xl mb-2 w-72">注册</span>
         <Form.Item name="name" required={true}>
-          <Input className="w-72 h-11" placeholder="姓名" size="large" />
+          <Input className="w-72 h-11" placeholder="姓名" size="large" allowClear/>
         </Form.Item>
         <Form.Item name="email" required={true} rules={[{
           type: 'email',
@@ -50,10 +50,11 @@ export default function AdminRegister({
             placeholder="邮箱"
             size="large"
             type="email"
+            allowClear
           />
         </Form.Item>
         <Form.Item name="account" required={true}>
-          <Input className="w-72 h-11" placeholder="账号" size="large" />
+          <Input className="w-72 h-11" placeholder="账号" size="large" allowClear/>
         </Form.Item>
         <Form.Item name="password" required={true}>
           <Input
@@ -61,6 +62,7 @@ export default function AdminRegister({
             placeholder="密码"
             type="password"
             size="large"
+            allowClear
           />
         </Form.Item>
         <Form.Item name="confirmPassword" required={true}>
@@ -69,6 +71,7 @@ export default function AdminRegister({
             placeholder="确认密码"
             type="password"
             size="large"
+            allowClear
           />
         </Form.Item>
         <Button

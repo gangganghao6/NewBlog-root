@@ -9,12 +9,14 @@ import {
   EyeOutlined,
   FieldTimeOutlined,
   HighlightOutlined,
+  MoneyCollectOutlined,
   PayCircleOutlined
 } from '@ant-design/icons'
 import ContentEditor from '@/components/editor/content-editor'
 import { Button } from 'antd'
 import FrontComment from '@/components/comment/front-comment'
 import FrontPayButton from '@/components/pay/front-pay-button'
+import FrontPayList from '@/components/pay/front-pay-list'
 
 export default function FrontBlogDetail() {
   const id = useParams()?.id
@@ -43,6 +45,10 @@ export default function FrontBlogDetail() {
           <CommentOutlined />
           {data?.data?.comments?.length}
         </div>
+        <div className={clsx(styles.commentsCount, styles['header-item'])}>
+          <MoneyCollectOutlined />
+          {data?.data?.pays?.length}
+        </div>
         <div className={clsx(styles.visitedCount, styles['header-item'])}>
           <EyeOutlined />
           {data?.data?.visitedCount}
@@ -60,7 +66,7 @@ export default function FrontBlogDetail() {
         </div>
       </div>
       <div className={styles.pay}>
-        <FrontPayButton blogId={id} />
+        <FrontPayButton blogId={id} run={run} />
         <span className="mb-6 text-[13px]">
           喜欢我的文章吗？ 别忘了点赞或赞赏，让我知道创作的路上有你陪伴。
         </span>
@@ -70,6 +76,7 @@ export default function FrontBlogDetail() {
         run={run}
         comments={data?.data?.comments || []}
       />
+      <FrontPayList pays={data?.data?.pays} />
     </div>
   )
 }

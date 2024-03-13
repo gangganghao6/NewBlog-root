@@ -2,10 +2,11 @@ import { GlobalInfo } from '@/state/base'
 import { useSnapshot } from 'valtio'
 import clsx from 'clsx'
 import { Menu } from 'antd'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useMatches, useNavigate } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import MENU_LIST from '@/routes/front-menu-list'
 import styles from './leftbar.module.scss'
+import { routes } from '@/routes'
 
 const findCurrentMenu: any = (list: []) => {
   for (const item of list) {
@@ -22,6 +23,18 @@ export default function Leftbar(props: any) {
   const state = useSnapshot(GlobalInfo)
   const navigate = useNavigate()
   const location = useLocation()
+  const matchItem = useMatches()[0]
+  useEffect(() => {
+    const categoryMap = routes.find((e) => e.path === '/front')?.children
+    const title = categoryMap.find((item) => {
+      if (matchItem?.params?.id !== undefined) {
+        const formatPath = item.path.replace(':id', matchItem?.params?.id)
+        return formatPath === location.pathname
+      }
+      return item.path === location.pathname
+    })?.title
+    document.title = title
+  }, [location.pathname])
 
   const currentMenu = useMemo(() => {
     return findCurrentMenu(MENU_LIST)
@@ -38,6 +51,7 @@ export default function Leftbar(props: any) {
         <Menu
           onClick={({ key }) => {
             navigate(key)
+            GlobalInfo.isLeftbarOpen = false
           }}
           theme={'light'}
           mode="inline"

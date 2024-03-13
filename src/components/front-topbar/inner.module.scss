@@ -1,28 +1,36 @@
 @import '@/components/variable.scss';
 .inner {
-  margin: 10px;
-  padding: 15px;
-  box-sizing: border-box;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  .inner-border {
+    // margin: $inner-border-margin;
+    padding: $inner-border-padding;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    min-height: calc(100% - #{$topbar-height} - 10px);
+  }
 }
 @media screen and (max-width: map-get($media, 'phone')) {
   .inner {
-    background-color: salmon;
+    .inner-border {
+      background-color: salmon;
+    }
     height: 100%;
     // width: $content-width-phone;
   }
 }
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
   .inner {
-    background-color: saddlebrown;
+    .inner-border {
+      background-color: saddlebrown;
+    }
     height: 100%;
     // width: $content-width-pad;
   }
 }
 @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
   .inner {
-    background-color: firebrick;
+    .inner-border {
+      background-color: firebrick;
+    }
     //   height: calc(100% - #{$topbar-height});
     width: $content-width-desktop;
     // margin-left: $leftbar-width;
@@ -31,7 +39,9 @@
 }
 @media screen and (min-width: map-get($media, 'desktop')) {
   .inner {
-    background-color: salmon;
+    .inner-border {
+      background-color: salmon;
+    }
     width: $content-width-desktop;
     //   height: calc(100% - #{$topbar-height});
     height: 100%;

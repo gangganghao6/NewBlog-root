@@ -11,6 +11,9 @@
       height: 100%;
       width: 100%;
     }
+    .rightbar.switch1{
+      display: none;
+    }
   }
   @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
     .rightbar {
@@ -19,20 +22,27 @@
       height: 100%;
       width: 100%;
     }
+    .rightbar.switch1{
+      display: none;
+    }
   }
   @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
     .rightbar {
       background-color: sandybrown;
       width: $rightbar-width-desktop;
-      //   height: calc(100% - #{$topbar-height});
       height: 100%;
+    }
+    .rightbar.switch2{
+      display: none;
     }
   }
   @media screen and (min-width: map-get($media, 'desktop')) {
     .rightbar {
       background-color: darkblue;
       width: $rightbar-width-desktop;
-      //   height: calc(100% - #{$topbar-height});
       height: 100%;
+    }
+    .rightbar.switch2{
+      display: none;
     }
   }

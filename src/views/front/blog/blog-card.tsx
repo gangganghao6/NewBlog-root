@@ -5,7 +5,8 @@ import {
   CommentOutlined,
   EyeOutlined,
   FieldTimeOutlined,
-  HighlightOutlined
+  HighlightOutlined,
+  MoneyCollectOutlined
 } from '@ant-design/icons'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
@@ -14,9 +15,12 @@ export function BlogCardTop(props: any) {
   const { data } = props
   const navigate = useNavigate()
   return (
-    <div className={styles['top-card']} onClick={()=>{
+    <div
+      className={styles['top-card']}
+      onClick={() => {
         navigate(`/front/blog/detail/${data?.id}`)
-    }}>
+      }}
+    >
       <img className={styles.post} src={data?.post.url} alt="" />
       <div className={styles.container}>
         <div className={styles.title}>{data?.title}</div>
@@ -32,9 +36,12 @@ export function BlogCardHalf(props: any) {
   const navigate = useNavigate()
 
   return (
-    <div className={styles['half-card']} onClick={() => {
+    <div
+      className={styles['half-card']}
+      onClick={() => {
         navigate(`/front/blog/detail/${data?.id}`)
-    }}>
+      }}
+    >
       <img className={styles.post} src={data?.post.url} alt="" />
       <div className={styles.container}>
         <div className={styles.title}>{data?.title}</div>
@@ -57,6 +64,10 @@ export function BlogCardHalf(props: any) {
           <div className={clsx(styles.visitedCount, styles['footer-item'])}>
             <EyeOutlined />
             {data?.visitedCount}
+          </div>
+          <div className={clsx(styles.paysCount, styles['footer-item'])}>
+            <MoneyCollectOutlined />
+            {data?.pays?.length}
           </div>
         </div>
       </div>

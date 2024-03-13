@@ -1,5 +1,6 @@
 import instance from '../request'
 import { type List, type Pay, type User } from '../../utils/types'
+import isMobile from 'is-mobile'
 
 export const GetUserDetail = async ({ id }: { id: string }): Promise<UserLoginReturn> => {
   return await instance.get(`/users/user/${id}`)
@@ -55,10 +56,12 @@ export const UserAuth = async (): Promise<any> => {
   return await instance.post('/users/auth')
 }
 export const UserCreatePayOrder = async ({ blogId, money, type, message, payType }: CreatePayOrder): Promise<any> => {
-  return await instance.post('/users/pay/create', { blogId, money, type, message, payType })
+  return await instance.post('/users/pay/create', { blogId, money, type, message, payType, isMobile: isMobile() })
 }
-export const UserConfirmPayOrder = async ({ id }: { id: string }): Promise<any> => {
-  return await instance.post(`/users/pay/confirm/${id}`)
+export const UserConfirmPayOrder = async ({ outTradeNo }: { outTradeNo: string }): Promise<any> => {
+  return await instance.post(`/users/pay/confirm`, {
+    outTradeNo
+  })
 
 }
 // export const RequestPayList = ({ page, size, sort }: List): any => {
@@ -90,6 +93,7 @@ export interface PutUser {
 
 export interface CreatePayOrder {
   type: 'blog' | 'personal'
+  isMobile?: boolean
   blogId?: string
   message?: string
   money: number

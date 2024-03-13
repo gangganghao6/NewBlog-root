@@ -26,6 +26,7 @@ export default function AppFront() {
         spinning={state.loading}
         tip={<div className="text-white">加载中...</div>}
         fullscreen
+        className='z-[10000]'
         indicator={
           <img
             style={{

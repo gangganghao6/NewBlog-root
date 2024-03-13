@@ -49,7 +49,7 @@ export default function FrontLogin({
             }
           ]}
         >
-          <Input className="w-72 h-11" placeholder="邮箱" size="large" />
+          <Input className="w-72 h-11" placeholder="邮箱" size="large" allowClear />
         </Form.Item>
         <Button
           className="w-72 h-11 text-base mb-3 mt-2"

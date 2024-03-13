@@ -1,7 +1,7 @@
 import { Button, Form, Input, message } from 'antd'
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
-import { rootRegist } from '@/requests/base/root'
+import { UserRegist } from '@/requests/users/user'
 import { SwapOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ export default function FrontRegister({
   setNeedLogin: Function
 }) {
   const [form] = Form.useForm()
-  const { run, loading, data, error } = useRequest((data) => rootRegist(data), {
+  const { run, loading, data, error } = useRequest((data) => UserRegist(data), {
     manual: true
   })
   const submit = async () => {
@@ -39,7 +39,7 @@ export default function FrontRegister({
       <div className="flex flex-col items-center justify-center">
         <span className="text-2xl mb-2 w-72">注册</span>
         <Form.Item name="name" required={true}>
-          <Input className="w-72 h-11" placeholder="姓名" size="large" />
+          <Input className="w-72 h-11" placeholder="姓名" size="large" allowClear/>
         </Form.Item>
         <Form.Item
           name="email"
@@ -56,6 +56,7 @@ export default function FrontRegister({
             placeholder="邮箱"
             size="large"
             type="email"
+            allowClear
           />
         </Form.Item>
         <Button

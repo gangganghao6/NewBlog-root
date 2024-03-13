@@ -10,8 +10,8 @@ export default function FrontIndex(props: any) {
       <FrontTopbar />
       <FrontLeftbar />
       <main className={styles.content}>
-          <FrontInner>{props.children}</FrontInner>
-          <FrontRightbar />
+        <FrontInner>{props.children}</FrontInner>
+        <FrontRightbar isOuter={true} />
       </main>
     </div>
   )

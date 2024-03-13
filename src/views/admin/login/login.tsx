@@ -40,7 +40,7 @@ export default function AdminLogin({
       <div className="flex flex-col items-center justify-center">
         <span className="text-2xl w-72 mb-2">登录</span>
         <Form.Item name="account" required={true}>
-          <Input className="w-72 h-11" placeholder="账号" size="large" />
+          <Input className="w-72 h-11" placeholder="账号" size="large" allowClear/>
         </Form.Item>
         <Form.Item name="password" required={true}>
           <Input
@@ -48,6 +48,7 @@ export default function AdminLogin({
             placeholder="密码"
             type="password"
             size="large"
+            allowClear
           />
         </Form.Item>
         <Button

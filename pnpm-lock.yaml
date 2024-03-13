@@ -71,6 +71,9 @@ dependencies:
   is-hotkey:
     specifier: ^0.2.0
     version: 0.2.0
+  is-mobile:
+    specifier: ^4.0.0
+    version: 4.0.0
   is-url:
     specifier: ^1.2.4
     version: 1.2.4
@@ -2821,6 +2824,10 @@ packages:
 
   /is-hotkey@0.2.0:
     resolution: {integrity: sha512-UknnZK4RakDmTgz4PI1wIph5yxSs/mvChWs9ifnlXsKuXgWmOkY/hAE0H/k2MIqH0RlRye0i1oC07MCRSD28Mw==}
+    dev: false
+
+  /is-mobile@4.0.0:
+    resolution: {integrity: sha512-mlcHZA84t1qLSuWkt2v0I2l61PYdyQDt4aG1mLIXF5FDMm4+haBCxCPYSr/uwqQNRk1MiTizn0ypEuRAOLRAew==}
     dev: false
 
   /is-negative-zero@2.0.2:

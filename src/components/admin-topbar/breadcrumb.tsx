@@ -27,7 +27,7 @@ export default function CompBreadCrumb() {
     '/'
   )?.[3] as any
   const item = []
-  const categoryMap = routes[0].children
+  const categoryMap = routes.find((e)=>e.path==='/admin')?.children
 
   item.push({
     path: `${category}/list`,

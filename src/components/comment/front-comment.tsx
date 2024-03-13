@@ -17,16 +17,22 @@ const data = [
     title: 'Ant Design Title 4'
   }
 ]
-export default function FrontComment({ blogId, run, comments }: any) {
+export default function FrontComment({ blogId, run, comments = [] }: any) {
   const [comment, setComment] = useState('')
-  console.log(comments)
+  const [currentPage, setCurrentPage] = useState(1)
 
   return (
     <>
-      <div className="text-[18px] mb-6">评论</div>
+      <div className="text-[18px] mb-6">评论 {comments?.length}条</div>
       <List
         itemLayout="horizontal"
-        dataSource={comments}
+        dataSource={comments.slice((currentPage - 1) * 5, currentPage * 5)}
+        pagination={{
+          onChange: (page) => setCurrentPage(page),
+          pageSize: 5,
+          total: comments?.length || 0,
+          hideOnSinglePage: true
+        }}
         renderItem={(item, index) => {
           return (
             <List.Item>
@@ -78,8 +84,4 @@ export default function FrontComment({ blogId, run, comments }: any) {
 async function submitBlogComment(blogId: number, comment: string) {
   await PostCreateBlogComment({ blogId, comment })
   message.success('评论成功')
-  document.querySelector('main')?.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
 }

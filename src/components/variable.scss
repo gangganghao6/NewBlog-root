@@ -1,4 +1,4 @@
-$mask-z-index: 10;
+$mask-z-index: 999;
 $topbar-height: 2.5rem;
 $main-max-width: 80rem;
 $media: (
@@ -13,10 +13,15 @@ $leftbar-width-desktop: 18%;
 
 $content-width-phone: 100%;
 $content-width-pad: 100%;
-$content-width-desktop: 80%;    
+$content-width-desktop: 80%;
 
 $rightbar-width-phone: 100%;
 $rightbar-width-pad: 100%;
 $rightbar-width-desktop: 20%;
 
 $switch-time: 0.4s;
+
+$inner-border-margin: 10px;
+$inner-border-padding: 10px;
+
+$primary-color: #1890ff;

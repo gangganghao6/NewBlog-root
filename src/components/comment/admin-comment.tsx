@@ -2,6 +2,7 @@ import { Avatar, Button, List, Popconfirm, message } from 'antd'
 import sliceEmail from './slice-email'
 import { formatTime } from '@/utils/utils'
 import { DeleteBlogComment } from '@/requests/blogs/blog'
+import { useState } from 'react'
 const data = [
   {
     title: 'Ant Design Title 1'
@@ -23,10 +24,17 @@ export default function Comment({
   blogId,
   run
 }: any) {
+  const [currentPage, setCurrentPage] = useState(1)
   return (
     <List
       itemLayout="horizontal"
-      dataSource={value}
+      dataSource={value.slice((currentPage - 1) * 5, currentPage * 5)}
+      pagination={{
+        onChange: (page) => setCurrentPage(page),
+        pageSize: 5,
+        total: value?.length || 0,
+        hideOnSinglePage: true
+      }}
       renderItem={(item, index) => (
         <List.Item
           actions={
