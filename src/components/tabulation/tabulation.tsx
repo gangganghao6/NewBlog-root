@@ -16,12 +16,12 @@ export default forwardRef(function Tabulation(
     column,
     searchConfig,
     api,
-    operation
+    operation = []
   }: {
     column: any[]
     searchConfig: any[]
     api: Function
-    operation: any[]
+    operation?: any[]
   },
   ref: Ref<any>
 ) {
@@ -106,6 +106,8 @@ function onSearch(form: any, run: Function) {
       await form.validateFields()
       const values = form.getFieldsValue()
       for (const key of Object.keys(values)) {
+        console.log(key);
+        
         const instance = form.getFieldInstance(key)
         if (instance?.nativeElement?.className?.includes('ant-picker')) {
           if (values[key] && Array.isArray(values[key])) {
@@ -119,8 +121,6 @@ function onSearch(form: any, run: Function) {
       }
       run({ ...values, page, size, sort })
     } catch (e: any) {
-      console.log(e)
-
       const msg = e.errorFields
         .map((item: any) => item.errors.join(','))
         .join(';')

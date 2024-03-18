@@ -135,38 +135,15 @@ const operation = [
   }
 ]
 export default function () {
-  // const [requestPromise, setRequestPromise] = useState<any>(
-  //   GetBlogList({ size: 10, page: 1, sort: 'desc' })
-  // )
   const navigate = useNavigate()
   const tableRef = useRef<{ onSearch?: Function; onReset?: Function }>({})
   return (
     <Tabulation
       api={GetBlogList}
       ref={tableRef}
-      // setRequestPromise={setRequestPromise}
       searchConfig={searchConfig}
       column={column(navigate, tableRef)}
       operation={operation}
-      // data={result}
     />
-    // <Suspense fallback={<CompSkeleton />}>
-    // <BlogListRender
-    //   requestPromise={requestPromise}
-    //   setRequestPromise={setRequestPromise}
-    // />
-    // {/* </Suspense> */}
   )
 }
-// function BlogListRender({
-//   requestPromise,
-//   setRequestPromise
-// }: {
-//   requestPromise: Promise<any>
-//   setRequestPromise: Function
-// }) {
-//   // const result = use(requestPromise)
-//   return (
-
-//   )
-// }

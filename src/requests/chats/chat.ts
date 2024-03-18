@@ -5,19 +5,24 @@ export const GetChatList = async ({
   size,
   page,
   sort,
-  userId
+  ...data
 }: List): Promise<Chat[]> => {
   return await instance.get(`/chats/list`, {
-    params: { size, page, sort, userId }
+    params: { size, page, sort, ...data }
   })
 }
-export const RequestChatDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<any> => {
-    return await instance.delete(`/chats/chat/${id}`)
-  }
+export const GetChatDetail = async ({
+  id
+}: any): Promise<Chat> => {
+  return await instance.get(`/chats/chat/${id}`, {
+    params: { id }
+  })
 }
-export const RequestUserChatDelete = ({ id }: { id: string }): any => {
-  return async (): Promise<any> => {
-    return await instance.delete(`/chats/user/${id}`)
-  }
+export const DeleteChat = async ({ id }: { id: string }): Promise<any> => {
+  return await instance.delete(`/chats/chat/${id}`)
 }
+// export const RequestUserChatDelete = ({ id }: { id: string }): any => {
+//   return async (): Promise<any> => {
+//     return await instance.delete(`/chats/user/${id}`)
+//   }
+// }

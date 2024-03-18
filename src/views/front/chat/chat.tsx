@@ -1,62 +1,52 @@
-import { Button, Input, message } from 'antd'
+import { Button, Input, Tooltip, message } from 'antd'
 import styles from './chat.module.scss'
 import SingleMessage from './single-message'
-import { FileImageOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import { FileOutlined } from '@ant-design/icons'
 import { useEffect, useRef, useState } from 'react'
 import { UserAuth } from '@/requests/users/user'
 import { useRequest } from 'ahooks'
 import { GetChatList } from '@/requests/chats/chat'
+import useChat from './useChat'
+import UploadButton from './upload-button'
 export default function FrontChat() {
-  const [ws, setWs] = useState<any>(null)
-  const [messages, setMessages] = useState<any[]>([])
+  // const [ws, setWs] = useState<any>(null)
   const [content, setContent] = useState('')
 
   const messageAreaRef = useRef<HTMLDivElement>(null)
   const [firstMessageId, setFirstMessageId] = useState()
-
+  const { ws, messages, onlineUserCount, setMessages, isConnected, isBanned } =
+    useChat(messageAreaRef)
   const { data: user } = useRequest(UserAuth)
   const { data: messageData, run: GetMessage } = useRequest(
-    (page) => GetChatList({ page, sort: 'desc', size: 10 }),
+    (page) => GetChatList({ page, sort: 'desc', size: 10, reverse: true }),
     {
       manual: true
     }
   )
   const [currentPage, setCurrentPage] = useState(1)
-  useEffect(() => {
-    if (user) {
-      const ws = new WebSocket(
-        `${import.meta.env.VITE_WS_LINK}?userId=${user?.data?.id}`
-      )
-      ws.onopen = () => {
-        message.success('连接成功')
+  const onSubmitMessage = ({ content, image, video, file }: any) => {
+    return () => {
+      if (content) {
+        ws.send(JSON.stringify({ content, type: 'message' }))
+        setContent('')
+      } else if (image) {
+        ws.send(JSON.stringify({ image, type: 'message' }))
+      } else if (video) {
+        ws.send(JSON.stringify({ video, type: 'message' }))
+      } else {
+        ws.send(JSON.stringify({ file, type: 'message' }))
       }
-      ws.onmessage = (e) => {
-        const data = JSON.parse(e?.data)?.data
-        if (data?.type === 'boardcast') {
-          message.success(data?.onLineCount)
-        } else if (data?.type === 'message') {
-          setMessages((pre) => [...pre, data])
-          setTimeout(() => {
-            messageAreaRef?.current?.scrollTo({
-              top: messageAreaRef?.current?.scrollHeight,
-              behavior: 'smooth'
-            })
-          }, 16)
-        }
-      }
-      setWs(ws)
     }
-  }, [user])
+  }
   useEffect(() => {
     if (messageData) {
-      setMessages((pre) => [...messageData?.data, ...pre])
+      setMessages((pre) => [...messageData?.data?.result, ...pre])
       setTimeout(() => {
         const scrollLength = firstMessageId
           ? document.querySelector(`.message-${firstMessageId}`)?.offsetTop
           : messageAreaRef?.current?.scrollHeight
         messageAreaRef?.current?.scrollTo({
-          top: scrollLength,
-          behavior: 'smooth'
+          top: scrollLength
         })
       }, 16)
     }
@@ -67,9 +57,6 @@ export default function FrontChat() {
   return (
     <>
       <div className={styles.container}>
-        {/* <div className={styles['chat-topbar']}>
-            当前在线人数：100
-        </div> */}
         <div
           className={styles['message-area']}
           ref={messageAreaRef}
@@ -93,24 +80,35 @@ export default function FrontChat() {
           })}
         </div>
         <div className={styles.utils}>
-          <FileImageOutlined className={styles['utils-button']} />
-          <VideoCameraOutlined className={styles['utils-button']} />
+          <UploadButton onSubmitMessage={onSubmitMessage} disabled={isBanned}>
+            <Tooltip title="上传文件">
+              <FileOutlined />
+            </Tooltip>
+          </UploadButton>
         </div>
         <div className={styles.input}>
           <Input.TextArea
             autoSize={{ minRows: 5, maxRows: 5 }}
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onPressEnter={onSubmitMessage({ content })}
+            maxLength={500}
+            placeholder="最多输入500个字符"
+            disabled={isBanned}
           />
         </div>
         <div className={styles.submit}>
+          <span className={styles['online-count']}>
+            <span>当前在线人数：{onlineUserCount}</span>
+            <span className="ml-2">
+              连接状态：{isConnected ? '已连接' : '未连接'}
+            </span>
+          </span>
           <Button
             type="primary"
             className="mr-2"
-            onClick={() => {
-              ws.send(JSON.stringify({ content, type: 'message' }))
-              setContent('')
-            }}
+            disabled={isBanned}
+            onClick={onSubmitMessage({ content })}
           >
             发送
           </Button>

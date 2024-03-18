@@ -1,0 +1,12 @@
+@import '@/components/variable.scss';
+
+.upload-button {
+  margin-right: 22px;
+  font-size: 22px;
+  // line-height: 30px;
+  align-items: center;
+  &:hover{
+    color: $primary-color;
+    cursor: pointer;
+  }
+}

@@ -81,19 +81,19 @@ export default [
         path: '/admin/user/list'
       },
       {
-        label: '聊天记录（待完成）',
-        key: '/admin/chat/list',
-        path: '/admin/chat/list'
+        label: '聊天记录',
+        key: '/admin/user-chat/list',
+        path: '/admin/user-chat/list'
       },
       {
-        label: '访问记录（待完成）',
-        key: '/admin/uservisit/list',
-        path: '/admin/uservisit/list'
+        label: '访问记录',
+        key: '/admin/user-visit/list',
+        path: '/admin/user-visit/list'
       },
       {
-        label: '打赏记录（待完成）',
-        key: '/admin/pay/list',
-        path: '/admin/pay/list'
+        label: '打赏记录',
+        key: '/admin/user-pay/list',
+        path: '/admin/user-pay/list'
       }
     ]
   },

@@ -59,23 +59,26 @@ export const UserCreatePayOrder = async ({ blogId, money, type, message, payType
   return await instance.post('/users/pay/create', { blogId, money, type, message, payType, isMobile: isMobile() })
 }
 export const UserConfirmPayOrder = async ({ outTradeNo }: { outTradeNo: string }): Promise<any> => {
-  return await instance.post(`/users/pay/confirm`, {
-    outTradeNo
+  return await instance.get(`/users/pay/confirm`, {
+    params: {
+      outTradeNo
+    }
   })
 
 }
-// export const RequestPayList = ({ page, size, sort }: List): any => {
-//   return async (): Promise<Pay[]> => {
-//     return await instance.get(`/users/pay/list`, {
-//       params: {
-//         page,
-//         size,
-//         sort
-//       }
-//     })
-//   }
-// }
-
+export const GetPayList = async ({ page, size, sort, ...data }: List): Promise<Pay[]> => {
+  return await instance.get(`/users/pay/list`, {
+    params: {
+      page,
+      size,
+      sort,
+      ...data
+    }
+  })
+}
+export const GetPayDetail = async ({ id }: any): Promise<Pay> => {
+  return await instance.get(`/users/pay/${id}`)
+}
 export interface UserLoginReturn {
   id: string
   name: string

@@ -2,8 +2,16 @@ import { Avatar, Button, List } from 'antd'
 import CompPayDetail from './detail'
 import { useState } from 'react'
 import { formatTime } from '@/utils/utils'
+import { useNavigate } from 'react-router-dom'
 export default function Pays({ value = [], onChange, type }: any) {
-  const DetailButton = () => <CompPayDetail />
+  const navigate = useNavigate()
+  const DetailButton = ({ id }: any) => {
+    return (
+      <Button type='link' onClick={() => navigate(`/admin/user-pay/detail/${id}`)}>
+        查看详情
+      </Button>
+    )
+  }
   const [currentPage, setCurrentPage] = useState(1)
   return (
     <>
@@ -17,7 +25,7 @@ export default function Pays({ value = [], onChange, type }: any) {
           hideOnSinglePage: true
         }}
         renderItem={(item, index) => (
-          <List.Item actions={[<DetailButton />]}>
+          <List.Item actions={[<DetailButton id={item?.id}/>]}>
             <List.Item.Meta
               avatar={<Avatar>{item?.user?.name.slice(0, 1)}</Avatar>}
               title={

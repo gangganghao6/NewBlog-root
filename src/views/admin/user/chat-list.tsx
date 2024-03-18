@@ -3,7 +3,7 @@ import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
 import DefaultOperationRender from '@/components/tabulation/default-operation-render'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import { DeleteUser, GetUserList } from '@/requests/users/user'
+import { DeleteChat, GetChatList } from '@/requests/chats/chat'
 // import { useSnapshot } from 'valtio'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {
@@ -16,9 +16,9 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
         row: row,
         navigate,
         tableRef,
-        onDeleteApi: DeleteUser,
-        detailRoutePath: `/admin/user/detail/${row.id}`,
-        editRoutePath: `/admin/user/edit/${row.id}`
+        onDeleteApi: DeleteChat,
+        detailRoutePath: `/admin/user-chat/detail/${row.id}`
+        // editRoutePath: `/admin/user/edit/${row.id}`
       })
     }
   },
@@ -31,44 +31,43 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
       return <a onClick={() => handleCopy(text)}>{text}</a>
     }
   },
-  { title: '姓名', dataIndex: 'name', key: 'name', width: 150 },
+  {
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
+    width: 100,
+    render: (text: any, row: any) => {
+      return <>{row?.user?.name}</>
+    }
+  },
   {
     title: '邮箱',
     dataIndex: 'email',
     key: 'email',
-    width: 150
-  },
-  {
-    title: '是否被禁',
-    dataIndex: 'isBanned',
-    key: 'isBanned',
     width: 150,
-    render: (text: string) => {
-      return <>{text ? '是' : '否'}</>
+    render: (text: any, row: any) => {
+      return <>{row?.user?.email}</>
     }
   },
   {
-    title: '是否订阅',
-    dataIndex: 'isSubscribed',
-    key: 'isSubscribed',
-    width: 150,
-    render: (text: string) => {
-      return <>{text ? '是' : '否'}</>
+    title: '内容',
+    dataIndex: 'content',
+    key: 'content',
+    width: 200,
+    ellipsis: true,
+    render: (text: any, row: any) => {
+      let content = ''
+      content = row?.content ? `文本：${row?.content}` : content
+      content = row?.image ? `图片：${row?.image?.originalName}` : content
+      content = row?.video ? `视频：${row?.video?.originalName}` : content
+      content = row?.file ? `文件：${row?.file?.originalName}` : content
+      return <>{content}</>
     }
   },
   {
-    title: '注册时间',
+    title: '发送时间',
     dataIndex: 'createdTime',
     key: 'createdTime',
-    width: 150,
-    render: (text: string) => {
-      return <>{formatTime(text)}</>
-    }
-  },
-  {
-    title: '最后活跃时间',
-    dataIndex: 'lastActiveTime',
-    key: 'lastActiveTime',
     width: 150,
     render: (text: string) => {
       return <>{formatTime(text)}</>
@@ -88,47 +87,26 @@ const searchConfig = [
     key: 'name'
   },
   {
-    label: '邮箱',
+    label: '用户ID',
+    type: 'Input',
+    key: 'userId'
+  },
+  {
+    label: '用户邮箱',
     type: 'Input',
     key: 'email'
   },
-  {
-    label: '是否被禁',
-    type: 'Select',
-    key: 'isBanned',
-    options: [
-      { label: '是', value: true },
-      { label: '否', value: false }
-    ]
-  },{
-    label: '是否订阅',
-    type: 'Select',
-    key: 'isSubscribed',
-    options: [
-      { label: '是', value: true },
-      { label: '否', value: false }
-    ]
-  },
-  { label: '注册时间', type: 'DateRangePicker', key: 'createdTime' }
-]
-const operation = [
-  {
-    label: '新建',
-    type: 'create',
-    path: '/admin/user/create',
-    buttonType: 'primary'
-  }
+  { label: '创建日期', type: 'DateRangePicker', key: 'createdTime' }
 ]
 export default function () {
   const navigate = useNavigate()
   const tableRef = useRef<{ onSearch?: Function; onReset?: Function }>({})
   return (
     <Tabulation
-      api={GetUserList}
+      api={GetChatList}
       ref={tableRef}
       searchConfig={searchConfig}
       column={column(navigate, tableRef)}
-      operation={operation}
     />
   )
 }

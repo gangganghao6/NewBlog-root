@@ -17,6 +17,12 @@ import AdminTodolistCreate from '@/views/admin/todolist/create'
 import AdminUserList from '@/views/admin/user/list'
 import AdminUserCreate from '@/views/admin/user/create'
 import AdminSetting from '@/views/admin/setting/create'
+import AdminUserChatList from '@/views/admin/user/chat-list'
+import AdminUserChatCreate from '@/views/admin/user/chat-create'
+import AdminUserVisitList from '@/views/admin/user/visit-list'
+import AdminUserVisitCreate from '@/views/admin/user/visit-create'
+import AdminUserPayList from '@/views/admin/user/pay-list'
+import AdminUserPayCreate from '@/views/admin/user/pay-create'
 
 export default {
   path: '/admin',
@@ -161,57 +167,94 @@ export default {
       category: 'project'
     },
     {
-      path:'/admin/todolist/list',
+      path: '/admin/todolist/list',
       title: 'TODO List列表',
       element: <AdminTodolistList />,
       category: 'todolist'
     },
     {
-      path:'/admin/todolist/detail/:id',
+      path: '/admin/todolist/detail/:id',
       title: 'TODO List查看',
       element: <AdminTodolistCreate type="detail" />,
       category: 'todolist'
     },
     {
-      path:'/admin/todolist/edit/:id',
+      path: '/admin/todolist/edit/:id',
       title: 'TODO List编辑',
       element: <AdminTodolistCreate type="edit" />,
       category: 'todolist'
-    },{
-      path:'/admin/todolist/create',
+    },
+    {
+      path: '/admin/todolist/create',
       title: 'TODO List新建',
       element: <AdminTodolistCreate type="create" />,
       category: 'todolist'
     },
     {
-      path:'/admin/user/list',
+      path: '/admin/user/list',
       title: '用户列表',
       element: <AdminUserList />,
       category: 'user'
     },
     {
-      path:'/admin/user/detail/:id',
+      path: '/admin/user/detail/:id',
       title: '用户查看',
       element: <AdminUserCreate type="detail" />,
       category: 'user'
     },
     {
-      path:'/admin/user/edit/:id',
+      path: '/admin/user/edit/:id',
       title: '用户编辑',
       element: <AdminUserCreate type="edit" />,
       category: 'user'
     },
     {
-      path:'/admin/user/create',
+      path: '/admin/user/create',
       title: '用户新建',
       element: <AdminUserCreate type="create" />,
       category: 'user'
+    },
+    {
+      path: '/admin/user-chat/list',
+      title: '聊天记录',
+      element: <AdminUserChatList />,
+      category: 'user-chat'
+    },
+    {
+      path: '/admin/user-chat/detail/:id',
+      title: '聊天记录详情',
+      element: <AdminUserChatCreate type="detail" />,
+      category: 'user-chat'
+    },
+    {
+      path: '/admin/user-visit/list',
+      title: '用户访问记录',
+      element: <AdminUserVisitList />,
+      category: 'user-visit'
+    },
+    {
+      path: '/admin/user-visit/detail/:id',
+      title: '聊天记录详情',
+      element: <AdminUserVisitCreate type="detail" />,
+      category: 'user-visit'
+    },
+    {
+      path: '/admin/user-pay/list',
+      title: '用户打赏记录',
+      element: <AdminUserPayList />,
+      category: 'user-pay'
+    },
+    {
+      path: '/admin/user-pay/detail/:id',
+      title: '打赏记录详情',
+      element: <AdminUserPayCreate type="detail" />,
+      category: 'user-pay'
     },
     {
       path: '/admin/setting',
       title: '博客设置',
       element: <AdminSetting type="edit" />,
       category: 'setting'
-    },
+    }
   ]
 }
