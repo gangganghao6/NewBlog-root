@@ -1,0 +1,32 @@
+@import '@/components/variable.scss';
+
+.personal-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  .title {
+    width: 100%;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .common-item {
+    // border: 1px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 50%;
+  }
+  .content {
+    width: 100%;
+  }
+  .project-container,
+  .experience-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}

@@ -1,0 +1,24 @@
+@import '@/components/variable.scss';
+.todolist-container {
+  overflow-y: scroll;
+  margin: -10px;
+  height: calc(100vh - $topbar-height - 2px);
+  padding: 10px;
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    .title{
+        display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      white-space: break-spaces;
+    }
+  }
+  .content-container {
+    display: flex;
+    .content {
+      width: 50%;
+    }
+  }
+}

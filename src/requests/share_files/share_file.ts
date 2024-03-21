@@ -47,8 +47,12 @@ export const PutEditShareFile = async ({
 export const DeleteShareFile = async ({ id }: { id: string }): Promise<null> => {
   return await instance.delete(`/share_files/file/${id}`)
 }
-export const GetRandomShareFile = async (): Promise<ShareFileReturn> => {
-  return await instance.get(`/share_files/random-file`)
+export const GetRandomShareFile = async ({ size = 1 }: any): Promise<ShareFileReturn> => {
+  return await instance.get(`/share_files/random-file`, {
+    params: {
+      size
+    }
+  })
 }
 export interface CreateShareFile {
   name: string

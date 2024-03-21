@@ -22,6 +22,3 @@ export const RequestInfoAnalysis = (): any => {
     return await instance.get('/base/urlsInfo/analysis')
   }
 }
-export const PostAddUserVisit = async (): Promise<any> => {
-  return await instance.get('/base/urlsInfo/analysis')
-}

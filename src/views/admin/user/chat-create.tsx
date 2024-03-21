@@ -122,7 +122,7 @@ export default function AdminUserCreate({
 const videoRender = (url: string) => {
   return (ele: any) => {
     return (
-      <video className="w-4/5 h-4/5" src={url} controls autoPlay muted></video>
+      <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
     )
   }
 }

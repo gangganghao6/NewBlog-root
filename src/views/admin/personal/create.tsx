@@ -59,7 +59,7 @@ export default function AdminPersonalCreate({ type }: { type: 'edit' }) {
     data: personalDetailData,
     error: personalDetailError,
     run: runDetail
-  } = useRequest(() => GetPersonalInfoDetail(), {
+  } = useRequest(() => GetPersonalInfoDetail({ increase: false }), {
     manual: false
   })
   let [searchParams] = useSearchParams()

@@ -29,22 +29,22 @@ html {
       padding-left: 1rem;
     }
   }
-  // 滚动条整体 整体如果不设置，只设置滑块和轨道是没有效果的
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px; // height对于纵向滚动条来说没有用，但是对于横向就有用了
-    border-radius: 10px;
-  }
-  // 滑块
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #adadaba4;
-    // height: 50px; // 整体设了宽高后，这里宽高是无效的
-    // width: 50px;
-  }
-  // 轨道
-  ::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: rgb(242, 242, 242);
-  }
+  // // 滚动条整体 整体如果不设置，只设置滑块和轨道是没有效果的
+  // ::-webkit-scrollbar {
+  //   width: 10px;
+  //   height: 10px; // height对于纵向滚动条来说没有用，但是对于横向就有用了
+  //   border-radius: 10px;
+  // }
+  // // 滑块
+  // ::-webkit-scrollbar-thumb {
+  //   border-radius: 10px;
+  //   background-color: #adadaba4;
+  //   // height: 50px; // 整体设了宽高后，这里宽高是无效的
+  //   // width: 50px;
+  // }
+  // // 轨道
+  // ::-webkit-scrollbar-track {
+  //   border-radius: 10px;
+  //   background-color: rgb(242, 242, 242);
+  // }
 }

@@ -166,32 +166,6 @@ export default function AdminExperienceCreate({
           <UploadImages />
         )}
       </CustomFormItem>
-      {type !== 'create' && (
-        <CustomFormItem
-          label="评论"
-          name="comments"
-          required={false}
-          labelCol={{
-            span: 3,
-            offset: 1
-          }}
-        >
-          <CompComment type={type} />
-        </CustomFormItem>
-      )}
-      {type !== 'create' && (
-        <CustomFormItem
-          label="打赏"
-          name="pays"
-          required={false}
-          labelCol={{
-            span: 3,
-            offset: 1
-          }}
-        >
-          <CompPay type={type} />
-        </CustomFormItem>
-      )}
       <CustomFormSubmit
         okRoutePath={`/admin/experience/detail/${id}`}
         showOk={type !== 'detail'}

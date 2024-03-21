@@ -19,7 +19,6 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
         tableRef,
         onDeleteApi: DeleteUrlInfo,
         detailRoutePath: `/admin/user-visit/detail/${row.id}`
-        // editRoutePath: `/admin/user/edit/${row.id}`
       })
     }
   },
@@ -66,7 +65,11 @@ const searchConfig = [
     label: 'ID',
     type: 'Input',
     key: 'id',
-    required: false
+  },
+  {
+    label: 'URL',
+    type: 'Input',
+    key: 'url'
   },
   {
     label: '用户姓名',

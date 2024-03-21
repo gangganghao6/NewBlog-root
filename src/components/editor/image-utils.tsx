@@ -7,6 +7,7 @@ import { Button, Input, Modal, message, Image as AntdImage } from 'antd'
 import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
 import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { useState } from 'react'
+import ImageDamage from '@/asserts/image-damage.png'
 import styles from './editor.module.scss'
 
 export const withImages = (editor: any) => {
@@ -105,6 +106,7 @@ export const Image = ({
   const {
     data: { url, name, compressUrl, originalName }
   } = element
+  const [myUrl, setMyUrl] = useState(url)
   return (
     <div
       {...attributes}
@@ -116,7 +118,11 @@ export const Image = ({
       {showImageDeleteButton ? (
         <span contentEditable={false} className="relative inline-block">
           <img
-            src={url}
+            src={myUrl}
+            onError={(error) => {
+              console.log(error)
+              setMyUrl(ImageDamage)
+            }}
             className="block max-w-full max-h-[20em]"
             style={{
               boxShadow: showDelete ? '0 0 0 1px #B4D5FF' : 'none'
@@ -126,6 +132,7 @@ export const Image = ({
             <AntdImage
               src={url}
               className="hidden"
+              fallback={ImageDamage}
               preview={{
                 visible: showPreview,
                 onVisibleChange: () => setShowPreview(false)

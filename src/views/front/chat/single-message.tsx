@@ -9,7 +9,7 @@ import FilePng from '@/asserts/file.png'
 const videoRender = (url: string) => {
   return (ele: any) => {
     return (
-      <video className="w-4/5 h-4/5" src={url} controls autoPlay muted></video>
+      <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
     )
   }
 }
@@ -20,7 +20,6 @@ export default function SingleMessage({
   self = {},
   className = ''
 }) {
-  const [showPreview, setShowPreview] = useState(false)
   return (
     <div
       className={clsx(
@@ -52,32 +51,23 @@ export default function SingleMessage({
         {message?.image && (
           <div className={styles['image-container']}>
             <Image
-              className={clsx(styles.image)}
+              className={styles.image}
               src={message?.image?.compressUrl}
               preview={{ src: message?.image?.url }}
             />
           </div>
         )}
         {message?.video && (
-          <div
-            className={styles['video-container']}
-            onClick={() => setShowPreview(true)}
-          >
-            <img
-              className={clsx(styles.image)}
-              src={message?.video?.post?.url}
-            />
+          <div className={styles['video-container']}>
             <Image
-              className="hidden"
+              className={styles.video}
+              src={message?.video?.post?.url}
               preview={{
                 toolbarRender: () => <></>,
                 imageRender: videoRender(message?.video?.url),
-                visible: showPreview,
-                onVisibleChange: () => setShowPreview(false)
+                mask: <PlayCircleOutlined className="text-4xl" />
               }}
             ></Image>
-            <PlayCircleOutlined className={styles['video-play-icon']} />
-            <div className={clsx(styles.mask)}></div>
           </div>
         )}
         {message?.file && (

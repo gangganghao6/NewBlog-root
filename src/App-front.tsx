@@ -10,11 +10,9 @@ import useLogin from '@/views/front/login/useLogin'
 import { Spin } from 'antd'
 import { useSnapshot } from 'valtio'
 import loadingGif from '@/asserts/loading.gif'
-import { PostAddUserVisit } from '@/requests/base/log'
 
 export default function AppFront() {
   const { data, loading } = useRequest(GetBaseInfoDetail)
-  const location = useLocation()
   useLogin()
   useEffect(() => {
     if (data) {
@@ -22,14 +20,6 @@ export default function AppFront() {
     }
   }, [data])
   const state = useSnapshot(GlobalInfo)
-  useEffect(() => {
-    const result = navigator.sendBeacon(
-      '/api/base/urlsInfo/url',
-      JSON.stringify({ url: location.pathname })
-    )
-    console.log(result);
-    
-  }, [location.pathname])
   return (
     <>
       <Spin

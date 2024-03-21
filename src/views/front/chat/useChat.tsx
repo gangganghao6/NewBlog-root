@@ -35,7 +35,7 @@ export default (scrollRef: Ref<HTMLElement>) => {
           scrollRef?.current?.scrollTo({
             top: scrollRef?.current?.scrollHeight
           })
-        }, 16)
+        }, 160)
       }
     }
     ws.onclose = () => {

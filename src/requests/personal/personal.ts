@@ -2,8 +2,8 @@ import instance from '../request'
 import { type Personal } from '../../utils/types'
 import { type Dayjs } from 'dayjs'
 
-export const GetPersonalInfoDetail = async (): Promise<Personal> => {
-  return await instance.get('/personal/info?increase=false')
+export const GetPersonalInfoDetail = async ({ increase = false }): Promise<Personal> => {
+  return await instance.get(`/personal/info?increase=${increase}`)
 }
 export const PutEditPersonalInfo = async ({
   name,

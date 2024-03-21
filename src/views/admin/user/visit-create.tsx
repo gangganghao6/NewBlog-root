@@ -146,45 +146,6 @@ export default function AdminUserCreate({
       >
         <>{urlDetailData?.data?.user?.email}</>
       </CustomFormItem>
-      {urlDetailData?.data?.content && (
-        <CustomFormItem label="文本" name="content">
-          <>{urlDetailData?.data?.content}</>
-        </CustomFormItem>
-      )}
-      {urlDetailData?.data?.image && (
-        <CustomFormItem label="图片" name="image">
-          <Image
-            src={urlDetailData?.data?.image?.compressUrl}
-            preview={{
-              src: urlDetailData?.data?.image?.url
-            }}
-          />
-        </CustomFormItem>
-      )}
-      {urlDetailData?.data?.video && (
-        <CustomFormItem label="视频" name="image">
-          <Image
-            className="h-[50px]"
-            src={urlDetailData?.data?.video?.post?.url}
-            preview={{
-              toolbarRender: () => <></>,
-              imageRender: videoRender(urlDetailData?.data?.video?.url)
-            }}
-          ></Image>
-        </CustomFormItem>
-      )}
-      {urlDetailData?.data?.file && (
-        <CustomFormItem label="文件" name="image">
-          <Button
-            type="link"
-            href={urlDetailData?.data?.file?.url}
-            download={urlDetailData?.data?.file?.name}
-            target="_blank"
-          >
-            {urlDetailData?.data?.file?.originalName}
-          </Button>
-        </CustomFormItem>
-      )}
       <CustomFormSubmit
         okRoutePath={`/admin/user/detail/${id}`}
         showOk={false}
@@ -198,12 +159,4 @@ export default function AdminUserCreate({
       />
     </Form>
   )
-}
-
-const videoRender = (url: string) => {
-  return (ele: any) => {
-    return (
-      <video className="w-4/5 h-4/5" src={url} controls autoPlay muted></video>
-    )
-  }
 }

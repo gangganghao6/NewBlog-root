@@ -1,11 +1,9 @@
 import { useRequest } from 'ahooks'
 import { Divider, Form, Input, Image, DatePicker, Radio } from 'antd'
 import CustomFormSubmit from '@/components/form/custom-form-submit'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ActionType } from '@/views/admin/constant'
-import CompComment from '@/components/comment/admin-comment'
-import CompPay from '@/components/pay/admin-pay-list'
 import { CustomDescription } from '@/components/form/custom-description'
 import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
@@ -57,6 +55,7 @@ export default function AdminProjectCreate({
     manual: true
   })
   const { id } = useParams()
+  const [isDone, setIsDone] = useState(false)
   useEffect(() => {
     if (type !== 'create') {
       runDetail({ id })
@@ -66,10 +65,11 @@ export default function AdminProjectCreate({
     //平铺视频和图片
     if (type !== 'create' && projectDetailData?.data) {
       const tempData = projectDetailData?.data
-      tempData.isDoneTime = tempData.timeStart
-        ? dayjs(tempData.timeStart)
+      tempData.isDoneTime = tempData.isDoneTime
+        ? dayjs(tempData.isDoneTime)
         : null
       form.setFieldsValue(tempData)
+      setIsDone(tempData.isDone)
     }
   }, [projectDetailData])
   return (
@@ -101,7 +101,15 @@ export default function AdminProjectCreate({
             offset: 1
           }}
         >
-          <Radio.Group>
+          <Radio.Group
+            onChange={(e) => {
+              form.setFieldValue('isDone', e.target.value)
+              setIsDone(e.target.value)
+              if (e.target.value === false) {
+                form.setFieldValue('isDoneTime', undefined)
+              }
+            }}
+          >
             <Radio value={true}>已完成</Radio>
             <Radio value={false}>未完成</Radio>
           </Radio.Group>
@@ -112,39 +120,13 @@ export default function AdminProjectCreate({
         <CustomFormItem
           label="完成时间"
           name="isDoneTime"
-          required={false}
+          required={isDone}
           labelCol={{
             span: 4,
             offset: 1
           }}
         >
           <DatePicker />
-        </CustomFormItem>
-      )}
-      {type !== 'create' && (
-        <CustomFormItem
-          label="评论"
-          name="comments"
-          required={false}
-          labelCol={{
-            span: 4,
-            offset: 1
-          }}
-        >
-          <CompComment type={type} />
-        </CustomFormItem>
-      )}
-      {type !== 'create' && (
-        <CustomFormItem
-          label="打赏"
-          name="pays"
-          required={false}
-          labelCol={{
-            span: 4,
-            offset: 1
-          }}
-        >
-          <CompPay type={type} />
         </CustomFormItem>
       )}
       <CustomFormSubmit

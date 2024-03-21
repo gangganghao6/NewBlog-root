@@ -5,6 +5,9 @@ import FrontChat from '@/views/front/chat/chat'
 import FrontLogin from '@/views/front/login'
 import FrontGithub from '@/views/front/github/github'
 import FrontShareFile from '@/views/front/sharefile/sharefile'
+import path from 'path'
+import FrontTodoList from '@/views/front/todolist/todolist'
+import FrontPersonal from '@/views/front/personal/personal'
 
 export default {
   path: '/front',
@@ -45,6 +48,16 @@ export default {
       path: '/front/sharefile',
       title: '文件盲盒',
       element: <FrontShareFile />
+    },
+    {
+      path: '/front/todolist',
+      title: 'TODO List',
+      element: <FrontTodoList />
+    },
+    {
+      path: '/front/personal',
+      title: '个人主页',
+      element: <FrontPersonal />
     }
   ]
 }
