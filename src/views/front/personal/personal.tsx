@@ -5,6 +5,9 @@ import { formatTime } from '@/utils/utils'
 import ContentEditor from '@/components/editor/content-editor'
 import FrontPersonalProject from './project'
 import FrontPersonalExperience from './experience'
+import FrontComment from '@/components/comment/front-comment'
+import FrontPayList from '@/components/pay/front-pay-list'
+import FrontPayButton from '@/components/pay/front-pay-button'
 
 export default function FrontPersonal() {
   const { data, run } = useRequest(() =>
@@ -26,10 +29,10 @@ export default function FrontPersonal() {
     createdTime,
     lastModifiedTime,
     projects,
-    experiences
+    experiences,
+    comments,
+    pays
   } = data?.data || {}
-  console.log(projects?.result?.length);
-  
   return (
     <div className={styles['personal-container']}>
       <div className={styles.title}>关于我</div>
@@ -60,10 +63,24 @@ export default function FrontPersonal() {
       </div>
       <div className={styles.title}>个人经历：</div>
       <div className={styles['experience-container']}>
-      {experiences &&
+        {experiences &&
           experiences?.result?.map((item: any) => (
             <FrontPersonalExperience data={item} />
           ))}
+      </div>
+      <div className={styles['footer-container']}>
+      <div className={styles.pay}>
+        <FrontPayButton run={run} />
+        <span className="mb-6 text-[13px]">
+          喜欢我的文章吗？ 别忘了点赞或赞赏，让我知道创作的路上有你陪伴。
+        </span>
+      </div>
+        <FrontComment
+          // blogId={id}
+          run={run}
+          comments={comments || []}
+        />
+        <FrontPayList pays={pays} />
       </div>
     </div>
   )

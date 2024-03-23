@@ -1,0 +1,15 @@
+@import '@/components/variable.scss';
+.infinite-scroll-container {
+  overflow-y: auto;
+  margin: -10px;
+  height: calc(100vh - $topbar-height - 20px);
+  padding: 10px;
+  // :global {
+  //   .ant-spin-container {
+  //     .ant-row {
+  //       margin-left: 0 !important;
+  //       margin-right: 0 !important;
+  //     }
+  //   }
+  // }
+}

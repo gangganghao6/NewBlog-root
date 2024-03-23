@@ -1,5 +1,5 @@
 import AppFront from '@/App-front'
-import FrontBlog from '@/views/front/blog/blog'
+import FrontBlogList from '@/views/front/blog/blog-list'
 import FrontBlogDetail from '@/views/front/blog/blog-detail'
 import FrontChat from '@/views/front/chat/chat'
 import FrontLogin from '@/views/front/login'
@@ -8,6 +8,8 @@ import FrontShareFile from '@/views/front/sharefile/sharefile'
 import path from 'path'
 import FrontTodoList from '@/views/front/todolist/todolist'
 import FrontPersonal from '@/views/front/personal/personal'
+import FrontAbout from '@/views/front/about/about'
+import FrontShuoshuo from '@/views/front/shuoshuo/shuoshou'
 
 export default {
   path: '/front',
@@ -22,7 +24,7 @@ export default {
     {
       path: '/front/blog/list',
       title: '博客列表',
-      element: <FrontBlog />
+      element: <FrontBlogList />
     },
     {
       path: '/front/blog/detail/:id',
@@ -58,6 +60,16 @@ export default {
       path: '/front/personal',
       title: '个人主页',
       element: <FrontPersonal />
+    },
+    {
+      path: '/front/about',
+      title: '关于',
+      element: <FrontAbout />
+    },
+    {
+      path: '/front/shuoshuo',
+      title: '说说',
+      element: <FrontShuoshuo />
     }
   ]
 }

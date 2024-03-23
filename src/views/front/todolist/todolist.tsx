@@ -4,34 +4,22 @@ import { Card, List, Tag } from 'antd'
 import styles from './todolist.module.scss'
 import { useEffect, useState } from 'react'
 import { formatTime } from '@/utils/utils'
+import InfiniteScrollList from '@/components/infinite-scroll'
 export default function FrontTodoList() {
-  const [page, setPage] = useState(1)
   const [todoList, setTodoList] = useState([])
   const { data, run } = useRequest((data) =>
     GetTodoListList({ size: 20, page: 1, sort: 'desc', ...data })
   )
   useEffect(() => {
-    console.log(data)
-    if (data) {
-      setTodoList((pre) => [...pre, ...data?.data?.result])
-    }
+    data && setTodoList((pre) => [...pre, ...data?.data?.result])
   }, [data])
-  useEffect(() => {
-    run({ size: 20, page, sort: 'desc' })
-  }, [page])
   return (
-    <div
-      className={styles['todolist-container']}
-      onScroll={(e) => {
-        if (
-          e.target.scrollHeight - e.target.scrollTop ===
-          e.target.clientHeight
-        ) {
-          setPage((pre) => pre + 1)
-        }
-      }}
-    >
-      <List
+    <div>
+      <InfiniteScrollList
+        data={todoList}
+        onBottom={(page: number) => {
+          run({ size: 20, page, sort: 'desc' })
+        }}
         grid={{
           gutter: 16,
           xs: 1,
@@ -41,8 +29,7 @@ export default function FrontTodoList() {
           xl: 2,
           xxl: 2
         }}
-        dataSource={todoList || []}
-        renderItem={(item) => (
+        renderItem={(item: any) => (
           <List.Item>
             <Card
               title={

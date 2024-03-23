@@ -13,7 +13,6 @@ import {
   PayCircleOutlined
 } from '@ant-design/icons'
 import ContentEditor from '@/components/editor/content-editor'
-import { Button } from 'antd'
 import FrontComment from '@/components/comment/front-comment'
 import FrontPayButton from '@/components/pay/front-pay-button'
 import FrontPayList from '@/components/pay/front-pay-list'
@@ -26,7 +25,6 @@ export default function FrontBlogDetail() {
       manual: false
     }
   )
-  console.log(data)
 
   return (
     <div className={styles.detail}>

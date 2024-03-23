@@ -1,0 +1,6 @@
+@import '@/components/variable.scss';
+.about-container {
+  margin: -10px;
+  padding: 10px;
+  height: calc(100vh - $topbar-height - 20px);
+}

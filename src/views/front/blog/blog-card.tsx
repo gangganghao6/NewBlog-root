@@ -21,7 +21,7 @@ export function BlogCardTop(props: any) {
         navigate(`/front/blog/detail/${data?.id}`)
       }}
     >
-      <img className={styles.post} src={data?.post.url} alt="" />
+      <img className={styles.post} src={data?.post?.url} alt="" />
       <div className={styles.container}>
         <div className={styles.title}>{data?.title}</div>
         <div className={styles.content}>
@@ -42,7 +42,7 @@ export function BlogCardHalf(props: any) {
         navigate(`/front/blog/detail/${data?.id}`)
       }}
     >
-      <img className={styles.post} src={data?.post.url} alt="" />
+      <img className={styles.post} src={data?.post?.url} alt="" />
       <div className={styles.container}>
         <div className={styles.title}>{data?.title}</div>
         <div className={styles.content}>

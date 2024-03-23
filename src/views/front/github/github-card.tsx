@@ -38,9 +38,12 @@ const getColor = {
 
 export default function GithubCard({ data }: any) {
   return (
-    <div className={styles.github} onClick={()=>{
+    <div
+      className={styles.github}
+      onClick={() => {
         window.open(data?.pageUrl, '_blank')
-    }}>
+      }}
+    >
       <div className={styles['title-container']}>
         <GithubOutlined className="mx-3" />
         <div className={styles.title}>{data?.title}</div>
@@ -54,28 +57,32 @@ export default function GithubCard({ data }: any) {
         <div className={styles.content}>{data?.description}</div>
       </div>
       <div className={styles['footer-container']}>
-        <div className={styles.footer}>
-          <StarOutlined className='mr-1'/>
-          {data?.starsCount + ' '}
-          Stars
+        <div className={styles['group-container']}>
+          <div className={styles.footer}>
+            <StarOutlined className="mr-1" />
+            {data?.starsCount + ' '}
+            Stars
+          </div>
+          <div className={styles.footer}>
+            <EyeOutlined className="mr-1" />
+            {data?.watchersCount + ' '}
+            Watchers
+          </div>
+          <div className={styles.footer}>
+            <ForkOutlined className="mr-1" />
+            {data?.forksCount + ' '}
+            Forks
+          </div>
         </div>
-        <div className={styles.footer}>
-          <EyeOutlined className='mr-1'/>
-          {data?.watchersCount + ' '}
-          Watchers
-        </div>
-        <div className={styles.footer}>
-          <ForkOutlined className='mr-1'/>
-          {data?.forksCount + ' '}
-          Forks
-        </div>
-        <div className={styles.footer}>
-          创建时间:
-          {formatTime(data?.createdTime, false)}
-        </div>
-        <div className={styles.footer}>
-          最后更新:
-          {formatTime(data?.lastModifiedTime, false)}
+        <div className={styles['group-container']}>
+          <div className={styles.footer}>
+            创建时间:
+            {formatTime(data?.createdTime, false)}
+          </div>
+          <div className={styles.footer}>
+            最后更新:
+            {formatTime(data?.lastModifiedTime, false)}
+          </div>
         </div>
       </div>
     </div>

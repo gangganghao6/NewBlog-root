@@ -24,6 +24,7 @@ import { DownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 
 export default function ShareFile(props: any) {
   const [fileList, setFileList] = useState<any[]>([])
+  const activeIndexRef = useRef(1)
   const [activeIndex, setActiveIndex] = useState(0)
   const { data, loading, run } = useRequest(
     (data = 1) => GetRandomShareFile({ size: data }),
@@ -38,7 +39,7 @@ export default function ShareFile(props: any) {
     }
   }, [data])
   useEffect(() => {
-    run(10)
+    run(20)
   }, [])
 
   return (
@@ -68,12 +69,12 @@ export default function ShareFile(props: any) {
         className={styles.swiper}
         virtual={true}
         onSlideChange={(swiper) => {
-          setActiveIndex(swiper.activeIndex)
+          activeIndexRef.current = swiper.activeIndex
           if (
             swiper.previousIndex < swiper.activeIndex &&
-            swiper.activeIndex === fileList.length - 1
+            activeIndexRef.current === fileList.length - 1
           ) {
-            run(10)
+            run(20)
           }
         }}
       >
@@ -105,21 +106,17 @@ export default function ShareFile(props: any) {
                   />
                 )}
                 <div className={styles['download-container']}>
-                  {activeIndex === index && (
-                    <>
-                      <div className={styles['file-name']}>{item?.name}</div>
-                      <Button
-                        type="text"
-                        icon={<DownloadOutlined />}
-                        onClick={() => {
-                          void GetShareFileDownload({ id: item.id })
-                          window.open(downloadUrl)
-                        }}
-                      >
-                        下载
-                      </Button>
-                    </>
-                  )}
+                  <div className={styles['file-name']}>{item?.name}</div>
+                  <Button
+                    type="text"
+                    icon={<DownloadOutlined />}
+                    onClick={() => {
+                      void GetShareFileDownload({ id: item.id })
+                      window.open(downloadUrl)
+                    }}
+                  >
+                    下载
+                  </Button>
                 </div>
               </div>
             </SwiperSlide>

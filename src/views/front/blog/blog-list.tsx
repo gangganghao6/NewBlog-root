@@ -1,30 +1,46 @@
 import { GetBlogList } from '@/requests/blogs/blog'
 import { useRequest } from 'ahooks'
-import { Pagination } from 'antd'
+import { List, Pagination } from 'antd'
 import { BlogCardHalf } from './blog-card'
+import { useEffect, useState } from 'react'
+import InfiniteScrollList from '@/components/infinite-scroll'
+import BlogRecommend from './blog-recommend'
 
 export default function BlogList() {
+  const [blogList, setBlogList] = useState([])
   const { data, loading, run } = useRequest(
     (data) => GetBlogList({ page: 1, size: 10, sort: 'desc', ...data }),
     {
       manual: false
     }
   )
-
+  useEffect(() => {
+    data && setBlogList((pre) => [...pre, ...data?.data?.result])
+  }, [data])
   return (
-    <div>
-      {data &&
-        data?.data?.result.map((item: any) => {
-          return <BlogCardHalf data={item} />
-        })}
-      <div className="pt-8 pb-4">
-        <Pagination
-          className="text-center"
-          defaultCurrent={1}
-          total={data?.data?.count || 0}
-          onChange={(e) => run({ page: e })}
-        />
-      </div>
-    </div>
+    <>
+      <InfiniteScrollList
+        data={blogList}
+        onBottom={(page: number) => {
+          run({ page, size: 20, sort: 'desc' })
+        }}
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 1,
+          md: 1,
+          lg: 1,
+          xl: 1,
+          xxl: 1
+        }}
+        renderItem={(item: any) => (
+          <List.Item>
+            <BlogCardHalf data={item} />
+          </List.Item>
+        )}
+      >
+        <BlogRecommend />
+      </InfiniteScrollList>
+    </>
   )
 }
