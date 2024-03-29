@@ -29,6 +29,10 @@ const descriptionColums = [
     label: 'Blog ID'
   },
   {
+    key: 'shuoshuoId',
+    label: 'Shuoshuo ID'
+  },
+  {
     key: 'orderUrl',
     label: '订单URL',
     render: (text: string) => {

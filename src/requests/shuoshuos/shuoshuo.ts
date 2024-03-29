@@ -17,8 +17,8 @@ export const GetShuoshuoList = async ({ size, page, sort, ...data }: List): Prom
     }
   })
 }
-export const GetShuoshuoDetail = async ({ id }: { id: string }): Promise<Shuoshuo> => {
-  return await instance.get(`/shuoshuos/shuoshuo/${id}?increase=false`)
+export const GetShuoshuoDetail = async ({ id, increase = false }: { id: string, increase: boolean }): Promise<Shuoshuo> => {
+  return await instance.get(`/shuoshuos/shuoshuo/${id}?increase=${increase}`)
 }
 export const PostCreateShuoshuo = async ({
   content,
@@ -46,7 +46,20 @@ export const PutEditShuoshuo = async ({
 export const DeleteShuoshuo = async ({ id }: { id: string }): Promise<any> => {
   return await instance.delete(`/shuoshuos/shuoshuo/${id}`)
 }
-
+export const PostCreateShuoshuoComment = async ({ comment, shuoshuoId }: any) => {
+  return await instance.post(`/shuoshuos/shuoshuocomment`, {
+    comment,
+    shuoshuoId
+  })
+}
+export const DeleteShuoshuoComment = async ({ shuoshuoId, commentId }: any) => {
+  return await instance.delete(`/shuoshuos/shuoshuocomment`, {
+    data: {
+      shuoshuoId,
+      commentId
+    },
+  })
+}
 export interface CreateShuoshuo {
   content?: string
   images?: Image[]

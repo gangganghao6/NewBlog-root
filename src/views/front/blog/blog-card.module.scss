@@ -53,7 +53,7 @@
   align-items: center;
   cursor: pointer;
   border-radius: 10px;
-  margin: 15px 0;
+  margin: 10px 0;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   .post {
     width: 30%;
@@ -96,6 +96,10 @@
   }
 }
 @media screen and (max-width: map-get($media, 'phone')) {
+  .half-card{
+    height: 150px;
+    margin-top:5px;
+  }
 }
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
 }

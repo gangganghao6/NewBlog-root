@@ -28,9 +28,9 @@ export default [
   },
   {
     label: '说说',
-    key: '/front/shuoshuo',
+    key: '/front/shuoshuo/list',
     icon: <HighlightOutlined />,
-    path: '/front/shuoshuo'
+    path: '/front/shuoshuo/list'
   },
   {
     label: '文件盲盒',

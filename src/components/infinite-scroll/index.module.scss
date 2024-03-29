@@ -2,7 +2,7 @@
 .infinite-scroll-container {
   overflow-y: auto;
   margin: -10px;
-  height: calc(100vh - $topbar-height - 20px);
+  height: calc(100vh - #{$topbar-height} - 20px - #{$footer-height});
   padding: 10px;
   // :global {
   //   .ant-spin-container {

@@ -1,7 +1,7 @@
 @import '@/components/variable.scss';
 .container {
   width: calc(100% + 20px);
-  height: calc(100vh - #{$topbar-height});
+  height: calc(100vh - #{$topbar-height} - #{$footer-height});
   background-color: rgb(242, 242, 242);
   position: relative;
   margin: -10px;

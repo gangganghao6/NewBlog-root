@@ -3,25 +3,15 @@ import sliceEmail from './slice-email'
 import { formatTime } from '@/utils/utils'
 import { DeleteBlogComment } from '@/requests/blogs/blog'
 import { useState } from 'react'
-const data = [
-  {
-    title: 'Ant Design Title 1'
-  },
-  {
-    title: 'Ant Design Title 2'
-  },
-  {
-    title: 'Ant Design Title 3'
-  },
-  {
-    title: 'Ant Design Title 4'
-  }
-]
+import { DeletePersonalComment } from '@/requests/personal/personal'
+import { DeleteShuoshuoComment } from '@/requests/shuoshuos/shuoshuo'
+
 export default function Comment({
   value = [],
   onChange,
   type,
   blogId,
+  shuoshuoId,
   run
 }: any) {
   const [currentPage, setCurrentPage] = useState(1)
@@ -44,7 +34,7 @@ export default function Comment({
                     title="删除这条评论"
                     description="删除不可逆，是否确认删除?"
                     onConfirm={async () => {
-                      await onDelete(blogId, item?.id, run)
+                      await onDelete({ blogId, shuoshuoId }, item?.id, run)
                       run()
                     }}
                     okText="Yes"
@@ -82,8 +72,14 @@ export default function Comment({
     />
   )
 }
-async function onDelete(blogId: string, id: string, run: Function) {
-  await DeleteBlogComment({ blogId, commentId: id })
+async function onDelete({ blogId, shuoshuoId }: any, id: string) {
+  if (blogId) {
+    await DeleteBlogComment({ blogId, commentId: id })
+  } else if (shuoshuoId) {
+    await DeleteShuoshuoComment({ shuoshuoId, commentId: id })
+  } else {
+    await DeletePersonalComment({ commentId: id })
+  }
   // document.querySelector('main')?.scrollTo({
   //   top: 0,
   //   behavior: 'smooth'

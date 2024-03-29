@@ -10,6 +10,7 @@ import FrontTodoList from '@/views/front/todolist/todolist'
 import FrontPersonal from '@/views/front/personal/personal'
 import FrontAbout from '@/views/front/about/about'
 import FrontShuoshuo from '@/views/front/shuoshuo/shuoshou'
+import FrontShuoshuoDetail from '@/views/front/shuoshuo/shuoshuo-detail'
 
 export default {
   path: '/front',
@@ -67,9 +68,14 @@ export default {
       element: <FrontAbout />
     },
     {
-      path: '/front/shuoshuo',
-      title: '说说',
+      path: '/front/shuoshuo/list',
+      title: '说说列表',
       element: <FrontShuoshuo />
+    },
+    {
+      path: '/front/shuoshuo/detail/:id',
+      title: '说说详情',
+      element: <FrontShuoshuoDetail />
     }
   ]
 }

@@ -1,0 +1,34 @@
+@import '@/components/variable.scss';
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 14px;
+  // height: 28px;
+  .link {
+    color: darken($primary-color, 20%);
+  }
+  .copyright {
+    color: darken(white, 40%);
+  }
+  .link,.copyright{
+    height: $footer-height;
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (max-width: map-get($media, 'phone')) {
+}
+@media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
+}
+@media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
+  .footer-container {
+    width: calc(100% - #{$rightbar-width-desktop});
+  }
+}
+@media screen and (min-width: map-get($media, 'desktop')) {
+  .footer-container {
+    width: calc(100% - #{$rightbar-width-desktop});
+  }
+}

@@ -19,13 +19,23 @@ export default function FrontPayButton({ blogId, run }: any) {
   const onOk = async () => {
     await form.validateFields()
     const values = form.getFieldsValue()
-    const result = await handleOk({
-      blogId,
-      payType: 'alipay',
-      ...values,
-      type: 'blog'
-    })
-    setPayResult(result)
+    if (blogId) {
+      const result = await handleOk({
+        blogId,
+        payType: 'alipay',
+        ...values,
+        type: 'blog'
+      })
+      setPayResult(result)
+    } else {
+      const result = await handleOk({
+        blogId,
+        payType: 'alipay',
+        ...values,
+        type: 'personal'
+      })
+      setPayResult(result)
+    }
     setShowConf({ ...showConf, showForm: false, showPaying: true })
   }
   const onCancel = () => {

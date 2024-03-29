@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter,createBrowserRouter } from 'react-router-dom'
 import FunctionErrorBoundary, { ErrorElement } from '@/utils/error-boundary'
 import adminRoute from './admin-route'
 import frontRoute from './front-route'

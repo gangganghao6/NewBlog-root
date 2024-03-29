@@ -5,7 +5,8 @@ import { GlobalInfo } from '@/state/base'
 const url: string = import.meta.env.VITE_PUBLIC_URL
 const port: number = import.meta.env.VITE_SERVER_PORT
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.DEV ? '/api' : `${url}:${port}/api`,
+  // baseURL: import.meta.env.DEV ? '/api' : `${url}:${port}/api`,
+  baseURL:'/api',
   timeout: 1000 * 60,
   withCredentials: true
 })

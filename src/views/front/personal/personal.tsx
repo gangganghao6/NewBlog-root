@@ -76,7 +76,6 @@ export default function FrontPersonal() {
         </span>
       </div>
         <FrontComment
-          // blogId={id}
           run={run}
           comments={comments || []}
         />

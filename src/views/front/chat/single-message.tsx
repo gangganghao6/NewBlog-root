@@ -5,14 +5,15 @@ import { formatTime } from '@/utils/utils'
 import { useState } from 'react'
 import { PlayCircleOutlined } from '@ant-design/icons'
 import FilePng from '@/asserts/file.png'
+import { VideoRender } from '@/components/form/media-list-preview'
 
-const videoRender = (url: string) => {
-  return (ele: any) => {
-    return (
-      <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
-    )
-  }
-}
+// const videoRender = (url: string) => {
+//   return (ele: any) => {
+//     return (
+//       <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
+//     )
+//   }
+// }
 
 export default function SingleMessage({
   role = 'other',
@@ -64,7 +65,7 @@ export default function SingleMessage({
               src={message?.video?.post?.url}
               preview={{
                 toolbarRender: () => <></>,
-                imageRender: videoRender(message?.video?.url),
+                imageRender: VideoRender(message?.video?.url),
                 mask: <PlayCircleOutlined className="text-4xl" />
               }}
             ></Image>

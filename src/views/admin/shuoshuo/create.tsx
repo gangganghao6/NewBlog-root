@@ -51,7 +51,7 @@ export default function AdminShuoshuoCreate({
     data: shuoshuoDetailData,
     error: shuoshuoDetailError,
     run: runDetail
-  } = useRequest((data) => GetShuoshuoDetail(data), {
+  } = useRequest((data) => GetShuoshuoDetail({ id, ...data }), {
     manual: true
   })
   const { id } = useParams()
@@ -103,7 +103,7 @@ export default function AdminShuoshuoCreate({
       </CustomFormItem>
       {type !== 'create' && (
         <CustomFormItem label="评论" name="comments" required={false}>
-          <CompComment type={type} />
+          <CompComment type={type} shuoshuoId={id} run={runDetail} />
         </CustomFormItem>
       )}
       <CustomFormSubmit

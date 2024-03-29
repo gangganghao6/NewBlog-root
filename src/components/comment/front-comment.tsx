@@ -3,21 +3,15 @@ import { formatTime } from '@/utils/utils'
 import { Avatar, List, Input, Button, message } from 'antd'
 import { useState } from 'react'
 import sliceEmail from './slice-email'
-const data = [
-  {
-    title: 'Ant Design Title 1'
-  },
-  {
-    title: 'Ant Design Title 2'
-  },
-  {
-    title: 'Ant Design Title 3'
-  },
-  {
-    title: 'Ant Design Title 4'
-  }
-]
-export default function FrontComment({ blogId, run, comments = [] }: any) {
+import { PostCreatePersonalComment } from '@/requests/personal/personal'
+import { PostCreateShuoshuoComment } from '@/requests/shuoshuos/shuoshuo'
+
+export default function FrontComment({
+  blogId,
+  run,
+  comments = [],
+  shuoshuoId
+}: any) {
   const [comment, setComment] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -69,7 +63,7 @@ export default function FrontComment({ blogId, run, comments = [] }: any) {
       <div className="flex justify-end">
         <Button
           onClick={async () => {
-            await submitBlogComment(blogId, comment)
+            await submitBlogComment({ blogId, shuoshuoId }, comment)
             run()
             setComment('')
           }}
@@ -81,7 +75,13 @@ export default function FrontComment({ blogId, run, comments = [] }: any) {
     </>
   )
 }
-async function submitBlogComment(blogId: number, comment: string) {
-  await PostCreateBlogComment({ blogId, comment })
+async function submitBlogComment({ blogId, shuoshuoId }: any, comment: string) {
+  if (blogId) {
+    await PostCreateBlogComment({ blogId, comment })
+  } else if (shuoshuoId) {
+    await PostCreateShuoshuoComment({ shuoshuoId, comment })
+  } else {
+    await PostCreatePersonalComment({ comment })
+  }
   message.success('评论成功')
 }

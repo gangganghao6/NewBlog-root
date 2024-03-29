@@ -1,0 +1,14 @@
+.container {
+  .header {
+    display: flex;
+    font-size: 13px;
+    margin: 10px 0;
+    font-weight: 400;
+    .header-item {
+      margin-right: 10px;
+    }
+  }
+  .medias{
+    margin-top: 20px;
+  }
+}

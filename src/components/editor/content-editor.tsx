@@ -27,6 +27,7 @@ import {
 } from './code-utils'
 import { SlateButton, Toolbar } from './components'
 import clsx from 'clsx'
+import styles from './content-editor.module.scss'
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -120,7 +121,11 @@ function RichText({
           }
           renderLeaf={renderLeaf}
           placeholder="在这里输入"
-          className={clsx('focus:outline-dotted text-[15px]', className)}
+          className={clsx(
+            // 'focus:outline-dotted text-[15px]',
+            className,
+            styles.editor
+          )}
           readOnly={readOnly}
           onKeyDown={(event) => {
             if (isHotkey('tab', event)) {

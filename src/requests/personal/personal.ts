@@ -32,7 +32,18 @@ export const PutEditPersonalInfo = async ({
     content
   })
 }
-
+export const PostCreatePersonalComment = async ({ comment }: any) => {
+  return await instance.post(`/personal/personalcomment`, {
+    comment
+  })
+}
+export const DeletePersonalComment = async ({ commentId }: any) => {
+  return await instance.delete(`/personal/personalcomment`, {
+    data: {
+      commentId
+    },
+  })
+}
 export interface CreatePersonal {
   name?: string
   sex?: string

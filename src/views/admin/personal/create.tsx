@@ -134,7 +134,7 @@ export default function AdminPersonalCreate({ type }: { type: 'edit' }) {
         <ContentEditor type={'edit'} />
       </MyFormItem>
       <MyFormItem label="评论" name="comments" required={false}>
-        <CompComment type={type} />
+        <CompComment type={type} run={runDetail}/>
       </MyFormItem>
       <MyFormItem label="打赏" name="pays" required={false}>
         <CompPay type={type} />

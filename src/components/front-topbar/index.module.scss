@@ -7,10 +7,11 @@
   margin-left: auto;
   position: relative;
   .content {
-    height: calc(100% - #{$topbar-height});
+    height: calc(100% - #{$topbar-height} - #{$footer-height});
     width: 100%;
     display: flex;
-    overflow-y: auto;
+    // overflow-y: auto;
+    flex-wrap: wrap;
   }
 
 }
@@ -19,6 +20,7 @@
     position: relative;
     .content {
       flex-direction: column;
+      flex-wrap: nowrap;
     }
   }
 }
@@ -31,6 +33,7 @@
       width: calc(100% - $leftbar-width-pad);
       margin-left: $leftbar-width-pad;
       flex-direction: column;
+      flex-wrap: nowrap;
     }
   }
 }

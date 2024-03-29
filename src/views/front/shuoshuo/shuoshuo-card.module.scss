@@ -1,47 +1,100 @@
+@import '@/components/variable.scss';
 .shuoshuo-card {
-  //   height: 180px;
-  height: 18vh;
+  &:hover {
+    background-color: darken(white, 10%);
+  }
+  transition: all $switch-time;
+  height: 20vmin;
   border: 1px solid black;
   display: flex;
+  cursor: pointer;
   .time {
     display: flex;
-    margin: 0 10px;
-    width: 11%;
+    margin: 0 7px;
+    width: 14%;
     .date {
       font-weight: 600;
       font-size: 34px;
+      width: auto;
     }
     .month {
       font-size: 16px;
       line-height: 66px;
+      width: auto;
     }
   }
-  .image {
-    width: 30%;
+  .right-container {
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
-    align-items: center;
-    img {
-      width: 40px;
-      height: 40px;
+    width: 100%;
+    .image {
+      width: 33%;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+      img {
+        width: 8vmin;
+        height: 8vmin;
+      }
+    }
+    .content-container {
+      width: 62%;
+      height: calc(100% - 10px);
+      padding: 5px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .content {
+        font-size: 16px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+      }
+    }
+    .comment-container {
+      width: 100%;
     }
   }
-  .content-container {
-    width: 60%;
-    height: calc(100% - 20px);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .content {
-      font-size: 18px;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
-      overflow: hidden;
+}
+@media screen and (max-width: map-get($media, 'phone')) {
+  .shuoshuo-card {
+    .time {
+      width: 15vmin;
+      .date {
+        font-size: 30px;
+      }
+      .month {
+        font-size: 12px;
+      }
     }
-    .media-size {
+    .right-container {
+      width: 75vmin;
+      .image {
+        width: 20vmin;
+      }
+      .content-container {
+        width: 48vmin;
+        .content {
+          font-size: 12px;
+        }
+        .media-size {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'desktop')) {
+  .shuoshuo-card {
+    .right-container {
+      .image {
+        width: 22%;
+      }
+      .content-container {
+        width: 75%;
+      }
     }
   }
 }

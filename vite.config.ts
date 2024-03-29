@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc'
 import viteCompression from 'vite-plugin-compression'
 import { getLocalIp } from './src/utils/utils'
 import dotenv from 'dotenv'
@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config({
   path: '.env'
 })
-
+const isDev = process.env.NODE_ENV === 'development'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -39,17 +39,16 @@ export default defineConfig({
     target: ['es2015', 'chrome58', 'firefox58', 'safari11']
   },
   define: {
-    'import.meta.env.VITE_WS_LINK': JSON.stringify(
-      process.env.NODE_ENV === 'development'
-        ? `ws://${getLocalIp()}:${process.env.VITE_SERVER_PORT}/api/chats`
-        : `ws://${process.env.VITE_PUBLIC_URL}:${process.env.VITE_SERVER_PORT}/api/chats`
-    )
+    'import.meta.env.VITE_WS_LINK':
+      isDev
+        ? `'ws://${getLocalIp()}:${process.env.VITE_SERVER_PORT}/api/chats'`
+        : `'ws://${process.env.VITE_PUBLIC_URL}:${process.env.VITE_SERVER_PORT}/api/chats'`
   },
-  resolve:{
-    alias:{
+  resolve: {
+    alias: {
       '@': '/src',
-      'public':'/public'
+      'public': '/public'
     }
   },
-  base: './'
+  base: isDev ? '/' : '/frontdist/'
 })

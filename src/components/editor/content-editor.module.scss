@@ -1,0 +1,7 @@
+.editor {
+//   border: 1px solid darken(white, 10%);
+  padding: 0 10px;
+  &:focus {
+    outline: 1px dashed black;
+  }
+}

@@ -9,6 +9,7 @@ import CustomFormItem from '@/components/form/custom-form-item'
 import { formatTime } from '@/utils/utils'
 
 import { GetChatDetail } from '@/requests/chats/chat'
+import { VideoRender } from '@/components/form/media-list-preview'
 const descriptionColums = [
   {
     key: 'id',
@@ -87,7 +88,7 @@ export default function AdminUserCreate({
             src={chatDetailData?.data?.video?.post?.url}
             preview={{
               toolbarRender: () => <></>,
-              imageRender: videoRender(chatDetailData?.data?.video?.url)
+              imageRender: VideoRender(chatDetailData?.data?.video?.url)
             }}
           ></Image>
         </CustomFormItem>
@@ -119,10 +120,10 @@ export default function AdminUserCreate({
   )
 }
 
-const videoRender = (url: string) => {
-  return (ele: any) => {
-    return (
-      <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
-    )
-  }
-}
+// const videoRender = (url: string) => {
+//   return (ele: any) => {
+//     return (
+//       <video className="w-[auto] max-h-[80%]" src={url} controls autoPlay muted></video>
+//     )
+//   }
+// }

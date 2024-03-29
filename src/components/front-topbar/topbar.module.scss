@@ -5,6 +5,9 @@
   background-color: yellow;
   height: $topbar-height;
   max-width: $main-max-width;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .switch-button {
     display: none;
   }
@@ -12,23 +15,44 @@
 @media screen and (max-width: map-get($media, 'phone')) {
   .topbar {
     background-color: seagreen;
-    .switch-button {
-      display: block;
+    justify-content: flex-start;
+    .button-container {
+      display: flex;
+      align-items: center;
+      width: 40px;
+      height: $topbar-height;
+      justify-content: center;
+      cursor: pointer;
+      .switch-button {
+        display: inline-block;
+      }
+    }
+    .search {
+      width: 80%;
     }
   }
 }
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
   .topbar {
     background-color: blue;
+    .search {
+      width: 50%;
+    }
   }
 }
 @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
   .topbar {
     background-color: red;
+    .search {
+      width: 50%;
+    }
   }
 }
 @media screen and (min-width: map-get($media, 'desktop')) {
   .topbar {
     background-color: green;
+    .search {
+      width: 50%;
+    }
   }
 }

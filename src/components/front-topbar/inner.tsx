@@ -5,7 +5,9 @@ export default function Inner(props: any) {
   const location = useLocation()
   return (
     <div className={styles.inner}>
-      <div className={styles['inner-border']}>{props.children}</div>
+      <div className={styles['inner-border']}>
+        {props.children}
+      </div>
       {/* {location.pathname !== '/front/chat' && <FrontRightbar isOuter={false} />} */}
     </div>
   )

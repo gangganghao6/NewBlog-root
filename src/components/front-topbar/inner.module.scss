@@ -1,11 +1,12 @@
 @import '@/components/variable.scss';
 .inner {
+  width: 100%;
   .inner-border {
     // margin: $inner-border-margin;
     padding: $inner-border-padding;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     // border-radius: 5px;
-    height: calc(100vh - #{$topbar-height} - 20px);
+    height: calc(100vh - #{$topbar-height} - 20px - #{$footer-height});
     overflow-y: auto;
     // min-height: calc(100% - #{$topbar-height} - 10px);
   }

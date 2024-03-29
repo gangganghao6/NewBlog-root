@@ -8,7 +8,7 @@ import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
 import { PostFileChunkUpload } from '@/requests/files/file_chunk'
 import { useState } from 'react'
 import ImageDamage from '@/asserts/image-damage.png'
-import styles from './editor.module.scss'
+import styles from './image-utils.module.scss'
 
 export const withImages = (editor: any) => {
   const { insertData, isVoid } = editor

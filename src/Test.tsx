@@ -1,11 +1,11 @@
-import { type ReactElement } from 'react'
+// import { type ReactElement } from 'react'
 
-export default function Test({ data }: any): ReactElement {
-  const msg = data.read()
-  console.log(msg)
-  return <div>{JSON.stringify(msg)}</div>
-  // return <></>
-}
+// export default function Test({ data }: any): ReactElement {
+//   const msg = data.read()
+//   console.log(msg)
+//   return <div>{JSON.stringify(msg)}</div>
+//   // return <></>
+// }
   // const ws = new WebSocket(`${import.meta.env.VITE_WS_LINK}?userId=ea51dc62-c033-4d80-944d-cd400f548b3f`);
   // ws.onopen = () => {
   //   ws.send(JSON.stringify({ content: '123' }));
