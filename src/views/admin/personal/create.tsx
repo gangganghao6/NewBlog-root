@@ -134,15 +134,15 @@ export default function AdminPersonalCreate({ type }: { type: 'edit' }) {
         <ContentEditor type={'edit'} />
       </MyFormItem>
       <MyFormItem label="评论" name="comments" required={false}>
-        <CompComment type={type} run={runDetail}/>
+        <CompComment type={type} run={runDetail} personalId={personalDetailData?.data?.id}/>
       </MyFormItem>
       <MyFormItem label="打赏" name="pays" required={false}>
-        <CompPay type={type} />
+        <CompPay type={type} personalId={personalDetailData?.data?.id}/>
       </MyFormItem>
       <CustomFormSubmit
         okRoutePath={`/admin/personal?random=${+new Date()}`}
         showOk={true}
-        form={form}
+        form={form} 
         // extraParams={{
         //   id
         // }}

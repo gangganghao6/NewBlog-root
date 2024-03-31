@@ -5,12 +5,14 @@ import { useState } from 'react'
 import sliceEmail from './slice-email'
 import { PostCreatePersonalComment } from '@/requests/personal/personal'
 import { PostCreateShuoshuoComment } from '@/requests/shuoshuos/shuoshuo'
+import { PostCreateComment } from '@/requests/base/comments'
 
 export default function FrontComment({
   blogId,
   run,
   comments = [],
-  shuoshuoId
+  shuoshuoId,
+  personalId
 }: any) {
   const [comment, setComment] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -63,7 +65,7 @@ export default function FrontComment({
       <div className="flex justify-end">
         <Button
           onClick={async () => {
-            await submitBlogComment({ blogId, shuoshuoId }, comment)
+            await submitBlogComment({ blogId, shuoshuoId, personalId }, comment)
             run()
             setComment('')
           }}
@@ -75,13 +77,10 @@ export default function FrontComment({
     </>
   )
 }
-async function submitBlogComment({ blogId, shuoshuoId }: any, comment: string) {
-  if (blogId) {
-    await PostCreateBlogComment({ blogId, comment })
-  } else if (shuoshuoId) {
-    await PostCreateShuoshuoComment({ shuoshuoId, comment })
-  } else {
-    await PostCreatePersonalComment({ comment })
-  }
+async function submitBlogComment(
+  { blogId, shuoshuoId, personalId }: any,
+  comment: string
+) {
+  await PostCreateComment({ blogId, shuoshuoId, personalId, comment })
   message.success('评论成功')
 }

@@ -31,7 +31,8 @@ export default function FrontPersonal() {
     projects,
     experiences,
     comments,
-    pays
+    pays,
+    id
   } = data?.data || {}
   return (
     <div className={styles['personal-container']}>
@@ -69,16 +70,13 @@ export default function FrontPersonal() {
           ))}
       </div>
       <div className={styles['footer-container']}>
-      <div className={styles.pay}>
-        <FrontPayButton run={run} />
-        <span className="mb-6 text-[13px]">
-          喜欢我的文章吗？ 别忘了点赞或赞赏，让我知道创作的路上有你陪伴。
-        </span>
-      </div>
-        <FrontComment
-          run={run}
-          comments={comments || []}
-        />
+        <div className={styles.pay}>
+          <FrontPayButton run={run} personalId={id}/>
+          <span className="mb-6 text-[13px]">
+            喜欢我的文章吗？ 别忘了点赞或赞赏，让我知道创作的路上有你陪伴。
+          </span>
+        </div>
+        <FrontComment personalId={id} run={run} comments={comments || []} />
         <FrontPayList pays={pays} />
       </div>
     </div>

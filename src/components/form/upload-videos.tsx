@@ -5,8 +5,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { formatVideoFromResult } from './format-media-from-result'
 
 export default function UploadCoverImage({ value, onChange }: any) {
-  console.log(11)
-
   const [fileList, setFileList] = useState<any>([])
   const [uploadFileList, setUploadFileList] = useState<any>([])
   const [showPreview, setShowPreview] = useState(false)

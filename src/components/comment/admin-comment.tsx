@@ -5,6 +5,7 @@ import { DeleteBlogComment } from '@/requests/blogs/blog'
 import { useState } from 'react'
 import { DeletePersonalComment } from '@/requests/personal/personal'
 import { DeleteShuoshuoComment } from '@/requests/shuoshuos/shuoshuo'
+import { DeleteComment } from '@/requests/base/comments'
 
 export default function Comment({
   value = [],
@@ -12,6 +13,7 @@ export default function Comment({
   type,
   blogId,
   shuoshuoId,
+  personalId,
   run
 }: any) {
   const [currentPage, setCurrentPage] = useState(1)
@@ -34,7 +36,10 @@ export default function Comment({
                     title="删除这条评论"
                     description="删除不可逆，是否确认删除?"
                     onConfirm={async () => {
-                      await onDelete({ blogId, shuoshuoId }, item?.id, run)
+                      await onDelete(
+                        { blogId, shuoshuoId, personalId, commentId: item?.id },
+                        run
+                      )
                       run()
                     }}
                     okText="Yes"
@@ -72,14 +77,15 @@ export default function Comment({
     />
   )
 }
-async function onDelete({ blogId, shuoshuoId }: any, id: string) {
-  if (blogId) {
-    await DeleteBlogComment({ blogId, commentId: id })
-  } else if (shuoshuoId) {
-    await DeleteShuoshuoComment({ shuoshuoId, commentId: id })
-  } else {
-    await DeletePersonalComment({ commentId: id })
-  }
+async function onDelete({ blogId, shuoshuoId, personalId, commentId }: any) {
+  // if (blogId) {
+  //   await DeleteBlogComment({ blogId, commentId: id })
+  // } else if (shuoshuoId) {
+  //   await DeleteShuoshuoComment({ shuoshuoId, commentId: id })
+  // } else {
+  //   await DeletePersonalComment({ commentId: id })
+  // }
+  await DeleteComment({ blogId, shuoshuoId, personalId, commentId })
   // document.querySelector('main')?.scrollTo({
   //   top: 0,
   //   behavior: 'smooth'

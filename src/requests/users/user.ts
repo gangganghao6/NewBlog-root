@@ -55,8 +55,8 @@ export const UserRegist = async ({ name, email }: User): Promise<any> => {
 export const UserAuth = async (): Promise<any> => {
   return await instance.post('/users/auth')
 }
-export const UserCreatePayOrder = async ({ blogId, money, type, message, payType }: CreatePayOrder): Promise<any> => {
-  return await instance.post('/users/pay/create', { blogId, money, type, message, payType, isMobile: isMobile() })
+export const UserCreatePayOrder = async ({ blogId, personalId, money, type, message, payType }: CreatePayOrder): Promise<any> => {
+  return await instance.post('/users/pay/create', { blogId, money, type, message, payType, isMobile: isMobile(), personalId })
 }
 export const UserConfirmPayOrder = async ({ outTradeNo }: { outTradeNo: string }): Promise<any> => {
   return await instance.get(`/users/pay/confirm`, {
@@ -98,6 +98,7 @@ export interface CreatePayOrder {
   type: 'blog' | 'personal'
   isMobile?: boolean
   blogId?: string
+  personalId?: string
   message?: string
   money: number
   payType: 'alipay' | 'wechat'

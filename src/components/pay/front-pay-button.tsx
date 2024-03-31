@@ -4,7 +4,7 @@ import { Button, Form, Input, InputNumber, Modal, Result, message } from 'antd'
 import { useState } from 'react'
 import CustomFormItem from '@/components/form/custom-form-item'
 
-export default function FrontPayButton({ blogId, run }: any) {
+export default function FrontPayButton({ blogId, run, personalId }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showConf, setShowConf] = useState({
     showForm: true,
@@ -29,7 +29,7 @@ export default function FrontPayButton({ blogId, run }: any) {
       setPayResult(result)
     } else {
       const result = await handleOk({
-        blogId,
+        personalId,
         payType: 'alipay',
         ...values,
         type: 'personal'
@@ -126,9 +126,17 @@ export default function FrontPayButton({ blogId, run }: any) {
     </>
   )
 }
-const handleOk = async ({ blogId, payType, money, type, message }: any) => {
+const handleOk = async ({
+  blogId,
+  personalId,
+  payType,
+  money,
+  type,
+  message
+}: any) => {
   const result = await UserCreatePayOrder({
     blogId,
+    personalId,
     payType,
     money,
     type,
