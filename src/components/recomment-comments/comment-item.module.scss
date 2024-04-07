@@ -1,0 +1,26 @@
+@import '@/components/variable.scss';
+.item-container {
+  width: calc(100% - 10px);
+  margin: 5px;
+  .title-container {
+    .name {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
+  .title-container {
+    margin-left: -10px;
+    .name {
+      font-size: 12px;
+      
+    }
+  }
+}
+@media screen and (min-width: map-get($media, 'desktop')) {
+  .rightbar {
+  }
+}

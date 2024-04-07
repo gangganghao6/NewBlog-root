@@ -3,7 +3,6 @@ import styles from './chat.module.scss'
 import SingleMessage from './single-message'
 import { FileOutlined } from '@ant-design/icons'
 import { useEffect, useRef, useState } from 'react'
-import { UserAuth } from '@/requests/users/user'
 import { useRequest } from 'ahooks'
 import { GetChatList } from '@/requests/chats/chat'
 import useChat from './useChat'
@@ -14,9 +13,15 @@ export default function FrontChat() {
 
   const messageAreaRef = useRef<HTMLDivElement>(null)
   const [firstMessageId, setFirstMessageId] = useState()
-  const { ws, messages, onlineUserCount, setMessages, isConnected, isBanned } =
-    useChat(messageAreaRef)
-  const { data: user } = useRequest(UserAuth)
+  const {
+    ws,
+    messages,
+    onlineUserCount,
+    setMessages,
+    isConnected,
+    isBanned,
+    user
+  } = useChat(messageAreaRef)
   const { data: messageData, run: GetMessage } = useRequest(
     (page) => GetChatList({ page, sort: 'desc', size: 10, reverse: true }),
     {

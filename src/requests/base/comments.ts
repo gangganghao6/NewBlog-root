@@ -1,3 +1,4 @@
+import { List } from '@/utils/types'
 import instance from '../request'
 
 export const DeleteComment = async ({
@@ -26,6 +27,16 @@ export const PostCreateComment = async ({
     blogId,
     shuoshuoId,
     personalId
+  })
+}
+export const GetCommentList = async ({ page, size, sort, ...data }: List): Promise<any> => {
+  return await instance.get('/base/comment/list', {
+    params: {
+      page,
+      size,
+      sort,
+      ...data
+    }
   })
 }
 export interface CommentsDelete {

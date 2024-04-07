@@ -3,6 +3,7 @@
   width: 30%;
   background-color: green;
   height: 100%;
+  overflow: auto;
 }
 @media screen and (max-width: map-get($media, 'phone')) {
     .rightbar {
@@ -10,8 +11,6 @@
       width: $rightbar-width-phone;
       height: 100%;
       width: 100%;
-    }
-    .rightbar.switch1{
       display: none;
     }
   }
@@ -21,8 +20,6 @@
       width: $rightbar-width-pad;
       height: 100%;
       width: 100%;
-    }
-    .rightbar.switch1{
       display: none;
     }
   }
@@ -32,17 +29,11 @@
       width: $rightbar-width-desktop;
       height: 100%;
     }
-    .rightbar.switch2{
-      display: none;
-    }
   }
   @media screen and (min-width: map-get($media, 'desktop')) {
     .rightbar {
       background-color: darkblue;
       width: $rightbar-width-desktop;
       height: 100%;
-    }
-    .rightbar.switch2{
-      display: none;
     }
   }

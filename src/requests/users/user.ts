@@ -55,6 +55,11 @@ export const UserRegist = async ({ name, email }: User): Promise<any> => {
 export const UserAuth = async (): Promise<any> => {
   return await instance.post('/users/auth')
 }
+export const UserSubscribe = async ({ isSubscribed }: { isSubscribed: boolean }): Promise<any> => {
+  return await instance.put(`/users/subscribe`, {
+    isSubscribed
+  })
+}
 export const UserCreatePayOrder = async ({ blogId, personalId, money, type, message, payType }: CreatePayOrder): Promise<any> => {
   return await instance.post('/users/pay/create', { blogId, money, type, message, payType, isMobile: isMobile(), personalId })
 }

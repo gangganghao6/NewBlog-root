@@ -78,13 +78,6 @@ export default function Comment({
   )
 }
 async function onDelete({ blogId, shuoshuoId, personalId, commentId }: any) {
-  // if (blogId) {
-  //   await DeleteBlogComment({ blogId, commentId: id })
-  // } else if (shuoshuoId) {
-  //   await DeleteShuoshuoComment({ shuoshuoId, commentId: id })
-  // } else {
-  //   await DeletePersonalComment({ commentId: id })
-  // }
   await DeleteComment({ blogId, shuoshuoId, personalId, commentId })
   // document.querySelector('main')?.scrollTo({
   //   top: 0,

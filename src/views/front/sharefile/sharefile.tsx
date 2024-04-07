@@ -25,7 +25,6 @@ import { DownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 export default function ShareFile(props: any) {
   const [fileList, setFileList] = useState<any[]>([])
   const activeIndexRef = useRef(1)
-  const [activeIndex, setActiveIndex] = useState(0)
   const { data, loading, run } = useRequest(
     (data = 1) => GetRandomShareFile({ size: data }),
     {
@@ -49,14 +48,14 @@ export default function ShareFile(props: any) {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={2}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false
-        // }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false
+        }}
         coverflowEffect={{
-          rotate: 85,
+          rotate: 80,
           stretch: 0,
-          depth: 100,
+          // depth: 100,
           modifier: 1,
           slideShadows: false
         }}

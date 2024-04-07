@@ -66,6 +66,7 @@ export default (scrollRef: Ref<HTMLElement>) => {
     onlineUserCount,
     setMessages,
     isConnected,
-    isBanned
+    isBanned,
+    user
   }
 }

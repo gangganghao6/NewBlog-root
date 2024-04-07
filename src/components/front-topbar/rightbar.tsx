@@ -1,8 +1,14 @@
 import clsx from 'clsx'
 import styles from './rightbar.module.scss'
-export default function Rightbar({ isOuter }: any) {
-  return <div className={clsx(styles.rightbar,{
-    [styles.switch1]: isOuter,
-    [styles.switch2]: !isOuter
-  })}>rightbar</div>
+import RecommentComments from '@/components/recomment-comments'
+import SummaryInfo from '@/components/summary-info'
+import TagsShow from '@/components/tags-show'
+export default function Rightbar({}: any) {
+  return (
+    <div className={clsx(styles.rightbar)}>
+      <RecommentComments />
+      <SummaryInfo />
+      <TagsShow />
+    </div>
+  )
 }

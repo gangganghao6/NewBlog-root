@@ -10,7 +10,6 @@ export default function useLogin() {
   const location = useLocation()
   const redirectPath = new URLSearchParams(location.search).get('redirect')
   const navigate = useNavigate()
-  const [firstRender, setFirstRender] = useState(true)
   const { data, error, loading, run } = useRequest(UserAuth, {
     manual: true
   })
@@ -35,10 +34,6 @@ export default function useLogin() {
     }
   }, [data, error])
   useEffect(() => {
-    if (firstRender) {
-      setFirstRender(false)
-    } else {
       run()
-    }
   }, [proxyState.loginStateChange])
 }

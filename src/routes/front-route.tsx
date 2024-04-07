@@ -5,12 +5,12 @@ import FrontChat from '@/views/front/chat/chat'
 import FrontLogin from '@/views/front/login'
 import FrontGithub from '@/views/front/github/github'
 import FrontShareFile from '@/views/front/sharefile/sharefile'
-import path from 'path'
 import FrontTodoList from '@/views/front/todolist/todolist'
 import FrontPersonal from '@/views/front/personal/personal'
 import FrontAbout from '@/views/front/about/about'
 import FrontShuoshuo from '@/views/front/shuoshuo/shuoshou'
 import FrontShuoshuoDetail from '@/views/front/shuoshuo/shuoshuo-detail'
+import FrontSetting from '@/views/front/setting'
 
 export default {
   path: '/front',
@@ -76,6 +76,11 @@ export default {
       path: '/front/shuoshuo/detail/:id',
       title: '说说详情',
       element: <FrontShuoshuoDetail />
+    },
+    {
+      path: '/front/setting',
+      title: '设置',
+      element: <FrontSetting />
     }
   ]
 }

@@ -1,0 +1,11 @@
+@import '@/components/variable.scss';
+.container {
+  .link {
+    color: $primary-color;
+    cursor: pointer;
+    margin-left: 5px;
+    &:hover {
+      color: darken($primary-color, 10%);
+    }
+  }
+}
