@@ -55,7 +55,7 @@ export default function SummaryInfo() {
             最后活动
           </div>
           <div className={styles.value}>
-            {daysCount(baseInfo?.lastModifiedTime)}天
+            {daysCount(baseInfo?.lastModifiedTime)}天前
           </div>
         </div>
       </div>

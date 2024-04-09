@@ -110,12 +110,12 @@ export default function ShareFile(props: any) {
                   <Button
                     type="text"
                     icon={<DownloadOutlined />}
-                    onClick={() => {
-                      void GetShareFileDownload({ id: item.id })
+                    onClick={async () => {
+                      await GetShareFileDownload({ id: item.id })
                       window.open(downloadUrl)
                     }}
                   >
-                    下载
+                    下载({item?.downloadCount})
                   </Button>
                 </div>
               </div>

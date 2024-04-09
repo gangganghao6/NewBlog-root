@@ -1,6 +1,4 @@
-import {
-  GetBaseSummaryInfo
-} from '@/requests/base/info'
+import { GetBaseSummaryInfo } from '@/requests/base/info'
 import { CustomDescription } from '@/components/form/custom-description'
 import { useRequest } from 'ahooks'
 const descriptionColums = [
@@ -66,8 +64,12 @@ const descriptionColums = [
     label: '用户数量'
   },
   {
+    key: 'visitedLogCount',
+    label: '用户访问记录数量'
+  },
+  {
     key: 'visitedCount',
-    label: '用户总访问次数'
+    label: '用户访问次数'
   }
 ]
 export default function Home() {

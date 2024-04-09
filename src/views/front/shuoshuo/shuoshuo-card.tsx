@@ -2,6 +2,7 @@ import { formatTime } from '@/utils/utils'
 import styles from './shuoshuo-card.module.scss'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
+import { CommentOutlined, EyeOutlined } from '@ant-design/icons'
 export default function ShuoshuoCard({ data }: any) {
   const navigate = useNavigate()
   const mediaList = [...(data?.images || []), ...(data?.videos || [])]
@@ -32,19 +33,20 @@ export default function ShuoshuoCard({ data }: any) {
         </div>
         <div className={styles['content-container']}>
           <div className={styles.content}>{data?.content}</div>
-          <div className={styles['media-size']}>共{mediaList?.length}张</div>
+          <div className={styles['media-size']}>
+            <span>共{mediaList?.length}张</span>
+            <span>
+              <CommentOutlined />
+              {data?.comments?.length}
+            </span>
+            <span>
+              <EyeOutlined />
+              {data?.visitedCount}
+            </span>
+            <span>{formatTime(data?.createdTime)}</span>
+          </div>
         </div>
         <div className={styles['comment-container']}>
-          {/* {data?.comments?.map((item: any) => {
-            console.log(item);
-            
-            return (
-              <>
-                <div className={styles.name}>{item?.user?.name}</div>
-                <div className={styles.comment}>{item?.comment}</div>
-              </>
-            )
-          })} */}
         </div>
       </div>
     </div>

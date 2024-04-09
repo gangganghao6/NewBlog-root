@@ -34,7 +34,7 @@ export default function BlogList() {
           xxl: 1
         }}
         renderItem={(item: any) => (
-          <List.Item>
+          <List.Item style={{ marginBottom: 0 }}>
             <BlogCardHalf data={item} />
           </List.Item>
         )}

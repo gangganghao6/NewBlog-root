@@ -54,6 +54,11 @@
         -webkit-line-clamp: 3;
         overflow: hidden;
       }
+      .media-size {
+        span {
+          margin-right: 3px;
+        }
+      }
     }
     .comment-container {
       width: 100%;
