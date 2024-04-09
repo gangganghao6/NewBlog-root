@@ -8,6 +8,7 @@ import { useSnapshot } from 'valtio'
 
 export default function useLogin() {
   const location = useLocation()
+  const [isFirst, setIsFirst] = useState(true)
   const redirectPath = new URLSearchParams(location.search).get('redirect')
   const navigate = useNavigate()
   const { data, error, loading, run } = useRequest(UserAuth, {
@@ -34,6 +35,10 @@ export default function useLogin() {
     }
   }, [data, error])
   useEffect(() => {
+    if (!isFirst) {
       run()
+    } else {
+      setIsFirst(false)
+    }
   }, [proxyState.loginStateChange])
 }

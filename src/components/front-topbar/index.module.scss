@@ -6,6 +6,7 @@
   margin-right: auto;
   margin-left: auto;
   position: relative;
+  background-color: $dark-color;
   .content {
     height: calc(100% - #{$topbar-height} - #{$footer-height});
     width: 100%;

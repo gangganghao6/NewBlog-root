@@ -1,6 +1,4 @@
-import React from 'react'
-// import { ThemeProvider, createTheme } from '@mui/material/styles'
-// import CssBaseline from '@mui/material/CssBaseline'
+import { useEffect } from 'react'
 import { useSnapshot } from 'valtio'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
@@ -9,22 +7,42 @@ import '@/index.scss'
 import { GlobalInfo } from '@/state/base'
 import { ClassErrorBoundary } from './utils/error-boundary'
 import { ConfigProvider } from 'antd'
-import zhCN from 'antd/locale/zh_CN';
+import zhCN from 'antd/locale/zh_CN'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import introJs from 'intro.js'
+import 'intro.js/introjs.css'
 dayjs.locale('zh-cn')
 
 function RootNode() {
   const snap = useSnapshot(GlobalInfo)
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     mode: snap.theme === 'light' ? 'light' : 'dark'
-  //   }
-  // })
+  useEffect(() => {
+    if (!localStorage.getItem('introjs-done')) {
+      localStorage.setItem('introjs-done', 'true')
+      setTimeout(() => {
+        introJs()
+          .setOptions({
+            nextLabel: '下一步',
+            prevLabel: '上一步',
+            doneLabel: '完成',
+            // skipLabel: '跳过',
+            showStepNumbers: false,
+            disableInteraction: true
+          })
+          .start()
+      }, 500)
+    }
+  }, [])
   return (
     <ConfigProvider locale={zhCN}>
       <ClassErrorBoundary>
         <RouterProvider router={routes} />
+        <div
+          id="root-node"
+          style={{
+            backgroundImage: `url(${snap?.baseInfo?.headImage?.url})`
+          }}
+        ></div>
       </ClassErrorBoundary>
     </ConfigProvider>
   )

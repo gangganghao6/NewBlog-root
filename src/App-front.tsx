@@ -11,6 +11,7 @@ import { Spin } from 'antd'
 import { useSnapshot } from 'valtio'
 import loadingGif from '@/asserts/loading.gif'
 
+
 export default function AppFront() {
   const { data, loading } = useRequest(GetBaseInfoDetail)
   useLogin()

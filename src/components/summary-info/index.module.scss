@@ -1,26 +1,28 @@
 .container {
-  background-color: purple;
+  // background-color: purple;
   width: 100%;
   .title {
     padding: 5px 0 0 5px;
   }
   .content-container {
-    border: 1px solid black;
+    // border: 1px solid black;
     margin: 10px;
     .content {
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
       margin-bottom: 5px;
       display: flex;
       justify-content: space-between;
       padding: 0 5px;
       margin: 5px 0;
+      border-radius: 5px;
+      height: 40px;
+      color: white;
+      font-size: 12px;
+      align-items: center;
       .key {
       }
       .value {
         font-size: 12px;
-        background-color: gray;
-        border-radius: 6px;
-        padding: 0 5px;
-        line-height: 20px;
       }
     }
   }

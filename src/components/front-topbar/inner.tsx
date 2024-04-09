@@ -4,7 +4,7 @@ import FrontRightbar from './rightbar'
 export default function Inner(props: any) {
   const location = useLocation()
   return (
-    <div className={styles.inner}>
+    <div className={styles.inner}  data-step="5" data-intro="愉快地玩耍吧！">
       <div className={styles['inner-border']}>
         {props.children}
       </div>

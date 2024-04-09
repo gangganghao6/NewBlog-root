@@ -1,25 +1,24 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
 import { FrontLoginInfo } from '@/state/base'
-import { useEffect } from 'react'
 import { formatTime } from '@/utils/utils'
-import { Badge, Button, Descriptions, message } from 'antd'
-import { UserLogout, UserSubscribe } from '@/requests/users/user'
-import { useSnapshot } from 'valtio'
+import { Badge, Descriptions, message } from 'antd'
+import { UserAuth, UserLogout, UserSubscribe } from '@/requests/users/user'
+import { useRequest } from 'ahooks'
 
 export default function FrontSetting() {
   const navigator = useNavigate()
-  const loginData = useSnapshot(FrontLoginInfo).data
+  const { data, error, run } = useRequest(UserAuth)
   const colums = [
     {
       label: '登录状态',
       children: (
         <>
           <Badge
-            status={loginData?.code === 200 ? 'success' : 'error'}
-            text={loginData?.code === 200 ? '已登录' : '未登录'}
+            status={data?.code === 200 ? 'success' : 'error'}
+            text={data?.code === 200 ? '已登录' : '未登录'}
           />
-          {loginData?.code === 200 && (
+          {data?.code === 200 && (
             <span
               className={styles.link}
               onClick={async () => {
@@ -30,7 +29,7 @@ export default function FrontSetting() {
               退出登录
             </span>
           )}
-          {loginData?.code !== 200 && (
+          {data?.code !== 200 && (
             <span
               className={styles.link}
               onClick={() => {
@@ -45,40 +44,40 @@ export default function FrontSetting() {
     },
     {
       label: '用户名',
-      children: loginData?.data?.name
+      children: data?.data?.name
     },
     {
       label: 'ID',
-      children: loginData?.data?.id
+      children: data?.data?.id
     },
     {
       label: '邮箱',
-      children: loginData?.data?.email
+      children: data?.data?.email
     },
     {
       label: '是否订阅',
       children: (
         <>
-          {loginData?.data?.isSubscribed ? '是' : '否'}
-          {!loginData?.data?.isSubscribed && (
+          {data?.data?.isSubscribed ? '是' : '否'}
+          {!data?.data?.isSubscribed && (
             <span
               className={styles.link}
               onClick={async () => {
                 await UserSubscribe({ isSubscribed: true })
+                run()
                 message.success('订阅成功')
-                FrontLoginInfo.loginStateChange = new Date().getTime()
               }}
             >
               订阅
             </span>
           )}
-          {loginData?.data?.isSubscribed && (
+          {data?.data?.isSubscribed && (
             <span
               className={styles.link}
               onClick={async () => {
                 await UserSubscribe({ isSubscribed: false })
+                run()
                 message.success('取消订阅成功')
-                FrontLoginInfo.loginStateChange = new Date().getTime()
               }}
             >
               取消订阅
@@ -91,18 +90,18 @@ export default function FrontSetting() {
       label: '是否被禁',
       children: (
         <Badge
-          status={loginData?.data?.isBanned ? 'error' : 'success'}
-          text={loginData?.data?.isBanned ? '是' : '否'}
+          status={data?.data?.isBanned ? 'error' : 'success'}
+          text={data?.data?.isBanned ? '是' : '否'}
         />
       )
     },
     {
       label: '创建时间',
-      children: formatTime(loginData?.data?.createdTime)
+      children: formatTime(data?.data?.createdTime)
     },
     {
       label: '最近活跃时间',
-      children: formatTime(loginData?.data?.lastActiveTime)
+      children: formatTime(data?.data?.lastActiveTime)
     }
   ]
   return (

@@ -2,19 +2,21 @@
 .topbar {
   margin-left: auto;
   margin-right: auto;
-  background-color: yellow;
+  background-color: $dark-color;
   height: $topbar-height;
   max-width: $main-max-width;
   display: flex;
   align-items: center;
   justify-content: center;
+  // margin-bottom: ;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   .switch-button {
     display: none;
   }
 }
 @media screen and (max-width: map-get($media, 'phone')) {
   .topbar {
-    background-color: seagreen;
+    // background-color: seagreen;
     justify-content: flex-start;
     .button-container {
       display: flex;
@@ -34,7 +36,7 @@
 }
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
   .topbar {
-    background-color: blue;
+    // background-color: blue;
     .search {
       width: 50%;
     }
@@ -42,7 +44,7 @@
 }
 @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
   .topbar {
-    background-color: red;
+    // background-color: red;
     .search {
       width: 50%;
     }
@@ -50,7 +52,7 @@
 }
 @media screen and (min-width: map-get($media, 'desktop')) {
   .topbar {
-    background-color: green;
+    // background-color: green;
     .search {
       width: 50%;
     }

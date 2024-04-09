@@ -71,6 +71,9 @@ dependencies:
   image-extensions:
     specifier: ^1.1.0
     version: 1.1.0
+  intro.js:
+    specifier: ^7.2.0
+    version: 7.2.0
   is-hotkey:
     specifier: ^0.2.0
     version: 0.2.0
@@ -2853,6 +2856,10 @@ packages:
 
   /intersection-observer@0.12.2:
     resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==}
+    dev: false
+
+  /intro.js@7.2.0:
+    resolution: {integrity: sha512-qbMfaB70rOXVBceIWNYnYTpVTiZsvQh/MIkfdQbpA9di9VBfj1GigUPfcCv3aOfsbrtPcri8vTLTA4FcEDcHSQ==}
     dev: false
 
   /is-array-buffer@3.0.4:

@@ -29,9 +29,13 @@
       margin: 0 0 0 20px;
       font-weight: 400;
       height: 30px;
-    //   height: 20%;
+      color: white;
+      mix-blend-mode: difference;
+      //   height: 20%;
     }
     .content {
+      color: white;
+      mix-blend-mode: difference;
       width: calc(100% - 35px);
       font-weight: 100;
       font-size: 1rem;
@@ -40,7 +44,7 @@
       overflow: hidden;
       margin: 10px 15px 20px 20px;
       height: 30px;
-    //   height: 80%;
+      //   height: 80%;
     }
   }
 }
@@ -55,6 +59,11 @@
   border-radius: 10px;
   margin: 10px 0;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: $light-color;
+  transition: all $switch-time;
+  &:hover {
+    background-color: darken($light-color, 10%);
+  }
   .post {
     width: 30%;
     height: 100%;
@@ -96,9 +105,9 @@
   }
 }
 @media screen and (max-width: map-get($media, 'phone')) {
-  .half-card{
+  .half-card {
     height: 150px;
-    margin-top:5px;
+    margin-top: 5px;
   }
 }
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {

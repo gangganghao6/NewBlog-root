@@ -1,7 +1,9 @@
-.container{
-    background-color: purple;
-    width: 100%;
-    .title{
-        padding: 5px 0 0 5px;
-    }
+@import '@/components/variable.scss';
+.container {
+  // background-color: purple;
+  background-color: $light-color;
+  width: 100%;
+  .title {
+    padding: 5px 0 0 5px;
+  }
 }

@@ -74,6 +74,6 @@ export function BlogCardHalf(props: any) {
     </div>
   )
 }
-const serialize = (nodes: []) => {
+export const serialize = (nodes: []) => {
   return nodes.map((n) => Node.string(n)).join('')
 }

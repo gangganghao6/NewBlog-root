@@ -3,17 +3,45 @@
   width: 20%;
   position: absolute;
   z-index: calc(#{$mask-z-index} + 1);
+  background-color: $dark-color;
+  .head-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 20vmin;
+    background-size: cover;
+    .name {
+      color: white;
+      mix-blend-mode: difference;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+    .description {
+      color: white;
+      mix-blend-mode: difference;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: map-get($media, 'phone')) {
   .leftbar {
     position: absolute;
-    background-color: peru;
+    // background-color: peru;
     width: $leftbar-width-phone;
     height: 100%;
     top: 0;
     transition: transform $switch-time;
     transition-timing-function: ease;
+    .head-image {
+      img {
+        // width: auto;
+        height: 30vmin;
+      }
+    }
   }
   .leftbar.show {
     transform: translateX(0);
@@ -25,20 +53,20 @@
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
   .leftbar {
     width: $leftbar-width-pad;
-    background-color: yellow;
+    // background-color: yellow;
     height: calc(100% - #{$topbar-height});
   }
 }
 @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
   .leftbar {
-    background-color: purple;
+    // background-color: purple;
     width: $leftbar-width-desktop;
     height: calc(100% - #{$topbar-height});
   }
 }
 @media screen and (min-width: map-get($media, 'desktop')) {
   .leftbar {
-    background-color: plum;
+    // background-color: plum;
     height: calc(100% - #{$topbar-height});
     width: $leftbar-width-desktop;
   }

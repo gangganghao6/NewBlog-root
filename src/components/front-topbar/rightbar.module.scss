@@ -1,13 +1,14 @@
 @import '@/components/variable.scss';
 .rightbar {
   width: 30%;
-  background-color: green;
+  // background-color: green;
+  background-color: $light-color;
   height: 100%;
   overflow: auto;
 }
 @media screen and (max-width: map-get($media, 'phone')) {
     .rightbar {
-      background-color: greenyellow;
+      // background-color: greenyellow;
       width: $rightbar-width-phone;
       height: 100%;
       width: 100%;
@@ -16,7 +17,7 @@
   }
   @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
     .rightbar {
-      background-color: salmon;
+      // background-color: salmon;
       width: $rightbar-width-pad;
       height: 100%;
       width: 100%;
@@ -25,14 +26,14 @@
   }
   @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
     .rightbar {
-      background-color: sandybrown;
+      // background-color: sandybrown;
       width: $rightbar-width-desktop;
       height: 100%;
     }
   }
   @media screen and (min-width: map-get($media, 'desktop')) {
     .rightbar {
-      background-color: darkblue;
+      // background-color: darkblue;
       width: $rightbar-width-desktop;
       height: 100%;
     }

@@ -16,16 +16,19 @@ import ContentEditor from '@/components/editor/content-editor'
 import FrontComment from '@/components/comment/front-comment'
 import FrontPayButton from '@/components/pay/front-pay-button'
 import FrontPayList from '@/components/pay/front-pay-list'
+import { useEffect } from 'react'
 
 export default function FrontBlogDetail() {
   const id = useParams()?.id
   const { data, loading, run } = useRequest(
-    () => GetBlogDetail({ id, increase: true }),
+    (id) => GetBlogDetail({ id, increase: true }),
     {
-      manual: false
+      manual: true
     }
   )
-
+  useEffect(() => {
+    run(id)
+  }, [id])
   return (
     <div className={styles.detail}>
       <div className={styles.title}>{data?.data?.title}</div>
@@ -64,14 +67,14 @@ export default function FrontBlogDetail() {
         </div>
       </div>
       <div className={styles.pay}>
-        <FrontPayButton blogId={id} run={run} />
+        <FrontPayButton blogId={id} run={()=>run(id)} />
         <span className="mb-6 text-[13px]">
           喜欢我的文章吗？ 别忘了点赞或赞赏，让我知道创作的路上有你陪伴。
         </span>
       </div>
       <FrontComment
         blogId={id}
-        run={run}
+        run={()=>run(id)}
         comments={data?.data?.comments || []}
       />
       <FrontPayList pays={data?.data?.pays} />

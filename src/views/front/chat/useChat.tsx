@@ -2,9 +2,11 @@ import { UserAuth } from '@/requests/users/user'
 import { useRequest } from 'ahooks'
 import { message } from 'antd'
 import { Ref, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default (scrollRef: Ref<HTMLElement>) => {
-  const { data: user } = useRequest(UserAuth)
+  const { data: user, error } = useRequest(UserAuth)
+  const navigate = useNavigate()
   const [ws, setWs] = useState<any>(null)
   const [usedConnected, setUsedConnected] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
@@ -12,8 +14,13 @@ export default (scrollRef: Ref<HTMLElement>) => {
   const [onlineUserCount, setOnlineUserCount] = useState(0)
   const [onlineStateChange, setOnlineStateChange] = useState(false)
   const [isBanned, setIsBanned] = useState(false)
+  useEffect(() => {
+    if (error) {
+      navigate('/front/login')
+    }
+  }, [error])
   const connectWs = () => {
-    if(user?.data?.isBanned===true){
+    if (user?.data?.isBanned === true) {
       setIsBanned(true)
       message.error('您已被禁言')
     }

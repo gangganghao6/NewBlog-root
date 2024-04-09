@@ -3,7 +3,7 @@ import FrontLeftbar from './leftbar'
 import FrontRightbar from './rightbar'
 import FrontInner from './inner'
 import styles from './index.module.scss'
-import FrontFooter from '../front-footer/front-footer'
+import FrontFooter from '@/components/front-footer/front-footer'
 
 export default function FrontIndex(props: any) {
   return (

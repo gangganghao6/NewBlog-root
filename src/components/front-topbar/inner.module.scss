@@ -4,7 +4,7 @@
   .inner-border {
     // margin: $inner-border-margin;
     padding: $inner-border-padding;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     // border-radius: 5px;
     height: calc(100vh - #{$topbar-height} - 20px - #{$footer-height});
     overflow-y: auto;
@@ -14,7 +14,7 @@
 @media screen and (max-width: map-get($media, 'phone')) {
   .inner {
     .inner-border {
-      background-color: salmon;
+      // background-color: salmon;
     }
     height: 100%;
     // width: $content-width-phone;
@@ -23,7 +23,7 @@
 @media screen and (min-width: map-get($media, 'phone')) and (max-width: map-get($media, 'pad')) {
   .inner {
     .inner-border {
-      background-color: saddlebrown;
+      // background-color: saddlebrown;
     }
     height: 100%;
     // width: $content-width-pad;
@@ -32,7 +32,7 @@
 @media screen and (min-width: map-get($media, 'pad')) and (max-width: map-get($media, 'desktop')) {
   .inner {
     .inner-border {
-      background-color: firebrick;
+      // background-color: firebrick;
     }
     //   height: calc(100% - #{$topbar-height});
     width: $content-width-desktop;
@@ -43,7 +43,7 @@
 @media screen and (min-width: map-get($media, 'desktop')) {
   .inner {
     .inner-border {
-      background-color: salmon;
+      // background-color: salmon;
     }
     width: $content-width-desktop;
     //   height: calc(100% - #{$topbar-height});

@@ -272,7 +272,7 @@ const Element = (props: any) => {
       return (
         <div
           {...attributes}
-          className={`font-mono text-sm leading-5 relative py-1 px-3 language-${element.language}`}
+          className={`overflow-auto font-mono text-sm leading-5 relative py-1 px-3 language-${element.language}`}
           spellCheck={false}
         >
           {props.showImageDeleteButton && (

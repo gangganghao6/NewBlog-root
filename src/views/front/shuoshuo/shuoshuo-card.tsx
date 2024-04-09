@@ -7,9 +7,12 @@ export default function ShuoshuoCard({ data }: any) {
   const mediaList = [...(data?.images || []), ...(data?.videos || [])]
 
   return (
-    <div className={styles['shuoshuo-card']} onClick={() => {
+    <div
+      className={styles['shuoshuo-card']}
+      onClick={() => {
         navigate(`/front/shuoshuo/detail/${data?.id}`)
-    }}>
+      }}
+    >
       <div className={styles.time}>
         <div className={styles.date}>
           {dayjs(data.createdTime).format('DD')}
@@ -20,11 +23,11 @@ export default function ShuoshuoCard({ data }: any) {
       </div>
       <div className={styles['right-container']}>
         <div className={styles.image}>
-          {mediaList.map((item: any) => {
+          {mediaList.slice(0, 4).map((item: any) => {
             const src = item?.compressUrl
               ? item?.compressUrl
               : item?.post?.compressUrl
-            return <img src={src} alt={src} />
+            return <img style={{ objectFit: 'cover' }} src={src} alt={src} />
           })}
         </div>
         <div className={styles['content-container']}>

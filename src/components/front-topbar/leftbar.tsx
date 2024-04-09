@@ -39,7 +39,6 @@ export default function Leftbar(props: any) {
   const currentMenu = useMemo(() => {
     return findCurrentMenu(MENU_LIST)
   }, [location.pathname])
-
   return (
     <>
       <aside
@@ -48,6 +47,7 @@ export default function Leftbar(props: any) {
           [styles.hidden]: !state.isLeftbarOpen
         })}
       >
+        <HeadImage data={state.baseInfo} />
         <Menu
           onClick={({ key }) => {
             navigate(key)
@@ -56,9 +56,37 @@ export default function Leftbar(props: any) {
           theme={'light'}
           mode="inline"
           selectedKeys={[currentMenu?.key]}
-          items={MENU_LIST}
-        />
+          // items={MENU_LIST}
+        >
+          {/* <Menu.Item>1223</Menu.Item> */}
+          {MENU_LIST.map((item) => {
+            return (
+              <Menu.Item
+                {...(item.path === '/front/setting' && {
+                  'data-step': '2',
+                  'data-intro': '在这里可以查看您的账户有关信息'
+                })}
+                key={item.path}
+                icon={item.icon}
+              >
+                {item.label}
+              </Menu.Item>
+            )
+          })}
+        </Menu>
       </aside>
     </>
+  )
+}
+const HeadImage = ({ data }) => {
+  return (
+    <div
+      className={styles['head-image']}
+      style={{ backgroundImage: `url(${data?.headImage?.url})` }}
+    >
+      {/* <img src={data?.headImage?.url} /> */}
+      <div className={styles.name}>{data?.name}</div>
+      <div className={styles.description}>{data?.description}</div>
+    </div>
   )
 }

@@ -6,12 +6,12 @@ export default function RecommendCommentItem({ item }: any) {
   return (
     <div className={styles['item-container']}>
       <List>
-        <List.Item>
+        <List.Item className={styles.item}>
           <List.Item.Meta
-            avatar={<Avatar>{item?.user?.name?.slice(0, 1)}</Avatar>}
+            avatar={<Avatar className='ml-2'>{item?.user?.name?.slice(0, 1)}</Avatar>}
             title={
               <div className={styles['title-container']}>
-                <div className={clsx(styles.name)}>{item?.user?.name}</div>
+                {/* <div className={clsx(styles.name)}>{item?.user?.name}</div> */}
                 <div className="font-light text-[13px]">
                   {sliceEmail(item?.user?.email)}
                 </div>
