@@ -8,9 +8,7 @@ import { GetChatList } from '@/requests/chats/chat'
 import useChat from './useChat'
 import UploadButton from './upload-button'
 export default function FrontChat() {
-  // const [ws, setWs] = useState<any>(null)
   const [content, setContent] = useState('')
-
   const messageAreaRef = useRef<HTMLDivElement>(null)
   const [firstMessageId, setFirstMessageId] = useState()
   const {

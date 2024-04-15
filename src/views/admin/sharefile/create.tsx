@@ -97,19 +97,6 @@ export default function AdminShuoshuoCreate({
       >
         {type === 'detail' ? <FilePreview /> : <UploadFile form={form} />}
       </CustomFormItem>
-      {type !== 'create' && (
-        <CustomFormItem
-          label="评论"
-          name="comments"
-          required={false}
-          labelCol={{
-            span: 3,
-            offset: 1
-          }}
-        >
-          <CompComment type={type} />
-        </CustomFormItem>
-      )}
       <CustomFormSubmit
         okRoutePath={`/admin/sharefile/detail/${id}`}
         showOk={type !== 'detail'}

@@ -48,10 +48,10 @@ export default function ShareFile(props: any) {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={1}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false
-        }}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false
+        // }}
         // coverflowEffect={{
         //   rotate: 80,
         //   stretch: 0,

@@ -16,7 +16,7 @@ export default (scrollRef: Ref<HTMLElement>) => {
   const [isBanned, setIsBanned] = useState(false)
   useEffect(() => {
     if (error) {
-      navigate('/front/login')
+      navigate('/front/login?redirect=/front/chat')
     }
   }, [error])
   const connectWs = () => {

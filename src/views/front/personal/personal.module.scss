@@ -5,7 +5,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  height: calc(100vh - #{$topbar-height} - 20px -#{$footer-height});
+  height: calc(100vh - #{$topbar-height} - 20px - #{$footer-height});
   overflow: auto;
   margin: -10px;
   padding: 10px;
