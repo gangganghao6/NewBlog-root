@@ -3,15 +3,11 @@ import { Suspense, useState } from 'react'
 import {
   DeleteShuoshuo,
   GetShuoshuoList,
-  // getBlogType
 } from '@/requests/shuoshuos/shuoshuo'
 import Tabulation from '@/components/tabulation/tabulation'
 import { formatTime, handleCopy } from '@/utils/utils'
-import { Popover, Image } from 'antd'
 import DefaultOperationRender from '@/components/tabulation/default-operation-render'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import ContentEditor from '@/components/editor/content-editor'
-// import { useSnapshot } from 'valtio'
 const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
   {
     title: '操作',
@@ -45,8 +41,8 @@ const column = (navigate: NavigateFunction, tableRef: Ref<any>) => [
     key: 'visitedCount',
     width: 150,
     render: (_: never, row: any) => {
-      const { visitedCount, commentsCount } = row
-      return `${visitedCount}/${commentsCount}`
+      const { visitedCount, comments } = row
+      return `${visitedCount}/${comments.length}`
     }
   },
   {

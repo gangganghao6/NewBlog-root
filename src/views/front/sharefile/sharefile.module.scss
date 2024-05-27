@@ -25,6 +25,9 @@
         align-items: center;
         flex-direction: column;
         max-width: 85%;
+        .ant-img{
+          object-fit: cover;
+        }
         .img {
           width: 80%;
           max-height: 80%;

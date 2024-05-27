@@ -11,13 +11,14 @@ import zhCN from 'antd/locale/zh_CN'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import introJs from 'intro.js'
+import isMobile from 'is-mobile'
 import 'intro.js/introjs.css'
 dayjs.locale('zh-cn')
 
 function RootNode() {
   const snap = useSnapshot(GlobalInfo)
   useEffect(() => {
-    if (!localStorage.getItem('introjs-done')) {
+    if (!localStorage.getItem('introjs-done') && !isMobile()) {
       localStorage.setItem('introjs-done', 'true')
       setTimeout(() => {
         introJs()

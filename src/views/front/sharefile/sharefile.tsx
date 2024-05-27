@@ -8,14 +8,8 @@ import {
 } from '@/requests/share_files/share_file'
 import { Button, Image } from 'antd'
 import clsx from 'clsx'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import {
-  Pagination,
-  Navigation,
-  EffectCoverflow,
-  Virtual,
-  Autoplay
-} from 'swiper/modules'
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import { Pagination, Navigation, Virtual, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -25,6 +19,7 @@ import { DownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 export default function ShareFile(props: any) {
   const [fileList, setFileList] = useState<any[]>([])
   const activeIndexRef = useRef(1)
+  const swiperRef = useRef<SwiperRef>()
   const { data, loading, run } = useRequest(
     (data = 1) => GetRandomShareFile({ size: data }),
     {
@@ -40,7 +35,6 @@ export default function ShareFile(props: any) {
   useEffect(() => {
     run(20)
   }, [])
-
   return (
     <div className={styles.sharefile}>
       <Swiper
@@ -48,18 +42,11 @@ export default function ShareFile(props: any) {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={1}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false
-        }}
-        // coverflowEffect={{
-        //   rotate: 80,
-        //   stretch: 0,
-        //   // depth: 100,
-        //   modifier: 1,
-        //   slideShadows: false
+        ref={swiperRef}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: true
         // }}
-        
         pagination={{
           dynamicBullets: true,
           clickable: true
@@ -88,11 +75,31 @@ export default function ShareFile(props: any) {
               virtualIndex={index}
             >
               <div key={Math.random()} className={clsx(styles['share-file'])}>
-                {item.image && <Image src={downloadUrl} />}
+                {item.image && (
+                  <Image
+                    height={'50vh'}
+                    width={'auto'}
+                    className={styles['ant-img']}
+                    src={downloadUrl}
+                    preview={{
+                      onVisibleChange: (visible) =>
+                        visible
+                          ? swiperRef?.current?.swiper?.autoplay?.pause()
+                          : swiperRef?.current?.swiper?.autoplay?.resume()
+                    }}
+                  />
+                )}
                 {item.video && (
                   <Image
+                    height={'60vh'}
+                    width={'auto'}
+                    className={styles['ant-img']}
                     src={item?.video?.post?.url}
                     preview={{
+                      onVisibleChange: (visible) =>
+                        visible
+                          ? swiperRef?.current?.swiper?.autoplay?.pause()
+                          : swiperRef?.current?.swiper?.autoplay?.resume(),
                       imageRender: videoRender(downloadUrl),
                       mask: <PlayCircleOutlined className="text-6xl" />
                     }}
@@ -130,7 +137,7 @@ const videoRender = (url: string) => {
   return (ele: any) => {
     return (
       <video
-        className="w-[auto] max-h-[80%]"
+        className="max-w-[90%] max-h-[80%]"
         src={url}
         controls
         autoPlay

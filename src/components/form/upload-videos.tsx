@@ -44,7 +44,7 @@ export default function UploadCoverImage({ value, onChange }: any) {
     (element: any) => {
       return (
         <video
-          className="w-4/5"
+          className="max-w-[90%] max-h-[80%]"
           src={previewData.url}
           controls
           autoPlay

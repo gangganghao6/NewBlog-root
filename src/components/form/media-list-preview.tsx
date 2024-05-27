@@ -37,10 +37,10 @@ export function VideoListPreview({ data = [], width = 200, height = 200 }) {
   )
 }
 
-export const VideoRender = (item: any) => () => (
+export const VideoRender = (url: any) => () => (
   <video
-    className="w-[auto] max-h-[80%]"
-    src={item.url}
+    className="max-w-[90%] max-h-[80%]"
+    src={url}
     controls
     autoPlay
     muted

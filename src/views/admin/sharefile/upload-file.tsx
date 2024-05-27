@@ -55,7 +55,7 @@ export default function UploadFile({ value, onChange, form }: any) {
   const videoRender = useCallback(
     (element: any) => (
       <video
-        className="w-4/5"
+        className="max-w-[90%] max-h-[80%]"
         src={previewData.url}
         controls
         autoPlay
