@@ -28,7 +28,7 @@ export function VideoListPreview({ data = [], width = 200, height = 200 }) {
           src={item.post.compressUrl}
           preview={{
             toolbarRender: () => <></>,
-            imageRender: VideoRender(item),
+            imageRender: VideoRender(item?.url),
             mask: <PlayCircleOutlined className="text-4xl" />
           }}
         />
