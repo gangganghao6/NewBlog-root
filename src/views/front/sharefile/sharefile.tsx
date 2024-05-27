@@ -43,10 +43,10 @@ export default function ShareFile(props: any) {
         centeredSlides={true}
         slidesPerView={1}
         ref={swiperRef}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: true
-        // }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: true
+        }}
         pagination={{
           dynamicBullets: true,
           clickable: true
