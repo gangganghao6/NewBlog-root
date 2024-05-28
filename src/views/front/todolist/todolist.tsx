@@ -17,6 +17,7 @@ export default function FrontTodoList() {
     <div>
       <InfiniteScrollList
         data={todoList}
+        eachCount={20}
         onBottom={(page: number) => {
           run({ size: 20, page, sort: 'desc' })
         }}

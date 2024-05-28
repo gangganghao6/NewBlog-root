@@ -1,6 +1,4 @@
-import { formatTime } from '@/utils/utils'
-import { useRequest } from 'ahooks'
-import { Card, List } from 'antd'
+import { List } from 'antd'
 import { useState } from 'react'
 import styles from './index.module.scss'
 
@@ -8,6 +6,7 @@ export default function InfiniteScrollList({
   onBottom,
   children,
   data,
+  eachCount = 0,
   renderItem,
   grid = {}
 }: any) {
@@ -19,7 +18,8 @@ export default function InfiniteScrollList({
         if (
           Math.abs(
             e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight
-          ) < 2
+          ) < 2 &&
+          eachCount == data?.length
         ) {
           setPage(page + 1)
           onBottom && onBottom(page + 1)

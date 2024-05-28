@@ -52,6 +52,8 @@ export default function SingleMessage({
         {message?.image && (
           <div className={styles['image-container']}>
             <Image
+              width={'20vw'}
+              height={'auto'}
               className={styles.image}
               src={message?.image?.compressUrl}
               preview={{ src: message?.image?.url }}
@@ -61,6 +63,8 @@ export default function SingleMessage({
         {message?.video && (
           <div className={styles['video-container']}>
             <Image
+              width={'20vw'}
+              height={'auto'}
               className={styles.video}
               src={message?.video?.post?.url}
               preview={{
