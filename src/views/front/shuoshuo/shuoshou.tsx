@@ -18,7 +18,7 @@ export default function FrontTodoList() {
     <div>
       <InfiniteScrollList
         data={shuoshuoList}
-        eachCount={20}
+        totalCount={data?.data?.count || 0}
         onBottom={(page: number) => {
           run({ size: 20, page, sort: 'desc' })
         }}

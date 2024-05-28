@@ -21,9 +21,9 @@ export default function FrontGithub() {
     <div>
       <InfiniteScrollList
         data={githubList}
-        eachCount={10}
+        totalCount={data?.data?.count || 0}
         onBottom={(page: number) => {
-          run({ page, size: 20, sort: 'desc' })
+          run({ page, size: 10, sort: 'desc' })
         }}
         grid={{
           gutter: 16,

@@ -6,7 +6,7 @@ export default function InfiniteScrollList({
   onBottom,
   children,
   data,
-  eachCount = 0,
+  totalCount = 0,
   renderItem,
   grid = {}
 }: any) {
@@ -19,7 +19,7 @@ export default function InfiniteScrollList({
           Math.abs(
             e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight
           ) < 2 &&
-          eachCount == data?.length
+          totalCount > data?.length
         ) {
           setPage(page + 1)
           onBottom && onBottom(page + 1)
